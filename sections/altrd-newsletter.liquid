@@ -1,0 +1,361 @@
+<section class="altrd-nl altrd-nl--{{ section.settings.color_style }}">
+  <div class="altrd-nl__inner page-width">
+
+    <div class="altrd-nl__pitch">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="altrd-nl__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="altrd-nl__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <div class="altrd-nl__subtext rte">{{ section.settings.subtext }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="altrd-nl__form-side">
+      {%- form 'customer', id: 'ContactAltrdNewsletter', class: 'altrd-nl__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        {%- if form.posted_successfully? -%}
+          <div class="altrd-nl__success" role="status">
+            <svg class="altrd-nl__check" width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+              <circle cx="15" cy="15" r="14" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M9 15l4.5 4.5 8-8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="altrd-nl__success-text">{{ section.settings.success_message | escape }}</p>
+          </div>
+        {%- else -%}
+          {%- if form.errors -%}
+            <p class="altrd-nl__error" role="alert">
+              {{- form.errors.translated_fields['email'] | capitalize }}
+              {{ form.errors.messages['email'] -}}
+            </p>
+          {%- endif -%}
+
+          <div class="altrd-nl__field-row">
+            <label class="visually-hidden" for="AltrdNlEmail--{{ section.id }}">Email address</label>
+            <input
+              id="AltrdNlEmail--{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              class="altrd-nl__input"
+              value="{{ customer.email }}"
+              placeholder="{{ section.settings.placeholder | default: 'Your email address' | escape }}"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              required
+              aria-required="true"
+            >
+            <button type="submit" class="altrd-nl__submit" aria-label="{{ section.settings.cta_label | escape }}">
+              <span>{{- section.settings.cta_label | default: 'Join' | escape -}}</span>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          {%- if section.settings.fine_print != blank -%}
+            <p class="altrd-nl__fine-print">{{ section.settings.fine_print | escape }}</p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+/* === ALTRD custom === */
+
+.altrd-nl {
+  padding: 9rem 0;
+}
+
+.altrd-nl--ink  { background: var(--color-altrd-ink, #0B0B0B);  color: var(--color-altrd-bone, #F4EFE6); }
+.altrd-nl--bone { background: var(--color-altrd-bone, #F4EFE6); color: var(--color-altrd-ink, #0B0B0B); }
+.altrd-nl--hivis { background: var(--color-altrd-hivis, #E8FF52); color: var(--color-altrd-ink, #0B0B0B); }
+
+@media screen and (max-width: 749px) {
+  .altrd-nl { padding: 6rem 0; }
+}
+
+.altrd-nl__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+@media screen and (max-width: 989px) {
+  .altrd-nl__inner {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+}
+
+/* === Left: Pitch === */
+
+.altrd-nl__eyebrow {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem;
+}
+
+.altrd-nl--ink   .altrd-nl__eyebrow { color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-nl--bone  .altrd-nl__eyebrow { color: var(--color-altrd-ink, #0B0B0B); opacity: 0.4; }
+.altrd-nl--hivis .altrd-nl__eyebrow { color: var(--color-altrd-ink, #0B0B0B); opacity: 0.5; }
+
+.altrd-nl__heading {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(3.5rem, 7vw, 9rem);
+  font-weight: 400;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0 0 2.5rem;
+  word-break: break-word;
+}
+
+.altrd-nl__subtext {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: clamp(0.9375rem, 1.3vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.72;
+  max-width: 48ch;
+}
+
+.altrd-nl--ink   .altrd-nl__subtext { color: rgba(244, 239, 230, 0.65); }
+.altrd-nl--bone  .altrd-nl__subtext { color: rgba(11, 11, 11, 0.62); }
+.altrd-nl--hivis .altrd-nl__subtext { color: rgba(11, 11, 11, 0.62); }
+
+.altrd-nl__subtext p { margin: 0 0 0.8em; }
+.altrd-nl__subtext p:last-child { margin-bottom: 0; }
+
+/* === Right: Form === */
+
+.altrd-nl__form-side {
+  width: 100%;
+}
+
+.altrd-nl__form {
+  width: 100%;
+}
+
+.altrd-nl__field-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 1.5px solid currentColor;
+  margin-bottom: 1.25rem;
+}
+
+.altrd-nl--ink   .altrd-nl__field-row { border-bottom-color: rgba(244, 239, 230, 0.25); }
+.altrd-nl--bone  .altrd-nl__field-row { border-bottom-color: rgba(11, 11, 11, 0.2); }
+.altrd-nl--hivis .altrd-nl__field-row { border-bottom-color: rgba(11, 11, 11, 0.25); }
+
+.altrd-nl__field-row:focus-within {
+  border-bottom-color: currentColor;
+}
+
+.altrd-nl--ink   .altrd-nl__field-row:focus-within { border-bottom-color: var(--color-altrd-bone, #F4EFE6); }
+.altrd-nl--bone  .altrd-nl__field-row:focus-within  { border-bottom-color: var(--color-altrd-ink, #0B0B0B); }
+.altrd-nl--hivis .altrd-nl__field-row:focus-within  { border-bottom-color: var(--color-altrd-ink, #0B0B0B); }
+
+.altrd-nl__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: inherit;
+  padding: 1.125rem 0;
+  outline: none;
+  min-width: 0;
+  -webkit-appearance: none;
+}
+
+.altrd-nl__input::placeholder {
+  opacity: 0.38;
+}
+
+.altrd-nl--ink   .altrd-nl__input::placeholder { color: var(--color-altrd-bone, #F4EFE6); }
+.altrd-nl--bone  .altrd-nl__input::placeholder  { color: var(--color-altrd-ink, #0B0B0B); }
+.altrd-nl--hivis .altrd-nl__input::placeholder  { color: var(--color-altrd-ink, #0B0B0B); }
+
+.altrd-nl__submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: 1.375rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  color: inherit;
+  padding: 0.75rem 0 0.75rem 1.5rem;
+  white-space: nowrap;
+  transition: gap 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.altrd-nl--ink .altrd-nl__submit {
+  color: var(--color-altrd-hivis, #E8FF52);
+}
+
+.altrd-nl__submit:hover { gap: 0.875rem; }
+
+.altrd-nl__submit svg {
+  transition: transform 0.2s ease;
+}
+
+.altrd-nl__submit:hover svg {
+  transform: translateX(4px);
+}
+
+.altrd-nl__fine-print {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.altrd-nl--ink   .altrd-nl__fine-print { color: rgba(244, 239, 230, 0.38); }
+.altrd-nl--bone  .altrd-nl__fine-print  { color: rgba(11, 11, 11, 0.38); }
+.altrd-nl--hivis .altrd-nl__fine-print  { color: rgba(11, 11, 11, 0.45); }
+
+/* === Error / Success === */
+
+.altrd-nl__error {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #ff4d4d;
+  margin: 0 0 1rem;
+}
+
+.altrd-nl__success {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.altrd-nl__check {
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+
+.altrd-nl--ink   .altrd-nl__check { color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-nl--bone  .altrd-nl__check  { color: var(--color-altrd-ink, #0B0B0B); }
+.altrd-nl--hivis .altrd-nl__check  { color: var(--color-altrd-ink, #0B0B0B); }
+
+.altrd-nl__success-text {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "ALTRD — Newsletter",
+  "class": "altrd-nl-section",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Pitch (left column)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Drop access"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the build."
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>No spam. Just drops, ideas, and early access to everything we build — decoded for the people who are actually putting in the work.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Submit label",
+      "default": "Join"
+    },
+    {
+      "type": "text",
+      "id": "fine_print",
+      "label": "Fine print",
+      "default": "No spam. Unsubscribe any time.",
+      "info": "Shown below the form in small muted text."
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You're in. First access guaranteed."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_style",
+      "label": "Color style",
+      "options": [
+        { "value": "ink",   "label": "Ink (dark)" },
+        { "value": "bone",  "label": "Bone (light)" },
+        { "value": "hivis", "label": "Hi-vis (yellow)" }
+      ],
+      "default": "ink"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Newsletter",
+      "settings": {
+        "eyebrow": "Drop access",
+        "heading": "Join the build.",
+        "subtext": "<p>No spam. Just drops, ideas, and early access to everything we build — decoded for the people who are actually putting in the work.</p>",
+        "placeholder": "Your email address",
+        "cta_label": "Join",
+        "fine_print": "No spam. Unsubscribe any time.",
+        "success_message": "You're in. First access guaranteed.",
+        "color_style": "ink"
+      }
+    }
+  ]
+}
+{% endschema %}
