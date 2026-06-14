@@ -347,56 +347,11 @@
   background-color: rgba(11, 11, 11, 0.88) !important;
 }
 
-/* === ALTRD: force logo-left / nav-center / icons-right layout === */
-
-@media screen and (min-width: 990px) {
-  /* Desktop: 3-column grid [logo] [nav 1fr] [icons] */
-  .header.header--middle-left,
-  .header.header--top-left,
-  .header.header--top-center {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas: "logo nav icons";
-    align-items: center;
-  }
-
-  .header--middle-left .header__heading,
-  .header--top-left .header__heading,
-  .header--top-center .header__heading {
-    grid-area: logo;
-    justify-self: start;
-  }
-
-  .header--middle-left .header__inline-menu,
-  .header--top-left .header__inline-menu,
-  .header--top-center .header__inline-menu {
-    grid-area: nav;
-    justify-self: center;
-  }
-
-  .header--middle-left .header__icons,
-  .header--top-left .header__icons,
-  .header--top-center .header__icons {
-    grid-area: icons;
-    justify-self: end;
-  }
-}
-
-/* === Mobile: hamburger-left / logo-center / icons-right === */
+/* === Mobile: show account icon on the right alongside search + cart === */
 
 @media screen and (max-width: 989px) {
-  /* Show account icon on mobile */
   .header__icon--account {
     display: flex !important;
-  }
-
-  /* Tighten icon spacing on mobile */
-  .header__icons {
-    gap: 0 !important;
-  }
-
-  .header__icon {
-    padding: 0.6rem 0.5rem;
   }
 }
 
