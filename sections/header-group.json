@@ -1,1 +1,87 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"text":"Welcome to our store","link":""}}},"block_order":["announcement-bar-0"],"settings":{"auto_rotate":false,"change_slides_speed":5,"color_scheme":"scheme-4","show_line_separator":true,"show_social":false,"enable_country_selector":false,"enable_language_selector":false}},"header":{"type":"header","settings":{"logo_position":"top-center","mobile_logo_position":"center","menu":"main-menu","menu_type_desktop":"dropdown","sticky_header_type":"on-scroll-up","show_line_separator":false,"color_scheme":"scheme-3","menu_color_scheme":"scheme-3","enable_country_selector":true,"enable_language_selector":true,"enable_customer_avatar":true,"margin_bottom":0,"padding_top":20,"padding_bottom":20}}},"order":["announcement-bar","header"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "altrd_marquee_9VKJDf": {
+      "type": "altrd-marquee",
+      "blocks": {
+        "item_mUjhfG": {
+          "type": "item",
+          "settings": {
+            "text": "Decode the game."
+          }
+        },
+        "item_6PNgQt": {
+          "type": "item",
+          "settings": {
+            "text": "Own your output."
+          }
+        },
+        "item_d4pDtD": {
+          "type": "item",
+          "settings": {
+            "text": "Build in public."
+          }
+        },
+        "item_VCLHNU": {
+          "type": "item",
+          "settings": {
+            "text": "Delayed gratification."
+          }
+        },
+        "item_Ntdrxz": {
+          "type": "item",
+          "settings": {
+            "text": "Leverage everything."
+          }
+        }
+      },
+      "block_order": [
+        "item_mUjhfG",
+        "item_6PNgQt",
+        "item_d4pDtD",
+        "item_VCLHNU",
+        "item_Ntdrxz"
+      ],
+      "name": "ALTRD — Marquee",
+      "settings": {
+        "color_style": "ink",
+        "speed": 30,
+        "separator": "✶",
+        "pause_on_hover": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "top-center",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": false,
+        "color_scheme": "scheme-3",
+        "menu_color_scheme": "scheme-3",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "altrd_marquee_9VKJDf",
+    "header"
+  ]
+}
