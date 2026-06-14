@@ -1914,6 +1914,10 @@
                 "label": "Vertical"
               }
             },
+            "content": {
+              "label": "Icon pairings",
+              "info": "Choose an icon or add an image for each pairing"
+            },
             "heading": {
               "info": "Deixe em branco para ocultar este emparelhamento"
             },

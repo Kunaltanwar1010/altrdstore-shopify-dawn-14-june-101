@@ -1913,6 +1913,10 @@
                 "label": "Vertikalt"
               }
             },
+            "content": {
+              "label": "Icon pairings",
+              "info": "Choose an icon or add an image for each pairing"
+            },
             "heading": {
               "info": "La stå tom for å skjule denne sammenkoblingen"
             },

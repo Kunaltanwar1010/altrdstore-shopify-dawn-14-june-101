@@ -1914,6 +1914,10 @@
                 "label": "Stående"
               }
             },
+            "content": {
+              "label": "Icon pairings",
+              "info": "Choose an icon or add an image for each pairing"
+            },
             "heading": {
               "info": "Lämna tomt för att dölja den här parkoppling"
             },

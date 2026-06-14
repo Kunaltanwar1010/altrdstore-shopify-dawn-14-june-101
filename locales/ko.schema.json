@@ -1914,6 +1914,10 @@
                 "label": "수직"
               }
             },
+            "content": {
+              "label": "Icon pairings",
+              "info": "Choose an icon or add an image for each pairing"
+            },
             "heading": {
               "info": "이 페어링을 숨기려면 비워 둡니다"
             },
