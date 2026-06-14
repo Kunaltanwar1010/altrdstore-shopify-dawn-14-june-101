@@ -1,5 +1,22 @@
 {
   "sections": {
+    "altrd-marquee-0": {
+      "type": "altrd-marquee",
+      "blocks": {
+        "item-1": { "type": "item", "settings": { "text": "Decode the game." } },
+        "item-2": { "type": "item", "settings": { "text": "Own your output." } },
+        "item-3": { "type": "item", "settings": { "text": "Build in public." } },
+        "item-4": { "type": "item", "settings": { "text": "Delayed gratification." } },
+        "item-5": { "type": "item", "settings": { "text": "Leverage everything." } }
+      },
+      "block_order": ["item-1", "item-2", "item-3", "item-4", "item-5"],
+      "settings": {
+        "color_style": "ink",
+        "speed": 30,
+        "separator": "✶",
+        "pause_on_hover": true
+      }
+    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
@@ -65,6 +82,7 @@
     }
   },
   "order": [
+    "altrd-marquee-0",
     "slideshow",
     "featured-collection-0"
   ]

@@ -1,0 +1,152 @@
+{%- if section.blocks.size > 0 -%}
+<div
+  class="altrd-marquee altrd-marquee--{{ section.settings.color_style }}{% if section.settings.pause_on_hover %} altrd-marquee--hover-pause{% endif %}"
+  style="--marquee-dur: {{ section.settings.speed }}s;"
+  aria-hidden="true"
+>
+  <div class="altrd-marquee__track">
+    {%- for i in (1..2) -%}
+      <div class="altrd-marquee__set">
+        {%- for block in section.blocks -%}
+          <span class="altrd-marquee__item" {{ block.shopify_attributes }}>
+            {{- block.settings.text | escape -}}
+          </span>
+          <span class="altrd-marquee__sep">{{ section.settings.separator }}</span>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% stylesheet %}
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+/* === ALTRD custom === */
+
+.altrd-marquee {
+  overflow: hidden;
+  width: 100%;
+  padding: 0.65rem 0;
+}
+
+.altrd-marquee--ink  { background: #0B0B0B; color: #F4EFE6; }
+.altrd-marquee--bone { background: #F4EFE6; color: #0B0B0B; }
+.altrd-marquee--hivis { background: #E8FF52; color: #0B0B0B; }
+
+.altrd-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: altrd-ticker var(--marquee-dur, 30s) linear infinite;
+}
+
+.altrd-marquee--hover-pause:hover .altrd-marquee__track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .altrd-marquee__track {
+    animation: none;
+  }
+  .altrd-marquee__set + .altrd-marquee__set {
+    display: none;
+  }
+}
+
+.altrd-marquee__set {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.altrd-marquee__item {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(0.8125rem, 1.2vw, 1rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 1.25rem;
+}
+
+.altrd-marquee__sep {
+  font-size: 0.5rem;
+  opacity: 0.5;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+@keyframes altrd-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "ALTRD — Marquee",
+  "class": "altrd-marquee-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_style",
+      "label": "Color style",
+      "options": [
+        { "value": "ink",   "label": "Ink (dark)" },
+        { "value": "bone",  "label": "Bone (light)" },
+        { "value": "hivis", "label": "Hi-vis (yellow)" }
+      ],
+      "default": "ink"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll speed",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Separator character",
+      "default": "✶"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Ticker item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Decode the game."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Decode the game." } },
+        { "type": "item", "settings": { "text": "Own your output." } },
+        { "type": "item", "settings": { "text": "Build in public." } },
+        { "type": "item", "settings": { "text": "Delayed gratification." } },
+        { "type": "item", "settings": { "text": "Leverage everything." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
