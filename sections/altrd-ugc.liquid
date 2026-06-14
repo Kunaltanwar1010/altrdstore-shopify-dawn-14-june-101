@@ -101,8 +101,8 @@
   overflow: hidden;
 }
 
-.altrd-ugc--ink  { background: var(--color-altrd-ink, #0B0B0B);  color: var(--color-altrd-bone, #F4EFE6); }
-.altrd-ugc--bone { background: var(--color-altrd-bone, #F4EFE6); color: var(--color-altrd-ink, #0B0B0B); }
+.altrd-ugc--ink  { background: var(--color-altrd-ink, #000000);  color: var(--color-altrd-bone, #FFFFFF); }
+.altrd-ugc--bone { background: var(--color-altrd-bone, #FFFFFF); color: var(--color-altrd-ink, #000000); }
 
 .altrd-ugc__header {
   padding: 7rem 0 4.5rem;
@@ -118,12 +118,12 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-altrd-hivis, #E8FF52);
+  color: var(--color-altrd-hivis, #FFFFFF);
   margin: 0 0 1.5rem;
 }
 
 .altrd-ugc--bone .altrd-ugc__eyebrow {
-  color: var(--color-altrd-ink, #0B0B0B);
+  color: var(--color-altrd-ink, #000000);
   opacity: 0.4;
 }
 
@@ -203,15 +203,15 @@ a.altrd-ugc__post:hover .altrd-ugc__img {
   display: block;
 }
 
-.altrd-ugc--ink  .altrd-ugc__placeholder { color: rgba(244, 239, 230, 0.05); }
-.altrd-ugc--bone .altrd-ugc__placeholder { color: rgba(11, 11, 11, 0.05); }
+.altrd-ugc--ink  .altrd-ugc__placeholder { color: rgba(255, 255, 255, 0.05); }
+.altrd-ugc--bone .altrd-ugc__placeholder { color: rgba(0, 0, 0, 0.05); }
 
 /* === Overlay === */
 
 .altrd-ugc__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(11, 11, 11, 0.88) 0%, rgba(11, 11, 11, 0.3) 45%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.3) 45%, transparent 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -227,7 +227,7 @@ a.altrd-ugc__post:hover .altrd-ugc__overlay {
 @media (hover: none) {
   .altrd-ugc__overlay {
     opacity: 1;
-    background: linear-gradient(to top, rgba(11, 11, 11, 0.72) 0%, transparent 55%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, transparent 55%);
   }
 }
 
@@ -237,7 +237,7 @@ a.altrd-ugc__post:hover .altrd-ugc__overlay {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--color-altrd-hivis, #E8FF52);
+  color: var(--color-altrd-hivis, #FFFFFF);
   margin-bottom: 0.25rem;
 }
 
@@ -246,7 +246,7 @@ a.altrd-ugc__post:hover .altrd-ugc__overlay {
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.45;
-  color: rgba(244, 239, 230, 0.82);
+  color: rgba(255, 255, 255, 0.82);
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
