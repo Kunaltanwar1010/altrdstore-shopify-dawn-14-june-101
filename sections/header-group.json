@@ -54,7 +54,7 @@
       ],
       "name": "ALTRD — Marquee",
       "settings": {
-        "color_style": "ink",
+        "color_style": "bone",
         "speed": 30,
         "separator": "✶",
         "pause_on_hover": true
