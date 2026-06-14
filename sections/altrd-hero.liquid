@@ -1,0 +1,351 @@
+{%- liquid
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+-%}
+
+<section
+  class="altrd-hero altrd-hero--{{ section.settings.min_height }} altrd-hero--{{ section.settings.text_position }}{% unless has_image %} altrd-hero--ink{% endunless %}"
+  style="--hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+>
+  <div class="altrd-hero__media">
+    {%- if has_image -%}
+      {{
+        section.settings.image
+        | image_url: width: 2000
+        | image_tag:
+          class: 'altrd-hero__bg-img',
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          widths: '375, 750, 1100, 1500, 2000'
+      }}
+    {%- endif -%}
+    <div class="altrd-hero__overlay"></div>
+  </div>
+
+  <div class="altrd-hero__inner page-width">
+    <div class="altrd-hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="altrd-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="altrd-hero__heading">{{ section.settings.heading | escape }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="altrd-hero__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank -%}
+        <a
+          href="{{ section.settings.cta_link | default: '#' }}"
+          class="altrd-hero__cta altrd-hero__cta--{{ section.settings.cta_style }}"
+        >
+          {{- section.settings.cta_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+/* === ALTRD custom === */
+
+.altrd-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-altrd-ink, #0B0B0B);
+}
+
+.altrd-hero--adapt  { min-height: 60vw; }
+.altrd-hero--small  { min-height: 50vh; }
+.altrd-hero--medium { min-height: 70vh; }
+.altrd-hero--large  { min-height: 90vh; }
+.altrd-hero--full   { min-height: 100svh; }
+
+@media screen and (max-width: 749px) {
+  .altrd-hero--adapt  { min-height: 75vw; }
+  .altrd-hero--medium { min-height: 60vh; }
+  .altrd-hero--large  { min-height: 80vh; }
+}
+
+.altrd-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.altrd-hero__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.altrd-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: #0B0B0B;
+  opacity: var(--hero-overlay, 0.55);
+}
+
+.altrd-hero--ink .altrd-hero__overlay {
+  opacity: 0;
+}
+
+.altrd-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-hero__inner {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+.altrd-hero--center .altrd-hero__content {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.altrd-hero__content {
+  max-width: 90rem;
+}
+
+.altrd-hero--center .altrd-hero__content {
+  max-width: 100%;
+}
+
+.altrd-hero__eyebrow {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: clamp(0.6875rem, 1vw, 0.8125rem);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-altrd-hivis, #E8FF52);
+  margin: 0 0 1.5rem;
+}
+
+.altrd-hero__heading {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(4.5rem, 12vw, 13rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-altrd-bone, #F4EFE6);
+  margin: 0 0 2.5rem;
+  word-break: break-word;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-hero__heading {
+    font-size: clamp(3.5rem, 16vw, 5rem);
+  }
+}
+
+.altrd-hero__subheading {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: clamp(0.9375rem, 1.4vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(244, 239, 230, 0.72);
+  max-width: 52ch;
+  margin: 0 0 3.5rem;
+}
+
+.altrd-hero--center .altrd-hero__subheading {
+  margin-inline: auto;
+}
+
+.altrd-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.25rem;
+  border: 2px solid transparent;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.altrd-hero__cta--hivis {
+  background: var(--color-altrd-hivis, #E8FF52);
+  color: var(--color-altrd-ink, #0B0B0B);
+  border-color: var(--color-altrd-hivis, #E8FF52);
+}
+
+.altrd-hero__cta--hivis:hover {
+  background: transparent;
+  color: var(--color-altrd-hivis, #E8FF52);
+}
+
+.altrd-hero__cta--bone {
+  background: var(--color-altrd-bone, #F4EFE6);
+  color: var(--color-altrd-ink, #0B0B0B);
+  border-color: var(--color-altrd-bone, #F4EFE6);
+}
+
+.altrd-hero__cta--bone:hover {
+  background: transparent;
+  color: var(--color-altrd-bone, #F4EFE6);
+}
+
+.altrd-hero__cta--outline {
+  background: transparent;
+  color: var(--color-altrd-bone, #F4EFE6);
+  border-color: var(--color-altrd-bone, #F4EFE6);
+}
+
+.altrd-hero__cta--outline:hover {
+  background: var(--color-altrd-bone, #F4EFE6);
+  color: var(--color-altrd-ink, #0B0B0B);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .altrd-hero__eyebrow,
+  .altrd-hero__heading,
+  .altrd-hero__subheading,
+  .altrd-hero__cta {
+    animation: altrd-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .altrd-hero__heading   { animation-delay: 0.08s; }
+  .altrd-hero__subheading { animation-delay: 0.18s; }
+  .altrd-hero__cta       { animation-delay: 0.28s; }
+}
+
+@keyframes altrd-fade-up {
+  from { opacity: 0; transform: translateY(2rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "ALTRD — Hero",
+  "class": "altrd-hero-section",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Vol. I — Compound"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built different. On purpose."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Streetwear for the builder generation. Every piece carries an idea — wear your mindset."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop the drop"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "cta_style",
+      "label": "Button style",
+      "options": [
+        { "value": "hivis",   "label": "Hi-vis (yellow)" },
+        { "value": "bone",    "label": "Bone (light)" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "hivis"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Centre" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "min_height",
+      "label": "Section height",
+      "options": [
+        { "value": "adapt",  "label": "Adapt to image" },
+        { "value": "small",  "label": "Small (50vh)" },
+        { "value": "medium", "label": "Medium (70vh)" },
+        { "value": "large",  "label": "Large (90vh)" },
+        { "value": "full",   "label": "Full screen" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 85,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 55
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Hero",
+      "settings": {
+        "eyebrow": "Vol. I — Compound",
+        "heading": "Built different. On purpose.",
+        "subheading": "Streetwear for the builder generation. Every piece carries an idea — wear your mindset.",
+        "cta_label": "Shop the drop",
+        "cta_style": "hivis",
+        "text_position": "left",
+        "min_height": "large"
+      }
+    }
+  ]
+}
+{% endschema %}

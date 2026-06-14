@@ -58,6 +58,20 @@
         "pause_on_hover": true
       }
     },
+    "altrd-hero-0": {
+      "type": "altrd-hero",
+      "settings": {
+        "eyebrow": "Vol. I — Compound",
+        "heading": "Built different. On purpose.",
+        "subheading": "Streetwear for the builder generation. Every piece carries an idea — wear your mindset.",
+        "cta_label": "Shop the drop",
+        "cta_link": "shopify://collections/all",
+        "cta_style": "hivis",
+        "text_position": "left",
+        "min_height": "large",
+        "overlay_opacity": 55
+      }
+    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
@@ -124,6 +138,7 @@
   },
   "order": [
     "altrd-marquee-0",
+    "altrd-hero-0",
     "slideshow",
     "featured-collection-0"
   ]
