@@ -24,6 +24,36 @@
         "overlay_opacity": 85
       }
     },
+    "altrd_creator_7aVn6R": {
+      "type": "altrd-creator",
+      "name": "ALTRD — Creator story",
+      "settings": {
+        "eyebrow": "The man behind the label",
+        "heading": "I didn't start a brand. I started a conversation.",
+        "body": "<p>I've spent years decoding how money, business, and leverage actually work — and sharing it with millions of people who weren't taught this stuff in school. ALTRD is where that energy becomes physical. Every drop is a chapter. Every piece is a prompt.</p><p>This isn't merch. It's a mindset you can wear.</p>",
+        "creator_name": "Ujjawal Pahwa",
+        "creator_title": "Forbes Top 100 Digital Stars · @cs.ujjawalpahwa",
+        "creator_handle": "@cs.ujjawalpahwa",
+        "cta_label": "Read the full story",
+        "cta_link": "",
+        "image": "shopify://shop_images/IMG_3192.heic",
+        "image_ratio": "portrait",
+        "layout": "image_left",
+        "color_style": "ink"
+      }
+    },
+    "altrd-drop-0": {
+      "type": "altrd-featured-drop",
+      "settings": {
+        "drop_label": "Drop 001",
+        "tagline": "One idea. Worn differently.",
+        "products_to_show": 5,
+        "first_product_featured": true,
+        "show_view_all": true,
+        "view_all_label": "View the full drop",
+        "color_style": "ink"
+      }
+    },
     "featured-collection-0": {
       "type": "featured-collection",
       "settings": {
@@ -51,29 +81,12 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
-    },
-    "altrd_creator_7aVn6R": {
-      "type": "altrd-creator",
-      "name": "ALTRD — Creator story",
-      "settings": {
-        "eyebrow": "The man behind the label",
-        "heading": "I didn't start a brand. I started a conversation.",
-        "body": "<p>I've spent years decoding how money, business, and leverage actually work — and sharing it with millions of people who weren't taught this stuff in school. ALTRD is where that energy becomes physical. Every drop is a chapter. Every piece is a prompt.</p><p>This isn't merch. It's a mindset you can wear.</p>",
-        "creator_name": "Ujjawal Pahwa",
-        "creator_title": "Forbes Top 100 Digital Stars · @cs.ujjawalpahwa",
-        "creator_handle": "@cs.ujjawalpahwa",
-        "cta_label": "Read the full story",
-        "cta_link": "",
-        "image": "shopify://shop_images/IMG_3192.heic",
-        "image_ratio": "portrait",
-        "layout": "image_left",
-        "color_style": "ink"
-      }
     }
   },
   "order": [
     "altrd-hero-0",
-    "featured-collection-0",
-    "altrd_creator_7aVn6R"
+    "altrd_creator_7aVn6R",
+    "altrd-drop-0",
+    "featured-collection-0"
   ]
 }
