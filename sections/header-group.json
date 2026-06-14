@@ -67,19 +67,19 @@
         "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
-        "sticky_header_type": "always",
+        "sticky_header_type": "on-scroll-up",
         "show_line_separator": false,
         "color_scheme": "scheme-3",
         "menu_color_scheme": "scheme-3",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "enable_customer_avatar": true,
+        "enable_glassmorphism": false,
+        "glass_blur": 16,
+        "glass_opacity": 55,
         "margin_bottom": 0,
         "padding_top": 12,
-        "padding_bottom": 12,
-        "enable_glassmorphism": true,
-        "glass_blur": 16,
-        "glass_opacity": 55
+        "padding_bottom": 12
       }
     }
   },
