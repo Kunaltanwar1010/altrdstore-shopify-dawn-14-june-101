@@ -203,34 +203,6 @@
         "success_message": "You're in. First access guaranteed.",
         "color_style": "bone"
       }
-    },
-    "featured-collection-0": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "all",
-        "products_to_show": 4,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "link",
-        "color_scheme": "scheme-1",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
     }
   },
   "order": [
@@ -240,7 +212,6 @@
     "altrd-lookbook-0",
     "altrd-philosophy-0",
     "altrd_ugc_QVCKUk",
-    "altrd-newsletter-0",
-    "featured-collection-0"
+    "altrd-newsletter-0"
   ]
 }
