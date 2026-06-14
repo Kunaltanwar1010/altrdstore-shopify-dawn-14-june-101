@@ -55,6 +55,21 @@
         "color_style": "ink"
       }
     },
+    "altrd-lookbook-0": {
+      "type": "altrd-lookbook",
+      "settings": {
+        "eyebrow": "The Lookbook",
+        "heading": "Wear the idea.",
+        "body": "<p>Every piece in this drop is built around one concept. Not a logo, not a colourway — an idea you can carry into every room you walk into.</p>",
+        "cta_label": "Shop the drop",
+        "cta_link": "shopify://collections/all",
+        "cta_style": "hivis",
+        "primary_image": "shopify://shop_images/IMG_3192.heic",
+        "secondary_image": "shopify://shop_images/2_758ef321-6653-4b90-8f50-ece85c30d5e8.jpg",
+        "layout": "image_right",
+        "color_style": "ink"
+      }
+    },
     "featured-collection-0": {
       "type": "featured-collection",
       "settings": {
@@ -81,19 +96,6 @@
         "swipe_on_mobile": false,
         "padding_top": 60,
         "padding_bottom": 60
-      }
-    },
-    "altrd-lookbook-0": {
-      "type": "altrd-lookbook",
-      "settings": {
-        "eyebrow": "The Lookbook",
-        "heading": "Wear the idea.",
-        "body": "<p>Every piece in this drop is built around one concept. Not a logo, not a colourway — an idea you can carry into every room you walk into.</p>",
-        "cta_label": "Shop the drop",
-        "cta_link": "shopify://collections/all",
-        "cta_style": "hivis",
-        "layout": "image_left",
-        "color_style": "ink"
       }
     }
   },
