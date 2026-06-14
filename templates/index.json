@@ -51,10 +51,26 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "altrd-creator-0": {
+      "type": "altrd-creator",
+      "settings": {
+        "eyebrow": "The man behind the label",
+        "heading": "I didn't start a brand. I started a conversation.",
+        "body": "<p>I've spent years decoding how money, business, and leverage actually work — and sharing it with millions of people who weren't taught this stuff in school. ALTRD is where that energy becomes physical. Every drop is a chapter. Every piece is a prompt.</p><p>This isn't merch. It's a mindset you can wear.</p>",
+        "creator_name": "Ujjawal Pahwa",
+        "creator_title": "Forbes Top 100 Digital Stars · @cs.ujjawalpahwa",
+        "creator_handle": "@cs.ujjawalpahwa",
+        "cta_label": "Read the full story",
+        "layout": "image_left",
+        "color_style": "ink",
+        "image_ratio": "portrait"
+      }
     }
   },
   "order": [
     "altrd-hero-0",
+    "altrd-creator-0",
     "featured-collection-0"
   ]
 }
