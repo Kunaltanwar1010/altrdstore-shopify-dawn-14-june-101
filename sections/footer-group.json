@@ -11,8 +11,39 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "altrd-footer-main": {
+      "type": "altrd-footer",
+      "blocks": {
+        "nav-shop": {
+          "type": "nav_column",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "nav-about": {
+          "type": "nav_column",
+          "settings": {
+            "heading": "About",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "nav-shop",
+        "nav-about"
+      ],
+      "settings": {
+        "tagline": "Wear what you stand for.",
+        "social_heading": "Connect",
+        "attribution": "Co-created with @cs.ujjawalpahwa",
+        "copyright": "© 2025 ALTRD. All rights reserved.",
+        "show_policy": true
+      }
+    },
     "1781446507082ec830": {
       "type": "apps",
+      "disabled": true,
       "blocks": {
         "instafeed_app_block_48yV6z": {
           "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
@@ -42,6 +73,7 @@
     },
     "newsletter": {
       "type": "newsletter",
+      "disabled": true,
       "blocks": {
         "heading": {
           "type": "heading",
@@ -66,7 +98,6 @@
         "paragraph",
         "email-form"
       ],
-      "disabled": true,
       "settings": {
         "color_scheme": "scheme-3",
         "full_width": true,
@@ -94,6 +125,7 @@
     }
   },
   "order": [
+    "altrd-footer-main",
     "1781446507082ec830",
     "newsletter",
     "footer"

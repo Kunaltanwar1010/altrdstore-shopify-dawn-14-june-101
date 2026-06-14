@@ -1,0 +1,416 @@
+<footer class="altrd-footer">
+
+  <div class="altrd-footer__top page-width">
+    <p class="altrd-footer__brand" aria-hidden="true">ALTRD</p>
+
+    {%- if section.settings.tagline != blank -%}
+      <p class="altrd-footer__tagline">{{ section.settings.tagline | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="altrd-footer__rule page-width" aria-hidden="true"></div>
+
+  <div class="altrd-footer__grid page-width">
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'nav_column' -%}
+        <div class="altrd-footer__col" {{ block.shopify_attributes }}>
+          {%- if block.settings.heading != blank -%}
+            <h3 class="altrd-footer__col-heading">{{ block.settings.heading | escape }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.menu != blank -%}
+            <ul class="altrd-footer__nav-list" role="list">
+              {%- for link in linklists[block.settings.menu].links -%}
+                <li class="altrd-footer__nav-item">
+                  <a href="{{ link.url }}" class="altrd-footer__nav-link">{{ link.title | escape }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <div class="altrd-footer__col altrd-footer__col--social">
+      {%- if section.settings.social_heading != blank -%}
+        <h3 class="altrd-footer__col-heading">{{ section.settings.social_heading | escape }}</h3>
+      {%- endif -%}
+
+      <ul class="altrd-footer__social-list" role="list">
+        {%- if section.settings.instagram_url != blank -%}
+          <li>
+            <a href="{{ section.settings.instagram_url }}" class="altrd-footer__social-link" target="_blank" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.youtube_url != blank -%}
+          <li>
+            <a href="{{ section.settings.youtube_url }}" class="altrd-footer__social-link" target="_blank" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="currentColor" stroke-width="1.75"/>
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor"/>
+              </svg>
+              <span>YouTube</span>
+            </a>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.tiktok_url != blank -%}
+          <li>
+            <a href="{{ section.settings.tiktok_url }}" class="altrd-footer__social-link" target="_blank" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.75a8.18 8.18 0 0 0 4.78 1.52V6.82a4.85 4.85 0 0 1-1.01-.13z"/>
+              </svg>
+              <span>TikTok</span>
+            </a>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.twitter_url != blank -%}
+          <li>
+            <a href="{{ section.settings.twitter_url }}" class="altrd-footer__social-link" target="_blank" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              <span>X (Twitter)</span>
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="altrd-footer__rule page-width" aria-hidden="true"></div>
+
+  <div class="altrd-footer__bottom page-width">
+    <p class="altrd-footer__attribution">
+      {%- if section.settings.attribution != blank -%}
+        {{ section.settings.attribution | escape }}
+      {%- endif -%}
+    </p>
+
+    <div class="altrd-footer__legal">
+      {%- if section.settings.copyright != blank -%}
+        <span class="altrd-footer__copyright">{{ section.settings.copyright | escape }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.show_policy -%}
+        {%- for policy in shop.policies -%}
+          <a href="{{ policy.url }}" class="altrd-footer__policy-link">{{ policy.title | escape }}</a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+</footer>
+
+{% stylesheet %}
+/* === ALTRD custom === */
+
+.altrd-footer {
+  background: var(--color-altrd-ink, #0B0B0B);
+  color: var(--color-altrd-bone, #F4EFE6);
+  padding-bottom: 4rem;
+}
+
+.altrd-footer__top {
+  padding: 5rem 0 3.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-footer__top { padding: 4rem 0 2.5rem; }
+}
+
+.altrd-footer__brand {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(4.5rem, 12vw, 14rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  color: rgba(244, 239, 230, 0.9);
+  user-select: none;
+}
+
+.altrd-footer__tagline {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 230, 0.38);
+  margin: 0;
+  align-self: flex-end;
+  padding-bottom: 0.6rem;
+}
+
+.altrd-footer__rule {
+  height: 1px;
+  background: rgba(244, 239, 230, 0.1);
+  margin-bottom: 4rem;
+}
+
+.altrd-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 3rem 4rem;
+  margin-bottom: 4rem;
+}
+
+@media screen and (max-width: 549px) {
+  .altrd-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 2rem;
+  }
+}
+
+.altrd-footer__col-heading {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-altrd-hivis, #E8FF52);
+  margin: 0 0 1.25rem;
+}
+
+.altrd-footer__nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.altrd-footer__nav-link {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: rgba(244, 239, 230, 0.62);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.altrd-footer__nav-link:hover {
+  color: var(--color-altrd-bone, #F4EFE6);
+}
+
+.altrd-footer__social-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.altrd-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: rgba(244, 239, 230, 0.62);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.altrd-footer__social-link:hover {
+  color: var(--color-altrd-hivis, #E8FF52);
+}
+
+.altrd-footer__social-link svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.18s ease;
+}
+
+.altrd-footer__social-link:hover svg {
+  opacity: 1;
+}
+
+.altrd-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 549px) {
+  .altrd-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.altrd-footer__attribution {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(244, 239, 230, 0.38);
+  margin: 0;
+}
+
+.altrd-footer__legal {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.altrd-footer__copyright {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(244, 239, 230, 0.38);
+}
+
+.altrd-footer__policy-link {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(244, 239, 230, 0.38);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.altrd-footer__policy-link:hover {
+  color: rgba(244, 239, 230, 0.75);
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "ALTRD — Footer",
+  "class": "altrd-footer-section",
+  "tag": "div",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline (beside wordmark)",
+      "default": "Wear what you stand for."
+    },
+    {
+      "type": "header",
+      "content": "Social"
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social column heading",
+      "default": "Connect"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "X (Twitter) URL"
+    },
+    {
+      "type": "header",
+      "content": "Legal"
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "Attribution line",
+      "default": "Co-created with @cs.ujjawalpahwa"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright text",
+      "default": "© 2025 ALTRD. All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policy",
+      "label": "Show policy links",
+      "default": true,
+      "info": "Links are pulled automatically from your store policies (Settings → Policies)."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_column",
+      "name": "Navigation column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer",
+          "info": "Create footer menus in Shopify Admin → Navigation."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Footer",
+      "settings": {
+        "tagline": "Wear what you stand for.",
+        "social_heading": "Connect",
+        "attribution": "Co-created with @cs.ujjawalpahwa",
+        "copyright": "© 2025 ALTRD. All rights reserved.",
+        "show_policy": true
+      },
+      "blocks": [
+        {
+          "type": "nav_column",
+          "settings": { "heading": "Shop", "menu": "main-menu" }
+        },
+        {
+          "type": "nav_column",
+          "settings": { "heading": "About", "menu": "footer" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
