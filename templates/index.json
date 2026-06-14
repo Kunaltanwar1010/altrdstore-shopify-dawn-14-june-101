@@ -50,10 +50,9 @@
         "tagline": "One idea. Worn differently.",
         "collection": "all-collection",
         "products_to_show": 5,
-        "first_product_featured": true,
         "show_view_all": true,
         "view_all_label": "View the full drop",
-        "color_style": "bone"
+        "color_style": "ink"
       }
     },
     "featured-collection-0": {
