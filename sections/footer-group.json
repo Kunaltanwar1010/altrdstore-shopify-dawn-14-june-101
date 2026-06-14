@@ -11,6 +11,35 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "1781446507082ec830": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_48yV6z": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_48yV6z"
+      ],
+      "settings": {
+        "include_margins": false
+      }
+    },
     "altrd-footer-main": {
       "type": "altrd-footer",
       "blocks": {
@@ -43,35 +72,6 @@
         "attribution": "Co-created with @cs.ujjawalpahwa",
         "copyright": "© 2025 ALTRD. All rights reserved.",
         "show_policy": true
-      }
-    },
-    "1781446507082ec830": {
-      "type": "apps",
-      "blocks": {
-        "instafeed_app_block_48yV6z": {
-          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
-          "settings": {
-            "title": "",
-            "title_color": "",
-            "title_size_v2": 0,
-            "alignment": "center",
-            "instafeed_margin_top": 0,
-            "instafeed_margin_bottom": 0,
-            "instafeed_margin_sides": 0,
-            "show_instagram_link": false,
-            "link_alignment": "left",
-            "link_color": "#000000",
-            "background_color": "",
-            "feed_id": "",
-            "html_area": ""
-          }
-        }
-      },
-      "block_order": [
-        "instafeed_app_block_48yV6z"
-      ],
-      "settings": {
-        "include_margins": false
       }
     },
     "newsletter": {
@@ -128,8 +128,8 @@
     }
   },
   "order": [
-    "altrd-footer-main",
     "1781446507082ec830",
+    "altrd-footer-main",
     "newsletter",
     "footer"
   ]
