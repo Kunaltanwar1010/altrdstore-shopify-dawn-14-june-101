@@ -181,6 +181,7 @@
         "post_fLBEEV",
         "post_AGUVrG"
       ],
+      "disabled": true,
       "name": "ALTRD — UGC Strip",
       "settings": {
         "eyebrow": "Real ones",
@@ -200,7 +201,7 @@
         "cta_label": "Join",
         "fine_print": "No spam. Unsubscribe any time.",
         "success_message": "You're in. First access guaranteed.",
-        "color_style": "ink"
+        "color_style": "bone"
       }
     },
     "featured-collection-0": {
