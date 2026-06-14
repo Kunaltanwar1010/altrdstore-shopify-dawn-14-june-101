@@ -36,6 +36,10 @@
       "settings": {
         "tagline": "Wear what you stand for.",
         "social_heading": "Connect",
+        "instagram_url": "#",
+        "youtube_url": "",
+        "tiktok_url": "",
+        "twitter_url": "",
         "attribution": "Co-created with @cs.ujjawalpahwa",
         "copyright": "© 2025 ALTRD. All rights reserved.",
         "show_policy": true
@@ -43,7 +47,6 @@
     },
     "1781446507082ec830": {
       "type": "apps",
-      "disabled": true,
       "blocks": {
         "instafeed_app_block_48yV6z": {
           "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
@@ -73,7 +76,6 @@
     },
     "newsletter": {
       "type": "newsletter",
-      "disabled": true,
       "blocks": {
         "heading": {
           "type": "heading",
@@ -98,6 +100,7 @@
         "paragraph",
         "email-form"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-3",
         "full_width": true,
