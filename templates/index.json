@@ -21,7 +21,7 @@
         "text_position": "left",
         "min_height": "large",
         "video": "shopify://files/videos/d19cbd43bda541c0b3a801d021d810c0.HD-1080p-7.2Mbps-83664901.mp4",
-        "overlay_opacity": 0
+        "overlay_opacity": 85
       }
     },
     "featured-collection-0": {
