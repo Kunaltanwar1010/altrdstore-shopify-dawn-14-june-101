@@ -13,20 +13,17 @@
 <section class="altrd-drop altrd-drop--{{ section.settings.color_style }}">
 
   <div class="altrd-drop__header page-width">
-    <div class="altrd-drop__header-left">
-      {%- if section.settings.drop_label != blank -%}
-        <p class="altrd-drop__eyebrow">{{ section.settings.drop_label | escape }}</p>
-      {%- endif -%}
+    {%- if section.settings.drop_label != blank -%}
+      <p class="altrd-drop__eyebrow">{{ section.settings.drop_label | escape }}</p>
+    {%- endif -%}
+
+    <div class="altrd-drop__header-row">
       {%- if section_heading != blank -%}
         <h2 class="altrd-drop__title">{{ section_heading | escape }}</h2>
       {%- endif -%}
-    </div>
-    <div class="altrd-drop__header-right">
-      {%- if section.settings.tagline != blank -%}
-        <p class="altrd-drop__tagline">{{ section.settings.tagline | escape }}</p>
-      {%- endif -%}
+
       {%- if section.settings.show_view_all and has_collection -%}
-        <a href="{{ the_collection.url }}" class="altrd-drop__view-all">
+        <a href="{{ the_collection.url }}" class="altrd-drop__view-all altrd-drop__view-all--desktop">
           <span>{{ section.settings.view_all_label | default: 'View all' | escape }}</span>
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
             <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -34,16 +31,16 @@
         </a>
       {%- endif -%}
     </div>
+
+    {%- if section.settings.tagline != blank -%}
+      <p class="altrd-drop__tagline">{{ section.settings.tagline | escape }}</p>
+    {%- endif -%}
   </div>
 
   <div class="altrd-drop__grid page-width">
     {%- if has_collection and the_collection.products.size > 0 -%}
       {%- for product in the_collection.products limit: section.settings.products_to_show -%}
         {%- liquid
-          assign is_featured = false
-          if forloop.first and section.settings.first_product_featured
-            assign is_featured = true
-          endif
           assign is_on_sale = false
           if product.compare_at_price > product.price
             assign is_on_sale = true
@@ -51,19 +48,19 @@
         -%}
         <a
           href="{{ product.url }}"
-          class="altrd-drop__card{% if is_featured %} altrd-drop__card--featured{% endif %}{% unless product.available %} altrd-drop__card--sold-out{% endunless %}"
+          class="altrd-drop__card{% unless product.available %} altrd-drop__card--sold-out{% endunless %}"
           aria-label="{{ product.title | escape }}"
         >
           <div class="altrd-drop__card-media">
             {%- if product.featured_image != blank -%}
               {{
                 product.featured_image
-                | image_url: width: 1200
+                | image_url: width: 900
                 | image_tag:
                   class: 'altrd-drop__card-img',
                   loading: 'lazy',
-                  sizes: '(min-width: 990px) 33vw, 50vw',
-                  widths: '375, 550, 750, 900, 1200',
+                  sizes: '(min-width: 990px) 25vw, 50vw',
+                  widths: '375, 550, 750, 900',
                   alt: product.featured_image.alt | escape
               }}
             {%- else -%}
@@ -71,9 +68,6 @@
             {%- endif -%}
 
             <div class="altrd-drop__card-badges">
-              {%- if is_featured and section.settings.drop_label != blank -%}
-                <span class="altrd-drop__badge altrd-drop__badge--drop">{{ section.settings.drop_label | escape }}</span>
-              {%- endif -%}
               {%- unless product.available -%}
                 <span class="altrd-drop__badge altrd-drop__badge--sold-out">Sold out</span>
               {%- endunless -%}
@@ -102,7 +96,7 @@
       {%- endfor -%}
     {%- else -%}
       {%- for i in (1..section.settings.products_to_show) -%}
-        <div class="altrd-drop__card{% if forloop.first and section.settings.first_product_featured %} altrd-drop__card--featured{% endif %}">
+        <div class="altrd-drop__card">
           <div class="altrd-drop__card-media">
             {{ 'product-apparel-1' | placeholder_svg_tag: 'altrd-drop__card-placeholder' }}
           </div>
@@ -118,7 +112,10 @@
   {%- if section.settings.show_view_all and has_collection -%}
     <div class="altrd-drop__footer page-width">
       <a href="{{ the_collection.url }}" class="altrd-drop__footer-link">
-        {{ section.settings.view_all_label | default: 'View the full drop' | escape }}
+        {{ section.settings.view_all_label | default: 'View all' | escape }}
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
     </div>
   {%- endif -%}
@@ -129,72 +126,54 @@
 /* === ALTRD custom === */
 
 .altrd-drop {
-  padding: 6rem 0;
+  padding: 7rem 0;
 }
 
-.altrd-drop--ink  { background: var(--color-altrd-ink, #0B0B0B); color: var(--color-altrd-bone, #F4EFE6); }
+.altrd-drop--ink  { background: var(--color-altrd-ink, #0B0B0B);  color: var(--color-altrd-bone, #F4EFE6); }
 .altrd-drop--bone { background: var(--color-altrd-bone, #F4EFE6); color: var(--color-altrd-ink, #0B0B0B); }
 
 @media screen and (max-width: 749px) {
-  .altrd-drop { padding: 4rem 0; }
+  .altrd-drop { padding: 5rem 0; }
 }
 
 .altrd-drop__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 @media screen and (max-width: 749px) {
-  .altrd-drop__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
+  .altrd-drop__header { margin-bottom: 2.5rem; }
 }
 
 .altrd-drop__eyebrow {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-altrd-hivis, #E8FF52);
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
 }
 
 .altrd-drop--bone .altrd-drop__eyebrow {
   color: var(--color-altrd-ink, #0B0B0B);
-  opacity: 0.45;
+  opacity: 0.4;
+}
+
+.altrd-drop__header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .altrd-drop__title {
   font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-size: clamp(2.75rem, 5.5vw, 5.5rem);
   font-weight: 400;
-  line-height: 0.95;
+  line-height: 0.93;
   text-transform: uppercase;
   margin: 0;
-}
-
-.altrd-drop__header-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 1rem;
-  flex-shrink: 0;
-  max-width: 36ch;
-  text-align: right;
-}
-
-@media screen and (max-width: 749px) {
-  .altrd-drop__header-right {
-    align-items: flex-start;
-    text-align: left;
-  }
 }
 
 .altrd-drop__tagline {
@@ -202,11 +181,12 @@
   font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1.6;
-  opacity: 0.65;
   margin: 0;
+  max-width: 60ch;
+  opacity: 0.6;
 }
 
-.altrd-drop__view-all {
+.altrd-drop__view-all--desktop {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -217,39 +197,33 @@
   text-transform: uppercase;
   text-decoration: none;
   color: inherit;
+  white-space: nowrap;
+  flex-shrink: 0;
   padding-bottom: 2px;
   border-bottom: 1.5px solid currentColor;
   transition: gap 0.2s ease;
 }
 
-.altrd-drop__view-all:hover { gap: 0.875rem; }
+.altrd-drop__view-all--desktop:hover { gap: 0.875rem; }
+
+@media screen and (max-width: 749px) {
+  .altrd-drop__view-all--desktop { display: none; }
+}
 
 .altrd-drop__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
 }
 
 @media screen and (min-width: 750px) and (max-width: 989px) {
-  .altrd-drop__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .altrd-drop__grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media screen and (max-width: 749px) {
   .altrd-drop__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.875rem;
-  }
-}
-
-.altrd-drop__card--featured {
-  grid-column: span 2;
-}
-
-@media screen and (max-width: 749px) {
-  .altrd-drop__card--featured {
-    grid-column: span 2;
+    gap: 1rem;
   }
 }
 
@@ -262,20 +236,11 @@
 .altrd-drop__card-media {
   position: relative;
   overflow: hidden;
-  background: #111;
+  background: #1a1a1a;
   aspect-ratio: 3 / 4;
 }
 
-.altrd-drop__card--featured .altrd-drop__card-media {
-  aspect-ratio: 4 / 3;
-}
-
-@media screen and (max-width: 749px) {
-  .altrd-drop__card--featured .altrd-drop__card-media,
-  .altrd-drop__card-media {
-    aspect-ratio: 3 / 4;
-  }
-}
+.altrd-drop--bone .altrd-drop__card-media { background: #e8e3da; }
 
 .altrd-drop__card-img {
   width: 100%;
@@ -283,23 +248,23 @@
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.altrd-drop__card:hover .altrd-drop__card-img {
-  transform: scale(1.04);
-}
+.altrd-drop__card:hover .altrd-drop__card-img { transform: scale(1.05); }
 
 .altrd-drop__card-placeholder {
   width: 100%;
   height: 100%;
-  opacity: 0.15;
+  opacity: 0.12;
 }
+
+.altrd-drop__card--sold-out .altrd-drop__card-img { opacity: 0.45; }
 
 .altrd-drop__card-badges {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 0.875rem;
+  left: 0.875rem;
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
@@ -309,26 +274,21 @@
 .altrd-drop__badge {
   display: inline-block;
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-  font-size: 0.625rem;
+  font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 0.3rem 0.6rem;
-}
-
-.altrd-drop__badge--drop {
-  background: var(--color-altrd-hivis, #E8FF52);
-  color: var(--color-altrd-ink, #0B0B0B);
+  padding: 0.3rem 0.5rem;
 }
 
 .altrd-drop__badge--sold-out {
-  background: rgba(11, 11, 11, 0.75);
-  color: var(--color-altrd-bone, #F4EFE6);
+  background: rgba(11, 11, 11, 0.7);
+  color: #F4EFE6;
 }
 
 .altrd-drop__badge--sale {
-  background: var(--color-altrd-ink, #0B0B0B);
-  color: var(--color-altrd-hivis, #E8FF52);
+  background: var(--color-altrd-hivis, #E8FF52);
+  color: var(--color-altrd-ink, #0B0B0B);
 }
 
 .altrd-drop__card-hover {
@@ -337,54 +297,47 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 1.5rem;
-  background: linear-gradient(to top, rgba(11,11,11,0.55) 0%, transparent 50%);
+  padding-bottom: 1.25rem;
+  background: linear-gradient(to top, rgba(11,11,11,0.5) 0%, transparent 55%);
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.22s ease;
 }
 
-.altrd-drop__card:hover .altrd-drop__card-hover {
-  opacity: 1;
-}
+.altrd-drop__card:hover .altrd-drop__card-hover { opacity: 1; }
 
-@media (hover: none) {
-  .altrd-drop__card-hover { display: none; }
-}
+@media (hover: none) { .altrd-drop__card-hover { display: none; } }
 
 .altrd-drop__card-shop {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-altrd-bone, #F4EFE6);
-  background: var(--color-altrd-ink, #0B0B0B);
-  padding: 0.625rem 1.5rem;
-}
-
-.altrd-drop__card--sold-out .altrd-drop__card-img {
-  opacity: 0.45;
+  color: var(--color-altrd-ink, #0B0B0B);
+  background: var(--color-altrd-bone, #F4EFE6);
+  padding: 0.5rem 1.25rem;
 }
 
 .altrd-drop__card-info {
-  padding: 0.875rem 0 0;
+  padding: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
 }
 
 .altrd-drop__card-name {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.9375rem;
   font-weight: 500;
-  letter-spacing: 0.01em;
-  margin: 0 0 0.3rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.3;
+  margin: 0;
 }
 
 .altrd-drop__card-pricing {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .altrd-drop__card-price {
@@ -393,24 +346,25 @@
   font-weight: 600;
 }
 
-.altrd-drop__card-price--sale { color: var(--color-altrd-hivis, #E8FF52); }
-.altrd-drop--bone .altrd-drop__card-price--sale { color: #b00; }
+.altrd-drop--ink  .altrd-drop__card-price--sale { color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-drop--bone .altrd-drop__card-price--sale { color: #b33; }
 
 .altrd-drop__card-compare {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.8125rem;
-  opacity: 0.45;
+  opacity: 0.4;
   text-decoration: line-through;
 }
 
 .altrd-drop__footer {
-  margin-top: 3rem;
+  margin-top: 4rem;
   text-align: center;
 }
 
 .altrd-drop__footer-link {
   display: inline-flex;
   align-items: center;
+  gap: 0.625rem;
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.875rem;
   font-weight: 600;
@@ -418,7 +372,7 @@
   text-transform: uppercase;
   text-decoration: none;
   color: inherit;
-  padding: 1rem 2.5rem;
+  padding: 1rem 2.75rem;
   border: 1.5px solid currentColor;
   transition: background 0.18s ease, color 0.18s ease;
 }
@@ -450,14 +404,13 @@
       "type": "text",
       "id": "drop_label",
       "label": "Drop label",
-      "default": "Drop 001",
-      "info": "Shown as eyebrow text and as a badge on the featured product."
+      "default": "Drop 001"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "info": "Defaults to collection title if left blank."
+      "info": "Defaults to collection title if blank."
     },
     {
       "type": "text",
@@ -477,17 +430,11 @@
     {
       "type": "range",
       "id": "products_to_show",
-      "min": 3,
+      "min": 2,
       "max": 12,
       "step": 1,
       "label": "Products to show",
-      "default": 5
-    },
-    {
-      "type": "checkbox",
-      "id": "first_product_featured",
-      "label": "Feature first product (larger card)",
-      "default": true
+      "default": 4
     },
     {
       "type": "header",
@@ -496,14 +443,14 @@
     {
       "type": "checkbox",
       "id": "show_view_all",
-      "label": "Show 'View all' links",
+      "label": "Show 'View all'",
       "default": true
     },
     {
       "type": "text",
       "id": "view_all_label",
       "label": "View all label",
-      "default": "View the full drop"
+      "default": "View all"
     },
     {
       "type": "header",
@@ -517,7 +464,7 @@
         { "value": "ink",  "label": "Ink (dark)" },
         { "value": "bone", "label": "Bone (light)" }
       ],
-      "default": "ink"
+      "default": "bone"
     }
   ],
   "presets": [
@@ -526,11 +473,10 @@
       "settings": {
         "drop_label": "Drop 001",
         "tagline": "One idea. Worn differently.",
-        "products_to_show": 5,
-        "first_product_featured": true,
+        "products_to_show": 4,
         "show_view_all": true,
-        "view_all_label": "View the full drop",
-        "color_style": "ink"
+        "view_all_label": "View all",
+        "color_style": "bone"
       }
     }
   ]
