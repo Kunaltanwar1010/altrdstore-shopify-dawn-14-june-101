@@ -1,0 +1,367 @@
+<section class="altrd-phil altrd-phil--{{ section.settings.color_style }}">
+  <div class="altrd-phil__header page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="altrd-phil__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="altrd-phil__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.intro != blank -%}
+      <div class="altrd-phil__intro rte">{{ section.settings.intro }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="altrd-phil__divider page-width" aria-hidden="true"></div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div
+      class="altrd-phil__grid page-width"
+      style="--phil-cols: {{ section.blocks.size | at_most: 4 }};"
+    >
+      {%- for block in section.blocks -%}
+        <div class="altrd-phil__principle" {{ block.shopify_attributes }}>
+          {%- if block.settings.number != blank -%}
+            <span class="altrd-phil__number" aria-hidden="true">{{ block.settings.number | escape }}</span>
+          {%- endif -%}
+
+          {%- if block.settings.title != blank -%}
+            <h3 class="altrd-phil__title">{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+
+          <div class="altrd-phil__rule" aria-hidden="true"></div>
+
+          {%- if block.settings.body != blank -%}
+            <div class="altrd-phil__body rte">{{ block.settings.body }}</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.closing != blank -%}
+    <div class="altrd-phil__closing page-width">
+      <p class="altrd-phil__closing-text">{{ section.settings.closing | escape }}</p>
+    </div>
+  {%- endif -%}
+</section>
+
+{% stylesheet %}
+/* === ALTRD custom === */
+
+.altrd-phil {
+  padding: 8rem 0 7rem;
+}
+
+.altrd-phil--ink  { background: var(--color-altrd-ink, #0B0B0B);  color: var(--color-altrd-bone, #F4EFE6); }
+.altrd-phil--bone { background: var(--color-altrd-bone, #F4EFE6); color: var(--color-altrd-ink, #0B0B0B); }
+
+@media screen and (max-width: 749px) {
+  .altrd-phil { padding: 5rem 0; }
+}
+
+.altrd-phil__header {
+  max-width: 80rem;
+  margin-bottom: 5rem;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-phil__header { margin-bottom: 3.5rem; }
+}
+
+.altrd-phil__eyebrow {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-altrd-hivis, #E8FF52);
+  margin: 0 0 1.5rem;
+}
+
+.altrd-phil--bone .altrd-phil__eyebrow {
+  color: var(--color-altrd-ink, #0B0B0B);
+  opacity: 0.4;
+}
+
+.altrd-phil__heading {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(3.5rem, 7vw, 8rem);
+  font-weight: 400;
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin: 0 0 2.5rem;
+  word-break: break-word;
+}
+
+.altrd-phil__intro {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 62ch;
+  margin: 0;
+}
+
+.altrd-phil--ink  .altrd-phil__intro { color: rgba(244, 239, 230, 0.68); }
+.altrd-phil--bone .altrd-phil__intro { color: rgba(11, 11, 11, 0.65); }
+
+.altrd-phil__divider {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.12;
+  margin-bottom: 5rem;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-phil__divider { margin-bottom: 3rem; }
+}
+
+.altrd-phil__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--phil-cols, 4), 1fr);
+  gap: 0;
+}
+
+@media screen and (max-width: 989px) {
+  .altrd-phil__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 549px) {
+  .altrd-phil__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.altrd-phil__principle {
+  padding: 0 3rem 3rem 0;
+  border-right: 1px solid transparent;
+}
+
+.altrd-phil__principle:not(:last-child) {
+  border-right-color: currentColor;
+  opacity: unset;
+}
+
+.altrd-phil--ink  .altrd-phil__principle:not(:last-child) { border-right-color: rgba(244, 239, 230, 0.1); }
+.altrd-phil--bone .altrd-phil__principle:not(:last-child) { border-right-color: rgba(11, 11, 11, 0.1); }
+
+.altrd-phil__principle:not(:first-child) {
+  padding-left: 3rem;
+  padding-right: 2rem;
+}
+
+@media screen and (max-width: 989px) {
+  .altrd-phil__principle {
+    padding: 0 2rem 3.5rem 0;
+    border-right: none;
+    border-bottom: 1px solid;
+    margin-bottom: 0.5rem;
+  }
+  .altrd-phil--ink  .altrd-phil__principle { border-bottom-color: rgba(244, 239, 230, 0.1); }
+  .altrd-phil--bone .altrd-phil__principle { border-bottom-color: rgba(11, 11, 11, 0.1); }
+  .altrd-phil__principle:not(:first-child) {
+    padding-left: 0;
+    padding-top: 3rem;
+  }
+  .altrd-phil__principle:last-child {
+    border-bottom: none;
+  }
+}
+
+.altrd-phil__number {
+  display: block;
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+.altrd-phil--ink  .altrd-phil__number { color: rgba(244, 239, 230, 0.08); }
+.altrd-phil--bone .altrd-phil__number { color: rgba(11, 11, 11, 0.08); }
+
+.altrd-phil__title {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 1.25rem;
+}
+
+.altrd-phil__rule {
+  width: 2.5rem;
+  height: 2px;
+  background: var(--color-altrd-hivis, #E8FF52);
+  margin-bottom: 1.5rem;
+}
+
+.altrd-phil--bone .altrd-phil__rule {
+  background: var(--color-altrd-ink, #0B0B0B);
+  opacity: 0.35;
+}
+
+.altrd-phil__body {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.altrd-phil--ink  .altrd-phil__body { color: rgba(244, 239, 230, 0.7); }
+.altrd-phil--bone .altrd-phil__body { color: rgba(11, 11, 11, 0.65); }
+
+.altrd-phil__body p { margin: 0 0 0.75em; }
+.altrd-phil__body p:last-child { margin-bottom: 0; }
+
+.altrd-phil__closing {
+  margin-top: 5rem;
+  padding-top: 4rem;
+  border-top: 1px solid;
+}
+
+.altrd-phil--ink  .altrd-phil__closing { border-top-color: rgba(244, 239, 230, 0.1); }
+.altrd-phil--bone .altrd-phil__closing { border-top-color: rgba(11, 11, 11, 0.1); }
+
+.altrd-phil__closing-text {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-align: center;
+  opacity: 0.35;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "ALTRD — Philosophy",
+  "class": "altrd-phil-section",
+  "tag": "div",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "How we move"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The principles."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro paragraph",
+      "default": "<p>This isn't a mood board. These are the ideas behind every piece we make — decoded, so you know exactly what you're wearing.</p>"
+    },
+    {
+      "type": "text",
+      "id": "closing",
+      "label": "Closing statement",
+      "default": "Wear what you stand for.",
+      "info": "Shown as a muted full-width caption below the principles."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_style",
+      "label": "Color style",
+      "options": [
+        { "value": "ink",  "label": "Ink (dark)" },
+        { "value": "bone", "label": "Bone (light)" }
+      ],
+      "default": "ink"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "principle",
+      "name": "Principle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Principle name",
+          "default": "Compound"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Explanation",
+          "default": "<p>Small actions, repeated daily, compound into results that look like luck from the outside. We don't do sporadic. We build.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Philosophy",
+      "settings": {
+        "eyebrow": "How we move",
+        "heading": "The principles.",
+        "closing": "Wear what you stand for.",
+        "color_style": "ink"
+      },
+      "blocks": [
+        {
+          "type": "principle",
+          "settings": {
+            "number": "01",
+            "title": "Compound",
+            "body": "<p>Small actions, repeated daily, compound into results that look like luck from the outside. We don't do sporadic. We build.</p>"
+          }
+        },
+        {
+          "type": "principle",
+          "settings": {
+            "number": "02",
+            "title": "Ownership",
+            "body": "<p>Nobody is coming to save you. The moment you take ownership of where you are, you unlock the ability to change it. Start there.</p>"
+          }
+        },
+        {
+          "type": "principle",
+          "settings": {
+            "number": "03",
+            "title": "Leverage",
+            "body": "<p>Every big result has a small action that was multiplied — by a system, a network, or a platform. Find the lever. Pull it.</p>"
+          }
+        },
+        {
+          "type": "principle",
+          "settings": {
+            "number": "04",
+            "title": "Patience",
+            "body": "<p>The market rewards the long game. Your timeline is longer than you think — and that's the advantage. Most people quit too early.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

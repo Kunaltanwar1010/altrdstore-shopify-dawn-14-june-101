@@ -70,6 +70,56 @@
         "color_style": "ink"
       }
     },
+    "altrd-philosophy-0": {
+      "type": "altrd-philosophy",
+      "blocks": {
+        "principle-01": {
+          "type": "principle",
+          "settings": {
+            "number": "01",
+            "title": "Compound",
+            "body": "<p>Small actions, repeated daily, compound into results that look like luck from the outside. We don't do sporadic. We build.</p>"
+          }
+        },
+        "principle-02": {
+          "type": "principle",
+          "settings": {
+            "number": "02",
+            "title": "Ownership",
+            "body": "<p>Nobody is coming to save you. The moment you take ownership of where you are, you unlock the ability to change it. Start there.</p>"
+          }
+        },
+        "principle-03": {
+          "type": "principle",
+          "settings": {
+            "number": "03",
+            "title": "Leverage",
+            "body": "<p>Every big result has a small action that was multiplied — by a system, a network, or a platform. Find the lever. Pull it.</p>"
+          }
+        },
+        "principle-04": {
+          "type": "principle",
+          "settings": {
+            "number": "04",
+            "title": "Patience",
+            "body": "<p>The market rewards the long game. Your timeline is longer than you think — and that's the advantage. Most people quit too early.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "principle-01",
+        "principle-02",
+        "principle-03",
+        "principle-04"
+      ],
+      "settings": {
+        "eyebrow": "How we move",
+        "heading": "The principles.",
+        "intro": "<p>This isn't a mood board. These are the ideas behind every piece we make — decoded, so you know exactly what you're wearing.</p>",
+        "closing": "Wear what you stand for.",
+        "color_style": "ink"
+      }
+    },
     "featured-collection-0": {
       "type": "featured-collection",
       "settings": {
@@ -104,6 +154,7 @@
     "altrd_creator_7aVn6R",
     "altrd-drop-0",
     "altrd-lookbook-0",
+    "altrd-philosophy-0",
     "featured-collection-0"
   ]
 }
