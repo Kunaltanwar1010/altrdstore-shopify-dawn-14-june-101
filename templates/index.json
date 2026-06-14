@@ -82,12 +82,26 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "altrd-lookbook-0": {
+      "type": "altrd-lookbook",
+      "settings": {
+        "eyebrow": "The Lookbook",
+        "heading": "Wear the idea.",
+        "body": "<p>Every piece in this drop is built around one concept. Not a logo, not a colourway — an idea you can carry into every room you walk into.</p>",
+        "cta_label": "Shop the drop",
+        "cta_link": "shopify://collections/all",
+        "cta_style": "hivis",
+        "layout": "image_left",
+        "color_style": "ink"
+      }
     }
   },
   "order": [
     "altrd-hero-0",
     "altrd_creator_7aVn6R",
     "altrd-drop-0",
+    "altrd-lookbook-0",
     "featured-collection-0"
   ]
 }

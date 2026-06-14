@@ -1,0 +1,387 @@
+<div class="altrd-lookbook altrd-lookbook--{{ section.settings.color_style }} altrd-lookbook--{{ section.settings.layout }}">
+
+  <div class="altrd-lookbook__inner">
+
+    <div class="altrd-lookbook__media">
+      {%- if section.settings.primary_image != blank -%}
+        {{
+          section.settings.primary_image
+          | image_url: width: 1600
+          | image_tag:
+            class: 'altrd-lookbook__primary-img',
+            loading: 'lazy',
+            sizes: '(min-width: 990px) 55vw, 100vw',
+            widths: '750, 1000, 1200, 1600',
+            alt: section.settings.primary_image.alt | escape
+        }}
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'altrd-lookbook__placeholder' }}
+      {%- endif -%}
+
+      {%- if section.settings.secondary_image != blank -%}
+        <div class="altrd-lookbook__secondary-wrap">
+          {{
+            section.settings.secondary_image
+            | image_url: width: 600
+            | image_tag:
+              class: 'altrd-lookbook__secondary-img',
+              loading: 'lazy',
+              sizes: '20vw',
+              widths: '280, 400, 600',
+              alt: section.settings.secondary_image.alt | escape
+          }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="altrd-lookbook__content">
+      <div class="altrd-lookbook__content-inner">
+
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="altrd-lookbook__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="altrd-lookbook__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="altrd-lookbook__body rte">{{ section.settings.body }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.cta_label != blank -%}
+          <a
+            href="{{ section.settings.cta_link | default: '#' }}"
+            class="altrd-lookbook__cta altrd-lookbook__cta--{{ section.settings.cta_style }}"
+          >
+            {{- section.settings.cta_label | escape -}}
+          </a>
+        {%- endif -%}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% stylesheet %}
+/* === ALTRD custom === */
+
+.altrd-lookbook {
+  width: 100%;
+  overflow: hidden;
+}
+
+.altrd-lookbook--ink  { background: var(--color-altrd-ink, #0B0B0B);  color: var(--color-altrd-bone, #F4EFE6); }
+.altrd-lookbook--bone { background: var(--color-altrd-bone, #F4EFE6); color: var(--color-altrd-ink, #0B0B0B); }
+
+.altrd-lookbook__inner {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  min-height: 85vh;
+}
+
+.altrd-lookbook--image_right .altrd-lookbook__media   { order: 2; }
+.altrd-lookbook--image_right .altrd-lookbook__content { order: 1; }
+
+@media screen and (max-width: 989px) {
+  .altrd-lookbook__inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .altrd-lookbook__media,
+  .altrd-lookbook__content {
+    order: unset;
+  }
+}
+
+.altrd-lookbook__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 60vw;
+}
+
+@media screen and (max-width: 989px) {
+  .altrd-lookbook__media {
+    min-height: 75vw;
+  }
+}
+
+.altrd-lookbook__primary-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.altrd-lookbook:hover .altrd-lookbook__primary-img {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .altrd-lookbook__primary-img { transition: none; }
+}
+
+.altrd-lookbook__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.altrd-lookbook__secondary-wrap {
+  position: absolute;
+  bottom: 2.5rem;
+  right: -1.75rem;
+  width: clamp(140px, 28%, 220px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  z-index: 2;
+}
+
+.altrd-lookbook--image_right .altrd-lookbook__secondary-wrap {
+  right: auto;
+  left: -1.75rem;
+}
+
+@media screen and (max-width: 989px) {
+  .altrd-lookbook__secondary-wrap {
+    bottom: 1.5rem;
+    right: 1.25rem;
+    width: clamp(100px, 26%, 160px);
+  }
+}
+
+.altrd-lookbook__secondary-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.altrd-lookbook__content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6rem 5rem 6rem 6rem;
+}
+
+.altrd-lookbook--image_right .altrd-lookbook__content {
+  padding: 6rem 6rem 6rem 5rem;
+}
+
+@media screen and (min-width: 990px) and (max-width: 1199px) {
+  .altrd-lookbook__content { padding: 5rem 3.5rem 5rem 4rem; }
+}
+
+@media screen and (max-width: 989px) {
+  .altrd-lookbook__content {
+    padding: 4rem 2rem;
+  }
+  .altrd-lookbook--image_right .altrd-lookbook__content {
+    padding: 4rem 2rem;
+  }
+}
+
+.altrd-lookbook__content-inner {
+  max-width: 52rem;
+  width: 100%;
+}
+
+.altrd-lookbook__eyebrow {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-altrd-hivis, #E8FF52);
+  margin: 0 0 1.5rem;
+}
+
+.altrd-lookbook--bone .altrd-lookbook__eyebrow {
+  color: var(--color-altrd-ink, #0B0B0B);
+  opacity: 0.4;
+}
+
+.altrd-lookbook__heading {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(3.25rem, 5vw, 6.5rem);
+  font-weight: 400;
+  line-height: 0.93;
+  text-transform: uppercase;
+  margin: 0 0 2.75rem;
+  word-break: break-word;
+}
+
+.altrd-lookbook__body {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.75;
+  margin: 0 0 3rem;
+  max-width: 50ch;
+}
+
+.altrd-lookbook--ink  .altrd-lookbook__body { color: rgba(244, 239, 230, 0.72); }
+.altrd-lookbook--bone .altrd-lookbook__body { color: rgba(11, 11, 11, 0.68); }
+
+.altrd-lookbook__body p { margin: 0 0 1em; }
+.altrd-lookbook__body p:last-child { margin-bottom: 0; }
+
+.altrd-lookbook__cta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border: 2px solid transparent;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.altrd-lookbook__cta--hivis {
+  background: var(--color-altrd-hivis, #E8FF52);
+  color: var(--color-altrd-ink, #0B0B0B);
+  border-color: var(--color-altrd-hivis, #E8FF52);
+}
+.altrd-lookbook__cta--hivis:hover {
+  background: transparent;
+  color: var(--color-altrd-hivis, #E8FF52);
+}
+
+.altrd-lookbook__cta--bone {
+  background: var(--color-altrd-bone, #F4EFE6);
+  color: var(--color-altrd-ink, #0B0B0B);
+  border-color: var(--color-altrd-bone, #F4EFE6);
+}
+.altrd-lookbook__cta--bone:hover {
+  background: transparent;
+  color: var(--color-altrd-bone, #F4EFE6);
+}
+
+.altrd-lookbook__cta--outline {
+  background: transparent;
+  border-color: currentColor;
+  color: inherit;
+}
+.altrd-lookbook__cta--outline:hover {
+  background: currentColor;
+}
+.altrd-lookbook--ink  .altrd-lookbook__cta--outline:hover { color: var(--color-altrd-ink, #0B0B0B); }
+.altrd-lookbook--bone .altrd-lookbook__cta--outline:hover { color: var(--color-altrd-bone, #F4EFE6); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "ALTRD — Lookbook",
+  "class": "altrd-lookbook-section",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "The Lookbook"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wear the idea."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>Every piece in this drop is built around one concept. Not a logo, not a colourway — an idea you can carry into every room you walk into.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop the drop"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "cta_style",
+      "label": "Button style",
+      "options": [
+        { "value": "hivis",   "label": "Hi-vis (yellow)" },
+        { "value": "bone",    "label": "Bone (light)" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "hivis"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "primary_image",
+      "label": "Primary image",
+      "info": "Fills the full panel. Portrait orientation works best."
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image",
+      "label": "Secondary image (accent)",
+      "info": "Optional. Floats overlapping at the bottom edge of the primary image for a collage effect."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "options": [
+        { "value": "image_left",  "label": "Image left" },
+        { "value": "image_right", "label": "Image right" }
+      ],
+      "default": "image_left"
+    },
+    {
+      "type": "select",
+      "id": "color_style",
+      "label": "Color style",
+      "options": [
+        { "value": "ink",  "label": "Ink (dark)" },
+        { "value": "bone", "label": "Bone (light)" }
+      ],
+      "default": "ink"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Lookbook",
+      "settings": {
+        "eyebrow": "The Lookbook",
+        "heading": "Wear the idea.",
+        "cta_label": "Shop the drop",
+        "cta_style": "hivis",
+        "layout": "image_left",
+        "color_style": "ink"
+      }
+    }
+  ]
+}
+{% endschema %}
