@@ -3,10 +3,18 @@
   if section.settings.image != blank
     assign has_image = true
   endif
+  assign has_video = false
+  if section.settings.video != blank
+    assign has_video = true
+  endif
+  assign has_media = false
+  if has_image or has_video
+    assign has_media = true
+  endif
 -%}
 
 <section
-  class="altrd-hero altrd-hero--{{ section.settings.min_height }} altrd-hero--{{ section.settings.text_position }}{% unless has_image %} altrd-hero--ink{% endunless %}"
+  class="altrd-hero altrd-hero--{{ section.settings.min_height }} altrd-hero--{{ section.settings.text_position }}{% unless has_media %} altrd-hero--ink{% endunless %}"
   style="--hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
 >
   <div class="altrd-hero__media">
@@ -22,6 +30,21 @@
           widths: '375, 750, 1100, 1500, 2000'
       }}
     {%- endif -%}
+
+    {%- if has_video -%}
+      <div class="altrd-hero__video-wrap">
+        {{
+          section.settings.video
+          | video_tag:
+            autoplay: true,
+            loop: true,
+            muted: true,
+            controls: false,
+            image_size: '2000x'
+        }}
+      </div>
+    {%- endif -%}
+
     <div class="altrd-hero__overlay"></div>
   </div>
 
@@ -82,6 +105,23 @@
 }
 
 .altrd-hero__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  z-index: 0;
+}
+
+.altrd-hero__video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.altrd-hero__video-wrap video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -89,11 +129,18 @@
   display: block;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .altrd-hero__video-wrap {
+    display: none;
+  }
+}
+
 .altrd-hero__overlay {
   position: absolute;
   inset: 0;
   background: #0B0B0B;
   opacity: var(--hero-overlay, 0.55);
+  z-index: 2;
 }
 
 .altrd-hero--ink .altrd-hero__overlay {
@@ -102,7 +149,7 @@
 
 .altrd-hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
   padding-top: 7rem;
   padding-bottom: 7rem;
@@ -115,16 +162,13 @@
   }
 }
 
-.altrd-hero--center .altrd-hero__content {
-  text-align: center;
-  margin-inline: auto;
-}
-
 .altrd-hero__content {
   max-width: 90rem;
 }
 
 .altrd-hero--center .altrd-hero__content {
+  text-align: center;
+  margin-inline: auto;
   max-width: 100%;
 }
 
@@ -173,7 +217,6 @@
 .altrd-hero__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.875rem;
   font-weight: 600;
@@ -190,7 +233,6 @@
   color: var(--color-altrd-ink, #0B0B0B);
   border-color: var(--color-altrd-hivis, #E8FF52);
 }
-
 .altrd-hero__cta--hivis:hover {
   background: transparent;
   color: var(--color-altrd-hivis, #E8FF52);
@@ -201,7 +243,6 @@
   color: var(--color-altrd-ink, #0B0B0B);
   border-color: var(--color-altrd-bone, #F4EFE6);
 }
-
 .altrd-hero__cta--bone:hover {
   background: transparent;
   color: var(--color-altrd-bone, #F4EFE6);
@@ -212,7 +253,6 @@
   color: var(--color-altrd-bone, #F4EFE6);
   border-color: var(--color-altrd-bone, #F4EFE6);
 }
-
 .altrd-hero__cta--outline:hover {
   background: var(--color-altrd-bone, #F4EFE6);
   color: var(--color-altrd-ink, #0B0B0B);
@@ -225,9 +265,9 @@
   .altrd-hero__cta {
     animation: altrd-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .altrd-hero__heading   { animation-delay: 0.08s; }
+  .altrd-hero__heading    { animation-delay: 0.08s; }
   .altrd-hero__subheading { animation-delay: 0.18s; }
-  .altrd-hero__cta       { animation-delay: 0.28s; }
+  .altrd-hero__cta        { animation-delay: 0.28s; }
 }
 
 @keyframes altrd-fade-up {
@@ -235,6 +275,12 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 {% endstylesheet %}
+
+{% javascript %}
+document.querySelectorAll('.altrd-hero__video-wrap video').forEach(function(v) {
+  v.setAttribute('playsinline', '');
+});
+{% endjavascript %}
 
 {% schema %}
 {
@@ -305,7 +351,7 @@
       "id": "min_height",
       "label": "Section height",
       "options": [
-        { "value": "adapt",  "label": "Adapt to image" },
+        { "value": "adapt",  "label": "Adapt to content" },
         { "value": "small",  "label": "Small (50vh)" },
         { "value": "medium", "label": "Medium (70vh)" },
         { "value": "large",  "label": "Large (90vh)" },
@@ -318,9 +364,16 @@
       "content": "Background"
     },
     {
+      "type": "video",
+      "id": "video",
+      "label": "Background video",
+      "info": "Autoplays muted and looped. Upload an MP4 for best compatibility. Falls back to image on reduced-motion preference."
+    },
+    {
       "type": "image_picker",
       "id": "image",
-      "label": "Background image"
+      "label": "Background image",
+      "info": "Used as fallback when no video is set, or as the reduced-motion poster."
     },
     {
       "type": "range",
@@ -329,7 +382,7 @@
       "max": 85,
       "step": 5,
       "unit": "%",
-      "label": "Image overlay opacity",
+      "label": "Overlay opacity",
       "default": 55
     }
   ],
