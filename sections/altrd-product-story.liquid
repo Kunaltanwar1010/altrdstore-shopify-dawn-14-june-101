@@ -1,0 +1,311 @@
+{%- liquid
+  assign story_eyebrow = section.settings.eyebrow
+  assign story_heading = section.settings.heading
+  assign story_body    = section.settings.body
+
+  assign has_mf_heading = false
+  assign has_mf_body    = false
+  if product.metafields.custom.story_heading != blank
+    assign has_mf_heading = true
+  endif
+  if product.metafields.custom.story_body != blank
+    assign has_mf_body = true
+  endif
+-%}
+
+{%- if story_heading != blank or story_body != blank or has_mf_heading or has_mf_body -%}
+<section class="altrd-story altrd-story--{{ section.settings.color_style }}">
+  <div class="altrd-story__inner {% if section.settings.show_image and section.settings.image != blank %}altrd-story__inner--has-image{% endif %}">
+
+    <div class="altrd-story__content page-width">
+      {%- if story_eyebrow != blank -%}
+        <p class="altrd-story__eyebrow">{{ story_eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if has_mf_heading -%}
+        <h2 class="altrd-story__heading">{{ product.metafields.custom.story_heading | escape }}</h2>
+      {%- elsif story_heading != blank -%}
+        <h2 class="altrd-story__heading">{{ story_heading | escape }}</h2>
+      {%- endif -%}
+
+      <div class="altrd-story__columns">
+        <div class="altrd-story__body-wrap">
+          {%- if has_mf_body -%}
+            <div class="altrd-story__body rte">{{ product.metafields.custom.story_body | metafield_tag }}</div>
+          {%- elsif story_body != blank -%}
+            <div class="altrd-story__body rte">{{ story_body }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_image and section.settings.image != blank -%}
+          <div class="altrd-story__media">
+            {{
+              section.settings.image
+              | image_url: width: 900
+              | image_tag:
+                class: 'altrd-story__img',
+                loading: 'lazy',
+                sizes: '(min-width: 990px) 38vw, 100vw',
+                widths: '400, 600, 900'
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_trust -%}
+        <ul class="altrd-story__trust" role="list" aria-label="Why ALTRD">
+          {%- for i in (1..3) -%}
+            {%- assign badge_key = 'trust_' | append: i -%}
+            {%- if section.settings[badge_key] != blank -%}
+              <li class="altrd-story__trust-item">
+                <svg class="altrd-story__trust-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <circle cx="7" cy="7" r="6.5" stroke="currentColor" stroke-width="1"/>
+                  <path d="M4 7l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {{ section.settings[badge_key] | escape }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+{%- endif -%}
+
+{% stylesheet %}
+/* === ALTRD custom === */
+
+.altrd-story {
+  overflow: hidden;
+}
+
+.altrd-story--ink  { background: var(--color-altrd-ink, #0B0B0B);  color: var(--color-altrd-bone, #F4EFE6); }
+.altrd-story--bone { background: var(--color-altrd-bone, #F4EFE6); color: var(--color-altrd-ink, #0B0B0B); }
+
+.altrd-story__inner {
+  padding: 7rem 0;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-story__inner { padding: 5rem 0; }
+}
+
+.altrd-story__content {
+  max-width: 100%;
+}
+
+.altrd-story__eyebrow {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem;
+}
+
+.altrd-story--ink  .altrd-story__eyebrow { color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-story--bone .altrd-story__eyebrow { color: var(--color-altrd-ink, #0B0B0B); opacity: 0.4; }
+
+.altrd-story__heading {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(3rem, 6vw, 7.5rem);
+  font-weight: 400;
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin: 0 0 4rem;
+  word-break: break-word;
+  max-width: 22ch;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-story__heading { margin-bottom: 2.5rem; }
+}
+
+.altrd-story__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.altrd-story__inner:not(.altrd-story__inner--has-image) .altrd-story__columns {
+  grid-template-columns: minmax(0, 72ch);
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-story__columns {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.altrd-story__body {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.78;
+}
+
+.altrd-story--ink  .altrd-story__body { color: rgba(244, 239, 230, 0.72); }
+.altrd-story--bone .altrd-story__body { color: rgba(11, 11, 11, 0.68); }
+
+.altrd-story__body p { margin: 0 0 1.1em; }
+.altrd-story__body p:last-child { margin-bottom: 0; }
+
+.altrd-story__media {
+  position: relative;
+}
+
+.altrd-story__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+/* --- Trust badges --- */
+
+.altrd-story__trust {
+  list-style: none;
+  padding: 0;
+  margin: 3.5rem 0 0;
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 549px) {
+  .altrd-story__trust { gap: 1.25rem; flex-direction: column; }
+}
+
+.altrd-story__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.altrd-story--ink  .altrd-story__trust-item { color: rgba(244, 239, 230, 0.55); }
+.altrd-story--bone .altrd-story__trust-item { color: rgba(11, 11, 11, 0.5); }
+
+.altrd-story__trust-icon {
+  flex-shrink: 0;
+}
+
+.altrd-story--ink  .altrd-story__trust-icon { color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-story--bone .altrd-story__trust-icon { color: var(--color-altrd-ink, #0B0B0B); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "ALTRD — Product story",
+  "class": "altrd-product-story-section",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Story content"
+    },
+    {
+      "type": "paragraph",
+      "content": "Tip: set product metafields `custom.story_heading` and `custom.story_body` to show product-specific copy. These section defaults apply when no metafield is found."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "The idea behind this piece"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Default heading",
+      "default": "Every piece starts with an idea."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Default story body",
+      "default": "<p>This isn't just fabric and thread. Every drop begins with a concept — something we've been thinking about, decoding, living. The piece you're holding is the physical version of that idea.</p><p>Wear it like you mean it.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Image (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Show image beside story",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Story image",
+      "info": "Portrait orientation (3:4) works best."
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Badge 1",
+      "default": "Free shipping on orders over ₹999"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Badge 2",
+      "default": "Easy 7-day returns"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Badge 3",
+      "default": "Built to last — quality guaranteed"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_style",
+      "label": "Color style",
+      "options": [
+        { "value": "ink",  "label": "Ink (dark)" },
+        { "value": "bone", "label": "Bone (light)" }
+      ],
+      "default": "ink"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Product story",
+      "settings": {
+        "eyebrow": "The idea behind this piece",
+        "heading": "Every piece starts with an idea.",
+        "show_trust": true,
+        "trust_1": "Free shipping on orders over ₹999",
+        "trust_2": "Easy 7-day returns",
+        "trust_3": "Built to last — quality guaranteed",
+        "color_style": "ink"
+      }
+    }
+  ]
+}
+{% endschema %}
