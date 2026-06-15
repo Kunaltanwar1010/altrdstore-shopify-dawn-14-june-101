@@ -75,13 +75,7 @@
     }
   }
 
-  /* === ALTRD glassmorphism === */
-  {%- if section.settings.enable_glassmorphism -%}
-    .header-wrapper.altrd-glass {
-      --altrd-glass-bg: rgba(255, 255, 255, {{ section.settings.glass_opacity | divided_by: 100.0 }});
-      --altrd-glass-blur: {{ section.settings.glass_blur }}px;
-    }
-  {%- endif -%}
+  /* ALTRD: fully transparent header — no CSS vars needed */
 </style>
 
 {%- style -%}
@@ -269,18 +263,20 @@
                 {{ customer | avatar }}
               {%- else -%}
                 <span class="svg-wrapper altrd-account-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <circle cx="12" cy="7.5" r="3.75"/>
-                    <path d="M4.5 21c0-4.142 3.358-7.5 7.5-7.5s7.5 3.358 7.5 7.5"/>
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="10" cy="7.5" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M2.5 21c0-4.14 3.36-7.5 7.5-7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M18 3l-3.5 5.5h2.5L14.5 14" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </span>
               {%- endif -%}
             </account-icon>
           {%- else -%}
             <span class="svg-wrapper altrd-account-icon">
-              <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M22.9129 12.935L13.7571 23.0474C13.5348 23.2929 13.1284 23.1084 13.1669 22.7794L14.0816 14.9731H10.6991C10.4034 14.9731 10.2484 14.6219 10.4478 14.4035L20.3133 3.59739C20.5589 3.32834 20.9984 3.58134 20.8891 3.92887L18.2354 12.3664H22.6607C22.9557 12.3664 23.1109 12.7163 22.9129 12.935Z" fill="currentColor"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6079 5.35819C16.4805 5.1933 16.3421 5.03582 16.1932 4.8869C15.2702 3.96387 14.0183 3.44531 12.7129 3.44531C11.4075 3.44531 10.1556 3.96387 9.2326 4.8869C8.30957 5.80993 7.79102 7.06183 7.79102 8.36719C7.79102 9.67255 8.30957 10.9244 9.2326 11.8475C9.48368 12.0986 9.75909 12.3197 10.0533 12.5086L11.0235 11.4503C10.7335 11.2914 10.4649 11.0911 10.227 10.8531C9.56766 10.1938 9.19727 9.29959 9.19727 8.36719C9.19727 7.43479 9.56766 6.54057 10.227 5.88127C10.8863 5.22196 11.7805 4.85156 12.7129 4.85156C13.6453 4.85156 14.5395 5.22196 15.1988 5.88127C15.3636 6.04604 15.5103 6.22549 15.6377 6.41654L16.6079 5.35819ZM20.6413 18.6497L19.6746 19.7132C20.1676 20.4122 20.4473 21.2264 20.4473 22.0781V23.8359C20.4473 24.2243 20.7621 24.5391 21.1504 24.5391C21.5387 24.5391 21.8535 24.2243 21.8535 23.8359V22.0781C21.8535 20.7863 21.4016 19.6103 20.6413 18.6497ZM12.3111 17.5078H10.3026C7.27113 17.5078 4.97852 19.6394 4.97852 22.0781V23.8359C4.97852 24.2243 4.66372 24.5391 4.27539 24.5391C3.88707 24.5391 3.57227 24.2243 3.57227 23.8359V22.0781C3.57227 18.6922 6.67684 16.1016 10.3026 16.1016H12.4885L12.3111 17.5078Z" fill="currentColor" stroke="currentColor" stroke-width="0.8"/>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="10" cy="7.5" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M2.5 21c0-4.14 3.36-7.5 7.5-7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18 3l-3.5 5.5h2.5L14.5 14" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
           {%- endif -%}
@@ -304,11 +300,13 @@
       {%- endfor -%}
 
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
-        {% if cart == empty %}
-          <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-        {% else %}
-          <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-        {% endif %}
+        <span class="svg-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+        </span>
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         {%- if cart != empty -%}
           <div class="cart-count-bubble">
@@ -332,38 +330,41 @@
 
 {% stylesheet %}
 /* ============================================================
-   ALTRD Header — WearADHD-inspired
-   Light frosted glass · logo left · nav center · icons right
+   ALTRD Header — fully transparent · auto-adaptive colours
+   Logo left · nav centre · icons right
    ============================================================ */
 
-/* --- Glassmorphism ----------------------------------------- */
+/* --- Strip all colour and blur from the header wrapper ----- */
 .header-wrapper.altrd-glass {
-  background-color: var(--altrd-glass-bg, rgba(255, 255, 255, 0.08)) !important;
+  background: transparent !important;
   background-image: none !important;
-  backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-  transition: background-color 0.4s ease;
-}
-.shopify-section-header-sticky .header-wrapper.altrd-glass,
-.scrolled-past-header .header-wrapper.altrd-glass {
-  background-color: rgba(255, 255, 255, 0.55) !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 
-/* --- All header elements: dark on light glass -------------- */
-.header-wrapper.altrd-glass .header__heading-link,
-.header-wrapper.altrd-glass .header__menu-item,
-.header-wrapper.altrd-glass .list-menu__item--link,
-.header-wrapper.altrd-glass .header__icon {
-  color: #000000 !important;
+/* --- mix-blend-mode: difference makes white elements ------- */
+/* appear WHITE on dark backgrounds and BLACK on light ones    */
+.header-wrapper.altrd-glass .header__heading-link {
+  mix-blend-mode: difference;
+  color: #ffffff !important;
 }
-.header-wrapper.altrd-glass .header__icon svg,
-.header-wrapper.altrd-glass .header__heading-link svg {
-  color: #000000 !important;
-  fill: #000000 !important;
+.header-wrapper.altrd-glass .header__menu-item {
+  mix-blend-mode: difference;
+  color: #ffffff !important;
+}
+.header-wrapper.altrd-glass .header__icon--search,
+.header-wrapper.altrd-glass .header__icon--cart {
+  mix-blend-mode: difference;
+  color: #ffffff !important;
 }
 
-/* --- Nav typography: uppercase · Space Grotesk · tight ----- */
+/* --- Account icon: skip blend so gold bolt stays gold ------ */
+.header-wrapper.altrd-glass .header__icon--account {
+  color: #ffffff;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.65));
+}
+
+/* --- Nav typography ---------------------------------------- */
 .header__menu-item {
   font-family: var(--font-altrd-body, 'Space Grotesk', sans-serif) !important;
   font-size: 0.75rem !important;
@@ -377,7 +378,6 @@
   text-decoration: underline;
   text-underline-offset: 0.3rem;
 }
-/* Kill the underline on active item — use clean no-style active */
 .header__active-menu-item {
   text-decoration: none !important;
 }
@@ -400,16 +400,14 @@
   }
 }
 
-/* --- Mobile: hamburger + logo + search + cart only --------- */
-/* Account lives inside the drawer menu — not as a floating icon */
+/* --- Mobile: account lives in the drawer, not floating ----- */
 @media screen and (max-width: 989px) {
   .header__icon--account {
     display: none !important;
   }
 }
 
-/* --- Uniform icons: 20×20 visual · 44×44 touch target ------ */
-/* No display override — Dawn controls close-button visibility  */
+/* --- Uniform icons: 20×20 visual in 44×44 touch target ----- */
 .header__icon .svg-wrapper {
   width: 20px !important;
   height: 20px !important;
@@ -420,7 +418,7 @@
   flex-shrink: 0;
 }
 
-/* Account icon container */
+/* --- Account icon wrapper ---------------------------------- */
 account-icon {
   display: flex !important;
   align-items: center;
