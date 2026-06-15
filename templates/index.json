@@ -56,6 +56,52 @@
         "color_style": "ink"
       }
     },
+    "altrd_collection_split_wWWwzg": {
+      "type": "altrd-collection-split",
+      "blocks": {
+        "panel_nbTpyP": {
+          "type": "panel",
+          "settings": {
+            "collection": "all-collection",
+            "label": "LITE",
+            "tagline": "Light minds move fast.",
+            "cta_label": "Explore Lite",
+            "image_override": "shopify://shop_images/Collection_banner_2.png",
+            "overlay_treatment": "dark",
+            "focal_point": "center center",
+            "show_product_count": true
+          }
+        },
+        "panel_AcNUbk": {
+          "type": "panel",
+          "settings": {
+            "collection": "frontpage",
+            "label": "MAX",
+            "tagline": "Go all in. Every time.",
+            "cta_label": "Explore Max",
+            "image_override": "shopify://shop_images/Collection_page_banner.png",
+            "overlay_treatment": "dark",
+            "focal_point": "center center",
+            "show_product_count": true
+          }
+        }
+      },
+      "block_order": [
+        "panel_nbTpyP",
+        "panel_AcNUbk"
+      ],
+      "name": "ALTRD — Collection split",
+      "settings": {
+        "eyebrow": "Two weights. One mindset.",
+        "heading": "",
+        "height": "large",
+        "enable_hover": true,
+        "enable_marquee": false,
+        "accent_color": "#e8ff52",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "altrd-lookbook-0": {
       "type": "altrd-lookbook",
       "disabled": true,
@@ -209,13 +255,20 @@
     "altrd_pdp_overrides_nHkqLd": {
       "type": "altrd-pdp-overrides",
       "name": "ALTRD — PDP style",
-      "settings": {}
+      "settings": {
+        "accent_color": "#e8ff52",
+        "atc_bg_color": "#0b0b0b",
+        "atc_text_color": "#f4efe6",
+        "enable_hivis_atc": true,
+        "square_buttons": true
+      }
     }
   },
   "order": [
     "altrd-hero-0",
     "altrd-drop-0",
     "altrd_creator_7aVn6R",
+    "altrd_collection_split_wWWwzg",
     "altrd-lookbook-0",
     "altrd-philosophy-0",
     "altrd_ugc_QVCKUk",
