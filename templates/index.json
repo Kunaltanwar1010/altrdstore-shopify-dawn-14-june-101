@@ -26,6 +26,7 @@
     },
     "altrd-drop-0": {
       "type": "altrd-featured-drop",
+      "custom_css": [],
       "settings": {
         "drop_label": "Drop 001",
         "heading": "jhghg",
