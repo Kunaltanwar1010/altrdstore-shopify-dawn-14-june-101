@@ -9,22 +9,22 @@
  */
 {
   "sections": {
-    "altrd-pdp-overrides": {
-      "type": "altrd-pdp-overrides",
-      "settings": {}
-    },
     "main": {
       "type": "main-product",
       "blocks": {
         "vendor": {
           "type": "text",
           "settings": {
-            "text": "{{ product.type }}",
-            "text_style": "uppercase"
+            "text": "{{ product.vendor }}",
+            "text_style": "body"
           }
         },
         "title": {
           "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
           "settings": {}
         },
         "price": {
@@ -45,77 +45,69 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
           }
         },
         "description": {
           "type": "description",
           "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
         }
       },
       "block_order": [
         "vendor",
         "title",
+        "rating",
         "price",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "description"
+        "description",
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "media_size": "large",
+        "media_size": "small",
         "constrain_to_viewport": true,
-        "media_fit": "cover",
-        "gallery_layout": "stacked",
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "lightbox",
-        "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "altrd-product-story": {
-      "type": "altrd-product-story",
-      "settings": {
-        "eyebrow": "The idea behind this piece",
-        "heading": "Every piece starts with an idea.",
-        "body": "<p>This isn't just fabric and thread. Every drop begins with a concept — something we've been thinking about, decoding, living. The piece you're holding is the physical version of that idea.</p><p>Wear it like you mean it.</p>",
-        "show_image": false,
-        "show_trust": true,
-        "trust_1": "Free shipping on orders over ₹999",
-        "trust_2": "Easy 7-day returns",
-        "trust_3": "Built to last — quality guaranteed",
-        "color_style": "ink"
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
-        "heading": "Pairs with",
+        "heading": "You may also like",
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 48,
-        "padding_bottom": 48
+        "padding_top": 0,
+        "padding_bottom": 60
       }
     }
   },
   "order": [
-    "altrd-pdp-overrides",
     "main",
-    "altrd-product-story",
     "related-products"
   ]
 }
