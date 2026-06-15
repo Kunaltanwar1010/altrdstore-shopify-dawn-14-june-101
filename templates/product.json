@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "altrd-pdp-overrides": {
+      "type": "altrd-pdp-overrides",
+      "settings": {
+        "accent_color": "#E8FF52",
+        "atc_bg_color": "#0B0B0B",
+        "atc_text_color": "#F4EFE6",
+        "enable_hivis_atc": true,
+        "square_buttons": true
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -16,7 +26,7 @@
           "type": "text",
           "settings": {
             "text": "{{ product.vendor }}",
-            "text_style": "body"
+            "text_style": "uppercase"
           }
         },
         "title": {
@@ -30,6 +40,18 @@
         "price": {
           "type": "price",
           "settings": {}
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "text": "Built different. On purpose."
+          }
+        },
+        "size_guide": {
+          "type": "size_guide",
+          "settings": {
+            "link_text": "Size guide"
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -46,17 +68,51 @@
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "show_gift_card_recipient": false
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
+        "trust_row": {
+          "type": "icon-with-text",
           "settings": {
-            "share_label": "Share"
+            "layout": "horizontal",
+            "icon_1": "truck",
+            "heading_1": "Free shipping over ₹999",
+            "icon_2": "return",
+            "heading_2": "Easy 7-day returns",
+            "icon_3": "lock",
+            "heading_3": "Secure checkout"
+          }
+        },
+        "tab_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Details",
+            "icon": "shirt",
+            "content": "<p>Oversized fit. Drop-shoulder silhouette. Side seam pockets. Ribbed collar.</p>"
+          }
+        },
+        "tab_sizing": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Fit & Sizing",
+            "icon": "ruler",
+            "content": "<p>Model is 6'1\" wearing a Large. Runs true to size. For an oversized fit, size up.</p>"
+          }
+        },
+        "tab_materials": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Materials & Care",
+            "icon": "washing",
+            "content": "<p>100% heavyweight cotton (340 GSM). Machine wash cold, tumble dry low. Do not bleach.</p>"
+          }
+        },
+        "tab_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "icon": "truck",
+            "content": "<p>Dispatched within 2–4 business days. Free shipping on orders over ₹999. Returns accepted within 7 days of delivery.</p>"
           }
         }
       },
@@ -65,32 +121,38 @@
         "title",
         "rating",
         "price",
+        "tagline",
+        "size_guide",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "description",
-        "share"
+        "trust_row",
+        "tab_details",
+        "tab_sizing",
+        "tab_materials",
+        "tab_shipping"
       ],
       "settings": {
+        "enable_sticky_atc": true,
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "media_size": "small",
+        "media_size": "large",
         "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "thumbnail_slider",
-        "mobile_thumbnails": "hide",
+        "media_fit": "cover",
+        "gallery_layout": "stacked",
         "media_position": "left",
         "image_zoom": "lightbox",
-        "hide_variants": true,
+        "mobile_thumbnails": "hide",
+        "hide_variants": false,
         "enable_video_looping": false,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
-        "heading": "You may also like",
+        "heading": "More from this drop",
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
@@ -101,12 +163,13 @@
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "padding_top": 0,
+        "padding_top": 48,
         "padding_bottom": 60
       }
     }
   },
   "order": [
+    "altrd-pdp-overrides",
     "main",
     "related-products"
   ]

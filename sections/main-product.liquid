@@ -1,6 +1,6 @@
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  class="altrd-pdp-v2 section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
@@ -37,6 +37,276 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+  {%- endstyle -%}
+
+  {%- style -%}
+  /* === ALTRD custom PDP editorial === */
+
+  /* --- Info column layout --- */
+  .altrd-pdp-v2 .product__info-container { padding-top: 2rem; }
+  @media screen and (min-width: 990px) {
+    .altrd-pdp-v2 .product__info-wrapper { padding-left: 2rem; }
+  }
+
+  /* --- Title: Bebas Neue, editorial scale --- */
+  .altrd-pdp-v2 .product__title h1 {
+    font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+    font-size: clamp(2.75rem, 5.5vw, 6.5rem);
+    font-weight: 400;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin: 0 0 1.25rem;
+    letter-spacing: 0.01em;
+  }
+  .altrd-pdp-v2 .product__title a.product__title { display: none; }
+
+  /* --- Price spacing --- */
+  .altrd-pdp-v2 #price-{{ section.id }} { margin-bottom: 1.75rem; }
+  .altrd-pdp-v2 #price-{{ section.id }} .price-item--sale {
+    font-size: 1.625rem;
+    font-weight: 700;
+  }
+  .altrd-pdp-v2 .badge--sale {
+    background: var(--color-altrd-hivis, #E8FF52);
+    color: #0B0B0B;
+    border-radius: 0;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.25em 0.625em;
+  }
+
+  /* --- Tagline block --- */
+  .altrd-pdp-tagline {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(11, 11, 11, 0.55);
+    max-width: 36ch;
+    margin: 0 0 1.75rem;
+  }
+
+  /* --- Variant picker: square pills, ink active state --- */
+  .altrd-pdp-v2 .product-form__input {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.875rem;
+  }
+  .altrd-pdp-v2 .product-form__input .form__label {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.625rem;
+  }
+  .altrd-pdp-v2 .product-form__input--pill .swatch-input__input + .swatch__label,
+  .altrd-pdp-v2 .product-form__input .button {
+    border-radius: 0;
+    border-width: 1.5px;
+    padding: 0.5625rem 0.875rem;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    min-width: 3rem;
+    text-align: center;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  /* --- ATC button: ink → hi-vis hover --- */
+  .altrd-pdp-v2 .product-form__submit {
+    border-radius: 0;
+    min-height: 3.75rem;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .altrd-pdp-v2 .product-form__buttons { margin-top: 0.5rem; }
+
+  /* --- Trust/icon-with-text row --- */
+  .altrd-pdp-v2 .icon-with-text {
+    border-top: 1px solid rgba(11, 11, 11, 0.1);
+    padding: 1.25rem 0 0;
+    margin-top: 0.25rem;
+  }
+  .altrd-pdp-v2 .icon-with-text__item .icon-with-text__heading {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  /* --- Accordions: editorial minimal --- */
+  .altrd-pdp-v2 .product__accordion.accordion {
+    border-top: 1px solid rgba(11, 11, 11, 0.1);
+    border-bottom: none;
+    margin: 0;
+  }
+  .altrd-pdp-v2 .product__accordion.accordion:last-of-type {
+    border-bottom: 1px solid rgba(11, 11, 11, 0.1);
+  }
+  .altrd-pdp-v2 .accordion summary { padding: 1.125rem 0; }
+  .altrd-pdp-v2 .accordion__title.h4 {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .altrd-pdp-v2 .accordion__content {
+    padding-bottom: 1.25rem;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.9375rem;
+    line-height: 1.72;
+    color: rgba(11, 11, 11, 0.68);
+  }
+
+  /* --- Size guide trigger --- */
+  .altrd-pdp-size-guide {
+    display: inline-flex;
+    margin-bottom: 1.25rem;
+  }
+  .altrd-pdp-size-guide__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(11, 11, 11, 0.45);
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(11, 11, 11, 0.2);
+    padding: 0 0 2px;
+    cursor: pointer;
+    transition: color 0.18s ease, border-color 0.18s ease;
+  }
+  .altrd-pdp-size-guide__btn:hover { color: #0B0B0B; border-color: #0B0B0B; }
+  .altrd-pdp-size-guide__btn:focus-visible {
+    outline: 2px solid var(--color-altrd-hivis, #E8FF52);
+    outline-offset: 3px;
+  }
+  .altrd-size-guide-modal .product-popup-modal__content-info {
+    padding: 2rem 2rem 3rem;
+  }
+  .altrd-size-guide-modal h2 {
+    font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .altrd-size-guide-modal table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  }
+  .altrd-size-guide-modal td,
+  .altrd-size-guide-modal th {
+    padding: 0.625rem 0.875rem;
+    border: 1px solid rgba(11, 11, 11, 0.1);
+    font-size: 0.875rem;
+    text-align: left;
+  }
+  .altrd-size-guide-modal th {
+    background: #0B0B0B;
+    color: #F4EFE6;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* --- Sticky ATC bar --- */
+  .altrd-sticky-atc {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #0B0B0B;
+    color: #F4EFE6;
+    transform: translateY(100%);
+    transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-top: 2px solid var(--color-altrd-hivis, #E8FF52);
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .altrd-sticky-atc { transition: none; }
+  }
+  .altrd-sticky-atc--visible { transform: translateY(0); }
+  .altrd-sticky-atc__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1.5rem;
+  }
+  .altrd-sticky-atc__media {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
+  }
+  .altrd-sticky-atc__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .altrd-sticky-atc__info { flex: 1 1 auto; min-width: 0; }
+  .altrd-sticky-atc__title {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 0 0.125rem;
+  }
+  .altrd-sticky-atc__meta {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.75rem;
+    color: rgba(244, 239, 230, 0.45);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+  .altrd-sticky-atc__price {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .altrd-sticky-atc__btn {
+    flex-shrink: 0;
+    background: var(--color-altrd-hivis, #E8FF52);
+    color: #0B0B0B;
+    border: none;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.625rem;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+    white-space: nowrap;
+  }
+  .altrd-sticky-atc__btn:hover:not(:disabled) { opacity: 0.88; }
+  .altrd-sticky-atc__btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -3px;
+  }
+  .altrd-sticky-atc__btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  @media screen and (max-width: 549px) {
+    .altrd-sticky-atc__media { display: none; }
+    .altrd-sticky-atc__price { display: none; }
+    .altrd-sticky-atc__btn { flex: 0 0 auto; }
+  }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -582,10 +852,12 @@
                                 {% endif %}
                               >
                                 <ul class="list-unstyled" role="list">
+                                  {% # theme-check-disable %}
                                   {%- for product in recommendations.products
                                     limit: block.settings.products_per_page
                                     offset: continue
                                   -%}
+                                  {% # theme-check-enable %}
                                     <li>
                                       {%- if block.settings.enable_quick_add -%}
                                         {% assign quick_add = 'standard' %}
@@ -674,15 +946,169 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
+
+              {%- when 'tagline' -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="altrd-pdp-tagline" {{ block.shopify_attributes }}>
+                    {{- block.settings.text | escape -}}
+                  </p>
+                {%- endif -%}
+
+              {%- when 'size_guide' -%}
+                {%- if block.settings.content != blank or block.settings.page.content != blank -%}
+                  <modal-opener
+                    class="altrd-pdp-size-guide quick-add-hidden"
+                    data-modal="#SizeGuideModal-{{ block.id }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    <button
+                      id="SizeGuideBtn-{{ block.id }}"
+                      class="altrd-pdp-size-guide__btn"
+                      type="button"
+                      aria-haspopup="dialog"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M1 8h14M8 1v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <rect x="1" y="1" width="14" height="14" rx="1" stroke="currentColor" stroke-width="1.25"/>
+                      </svg>
+                      {{- block.settings.link_text | default: 'Size guide' | escape -}}
+                    </button>
+                  </modal-opener>
+                  <modal-dialog
+                    id="SizeGuideModal-{{ block.id }}"
+                    class="product-popup-modal altrd-size-guide-modal"
+                  >
+                    <div
+                      role="dialog"
+                      aria-label="{{ block.settings.link_text | default: 'Size guide' | escape }}"
+                      aria-modal="true"
+                      class="product-popup-modal__content"
+                      tabindex="-1"
+                    >
+                      <button
+                        id="SizeGuideClose-{{ block.id }}"
+                        type="button"
+                        class="product-popup-modal__toggle"
+                        aria-label="{{ 'accessibility.close' | t }}"
+                      >
+                        {{- 'icon-close.svg' | inline_asset_content -}}
+                      </button>
+                      <div class="product-popup-modal__content-info altrd-size-guide-modal__body">
+                        <h2>{{ block.settings.link_text | default: 'Size guide' | escape }}</h2>
+                        {%- if block.settings.content != blank -%}
+                          <div class="rte">{{ block.settings.content }}</div>
+                        {%- elsif block.settings.page.content != blank -%}
+                          <div class="rte">{{ block.settings.page.content }}</div>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </modal-dialog>
+                {%- endif -%}
             {%- endcase -%}
           {%- endfor -%}
-          <a href="{{ product.url }}" class="link product__view-details animate-arrow">
-            {{ 'products.product.view_full_details' | t }}
-            {{- 'icon-arrow.svg' | inline_asset_content -}}
-          </a>
         </section>
       </div>
     </div>
+
+    {%- if section.settings.enable_sticky_atc -%}
+      <div
+        class="altrd-sticky-atc"
+        id="AltrdStickyATC-{{ section.id }}"
+        aria-hidden="true"
+        aria-label="{{ 'products.product.add_to_cart' | t }}"
+        data-section="{{ section.id }}"
+      >
+        <div class="altrd-sticky-atc__inner page-width">
+          {%- if product.featured_image -%}
+            <div class="altrd-sticky-atc__media">
+              {{
+                product.featured_image
+                | image_url: width: 100
+                | image_tag:
+                  class: 'altrd-sticky-atc__img',
+                  loading: 'lazy',
+                  widths: '60, 80, 100',
+                  alt: product.featured_image.alt | default: product.title | escape
+              }}
+            </div>
+          {%- endif -%}
+          <div class="altrd-sticky-atc__info">
+            <p class="altrd-sticky-atc__title">{{ product.title | escape }}</p>
+            <p class="altrd-sticky-atc__meta" id="AltrdStickyMeta-{{ section.id }}">
+              {%- assign sv = product.selected_or_first_available_variant -%}
+              {%- unless sv.title == 'Default Title' -%}{{ sv.title | escape }}{%- endunless -%}
+            </p>
+          </div>
+          <div class="altrd-sticky-atc__price" id="AltrdStickyPrice-{{ section.id }}">
+            {%- if sv.compare_at_price > sv.price -%}
+              <s style="opacity:0.45;font-size:0.8125rem;margin-right:0.375rem;">{{ sv.compare_at_price | money }}</s>
+            {%- endif -%}
+            {{ sv.price | money }}
+          </div>
+          <button
+            class="altrd-sticky-atc__btn"
+            type="button"
+            id="AltrdStickyBtn-{{ section.id }}"
+            {%- unless sv.available %} disabled{%- endunless -%}
+          >
+            {%- if sv.available -%}
+              {{ 'products.product.add_to_cart' | t }}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </button>
+        </div>
+      </div>
+      <script>
+      (function () {
+        var sid   = {{ section.id | json }};
+        var bar   = document.getElementById('AltrdStickyATC-' + sid);
+        var mainBtn = document.getElementById('ProductSubmitButton-' + sid);
+        var stickyBtn = document.getElementById('AltrdStickyBtn-' + sid);
+        var stickyMeta  = document.getElementById('AltrdStickyMeta-' + sid);
+        var stickyPrice = document.getElementById('AltrdStickyPrice-' + sid);
+        if (!bar || !mainBtn) return;
+
+        /* Show / hide on scroll */
+        var io = new IntersectionObserver(function (entries) {
+          var below = !entries[0].isIntersecting;
+          bar.classList.toggle('altrd-sticky-atc--visible', below);
+          bar.setAttribute('aria-hidden', String(!below));
+        }, { rootMargin: '0px 0px -60px 0px' });
+        io.observe(mainBtn);
+
+        /* Sticky btn clicks main form */
+        if (stickyBtn) {
+          stickyBtn.addEventListener('click', function () { mainBtn.click(); });
+        }
+
+        /* Sync on variant change — Dawn fires on product-info element, bubbles */
+        var productInfo = document.getElementById('MainProduct-' + sid);
+        if (productInfo) {
+          productInfo.addEventListener('variant:change', function (e) {
+            var v = e.detail && e.detail.variant;
+            if (!v) return;
+            if (stickyMeta) {
+              stickyMeta.textContent = v.title !== 'Default Title' ? v.title : '';
+            }
+            if (stickyBtn) {
+              stickyBtn.disabled = !v.available;
+              stickyBtn.textContent = v.available ? {{ 'products.product.add_to_cart' | t | json }} : {{ 'products.product.sold_out' | t | json }};
+            }
+          });
+        }
+
+        /* Sync price via MutationObserver on the price container */
+        var priceEl = document.getElementById('price-' + sid);
+        if (priceEl && stickyPrice) {
+          new MutationObserver(function () {
+            var salePriceEl = priceEl.querySelector('.price-item--sale, .price-item--regular');
+            if (salePriceEl) stickyPrice.textContent = salePriceEl.textContent.trim();
+          }).observe(priceEl, { childList: true, subtree: true, characterData: true });
+        }
+      })();
+      </script>
+    {%- endif -%}
 
     {% render 'product-media-modal', variant_images: variant_images %}
 
@@ -724,6 +1150,7 @@
       <script src="{{ 'product-model.js' | asset_url }}" defer></script>
     {%- endif -%}
 
+    {% # theme-check-disable %}
     {%- liquid
       if product.selected_or_first_available_variant.featured_media
         assign seo_media = product.selected_or_first_available_variant.featured_media
@@ -731,6 +1158,7 @@
         assign seo_media = product.featured_media
       endif
     -%}
+    {% # theme-check-enable %}
 
     <script type="application/ld+json">
       {{ product | structured_data }}
@@ -1465,6 +1893,46 @@
       ]
     },
     {
+      "type": "tagline",
+      "name": "Tagline",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tagline text",
+          "default": "Built different. On purpose.",
+          "info": "One short line displayed under the price."
+        }
+      ]
+    },
+    {
+      "type": "size_guide",
+      "name": "Size guide",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link label",
+          "default": "Size guide"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Size guide content",
+          "info": "Add a table and/or descriptive copy. Alternatively link a Shopify page below.",
+          "default": "<table><thead><tr><th>Size</th><th>Chest (in)</th><th>Length (in)</th></tr></thead><tbody><tr><td>S</td><td>36–38</td><td>27</td></tr><tr><td>M</td><td>38–40</td><td>28</td></tr><tr><td>L</td><td>40–42</td><td>29</td></tr><tr><td>XL</td><td>42–44</td><td>30</td></tr></tbody></table>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Or link to a page",
+          "info": "If both content and page are set, the inline content above takes priority."
+        }
+      ]
+    },
+    {
       "type": "icon-with-text",
       "name": "t:sections.main-product.blocks.icon_with_text.name",
       "settings": [
@@ -2089,6 +2557,17 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "ALTRD settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_atc",
+      "label": "Enable sticky Add to Cart bar",
+      "default": true,
+      "info": "Appears at the bottom of the screen when the main ATC scrolls out of view."
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",
