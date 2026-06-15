@@ -356,6 +356,12 @@
   box-shadow: none !important;
 }
 
+/* --- Tighter horizontal padding — page-width handles the rest */
+.header {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 /* --- Default: white text (dark hero behind glass) ---------- */
 .header-wrapper.altrd-glass .header__heading-link,
 .header-wrapper.altrd-glass .header__menu-item,
@@ -364,11 +370,37 @@
   transition: color 0.25s ease, filter 0.25s ease;
 }
 
+/* --- Active nav span: same colour (overrides base.css:2827) - */
+.header-wrapper.altrd-glass .header__active-menu-item {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
 /* --- Over light sections: black text ---------------------- */
 .header-wrapper.altrd-glass.altrd-on-light .header__heading-link,
 .header-wrapper.altrd-glass.altrd-on-light .header__menu-item,
 .header-wrapper.altrd-glass.altrd-on-light .header__icon {
   color: #000000;
+}
+.header-wrapper.altrd-glass.altrd-on-light .header__active-menu-item {
+  color: #000000 !important;
+}
+
+/* --- Dot under active nav item ---------------------------- */
+.header-wrapper.altrd-glass .header__active-menu-item {
+  position: relative;
+  padding-bottom: 5px;
+}
+.header-wrapper.altrd-glass .header__active-menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 /* --- Account icon shadow (gold bolt on dark bg) ----------- */
@@ -387,13 +419,6 @@
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
   padding: 1rem 1rem !important;
-  text-decoration: none !important;
-}
-.header__menu-item:hover span {
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
-}
-.header__active-menu-item {
   text-decoration: none !important;
 }
 
