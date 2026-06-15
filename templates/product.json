@@ -89,6 +89,17 @@
             "item4_label": "COD Available"
           }
         },
+        "delivery_estimate_EPQmCY": {
+          "type": "delivery_estimate",
+          "settings": {
+            "title": "ESTIMATED DELIVERY",
+            "step1_label": "Order Placed",
+            "step2_label": "Order Packed",
+            "step2_days": 1,
+            "step3_label": "Delivered",
+            "step3_days": 6
+          }
+        },
         "tab_details": {
           "type": "collapsible_tab",
           "settings": {
@@ -138,6 +149,7 @@
         "quantity_selector",
         "buy_buttons",
         "trust_strip",
+        "delivery_estimate_EPQmCY",
         "tab_details",
         "tab_sizing",
         "tab_materials",
