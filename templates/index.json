@@ -24,46 +24,6 @@
         "overlay_opacity": 85
       }
     },
-    "altrd-cs-0": {
-      "type": "altrd-collection-split",
-      "blocks": {
-        "panel-lite": {
-          "type": "panel",
-          "settings": {
-            "label": "LITE",
-            "tagline": "Light minds move fast.",
-            "cta_label": "Explore Lite",
-            "overlay_treatment": "light",
-            "focal_point": "center center",
-            "show_product_count": true
-          }
-        },
-        "panel-max": {
-          "type": "panel",
-          "settings": {
-            "label": "MAX",
-            "tagline": "Go all in. Every time.",
-            "cta_label": "Explore Max",
-            "overlay_treatment": "dark",
-            "focal_point": "center center",
-            "show_product_count": true
-          }
-        }
-      },
-      "block_order": [
-        "panel-lite",
-        "panel-max"
-      ],
-      "settings": {
-        "eyebrow": "Two weights. One mindset.",
-        "height": "large",
-        "enable_hover": true,
-        "enable_marquee": false,
-        "accent_color": "#E8FF52",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "altrd-drop-0": {
       "type": "altrd-featured-drop",
       "custom_css": [],
@@ -245,16 +205,21 @@
         "success_message": "You're in. First access guaranteed.",
         "color_style": "hivis"
       }
+    },
+    "altrd_pdp_overrides_nHkqLd": {
+      "type": "altrd-pdp-overrides",
+      "name": "ALTRD — PDP style",
+      "settings": {}
     }
   },
   "order": [
     "altrd-hero-0",
-    "altrd-cs-0",
     "altrd-drop-0",
     "altrd_creator_7aVn6R",
     "altrd-lookbook-0",
     "altrd-philosophy-0",
     "altrd_ugc_QVCKUk",
-    "altrd-newsletter-0"
+    "altrd-newsletter-0",
+    "altrd_pdp_overrides_nHkqLd"
   ]
 }
