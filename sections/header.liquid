@@ -78,7 +78,7 @@
   /* === ALTRD glassmorphism === */
   {%- if section.settings.enable_glassmorphism -%}
     .header-wrapper.altrd-glass {
-      --altrd-glass-bg: rgba(0, 0, 0, {{ section.settings.glass_opacity | divided_by: 100.0 }});
+      --altrd-glass-bg: rgba(255, 255, 255, {{ section.settings.glass_opacity | divided_by: 100.0 }});
       --altrd-glass-blur: {{ section.settings.glass_blur }}px;
     }
   {%- endif -%}
@@ -331,21 +331,36 @@
 {%- endif -%}
 
 {% stylesheet %}
-/* === ALTRD glassmorphism header === */
+/* === ALTRD glassmorphism header — light frosted glass === */
 
 .header-wrapper.altrd-glass {
-  background-color: var(--altrd-glass-bg, rgba(0, 0, 0, 0.18)) !important;
+  background-color: var(--altrd-glass-bg, rgba(255, 255, 255, 0.18)) !important;
   background-image: none !important;
-  backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(160%);
-  -webkit-backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(160%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
   transition: background-color 0.35s ease;
 }
 
-/* Keep glass visible on scroll — do NOT go solid */
+/* Slightly denser on scroll — still clearly glassy */
 .shopify-section-header-sticky .header-wrapper.altrd-glass,
 .scrolled-past-header .header-wrapper.altrd-glass {
-  background-color: rgba(0, 0, 0, 0.42) !important;
+  background-color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Dark text/icons on light glass so nav stays readable */
+.header-wrapper.altrd-glass .header__heading-link,
+.header-wrapper.altrd-glass .header__menu-item,
+.header-wrapper.altrd-glass .list-menu__item--link {
+  color: #000000 !important;
+}
+.header-wrapper.altrd-glass .header__icon {
+  color: #000000 !important;
+}
+.header-wrapper.altrd-glass .header__icon svg,
+.header-wrapper.altrd-glass .header__heading-link svg {
+  color: #000000 !important;
+  fill: #000000 !important;
 }
 
 /* === Mobile: show account icon on the right alongside search + cart === */
