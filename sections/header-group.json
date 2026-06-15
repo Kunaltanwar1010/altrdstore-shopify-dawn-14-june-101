@@ -76,7 +76,7 @@
         "enable_customer_avatar": false,
         "enable_glassmorphism": true,
         "glass_blur": 24,
-        "glass_opacity": 20,
+        "glass_opacity": 8,
         "margin_bottom": 0,
         "padding_top": 12,
         "padding_bottom": 12
