@@ -38,24 +38,6 @@
         "color_style": "bone"
       }
     },
-    "altrd_creator_7aVn6R": {
-      "type": "altrd-creator",
-      "name": "ALTRD — Creator story",
-      "settings": {
-        "eyebrow": "The man behind the label",
-        "heading": "I didn't start a brand. I started a conversation.",
-        "body": "<p>I've spent years decoding how money, business, and leverage actually work — and sharing it with millions of people who weren't taught this stuff in school. ALTRD is where that energy becomes physical. Every drop is a chapter. Every piece is a prompt.</p><p>This isn't merch. It's a mindset you can wear.</p>",
-        "creator_name": "Ujjawal Pahwa",
-        "creator_title": "Forbes Top 100 Digital Stars · @cs.ujjawalpahwa",
-        "creator_handle": "@cs.ujjawalpahwa",
-        "cta_label": "Read the full story",
-        "cta_link": "",
-        "image": "shopify://shop_images/IMG_3192.heic",
-        "image_ratio": "portrait",
-        "layout": "image_left",
-        "color_style": "ink"
-      }
-    },
     "altrd_collection_split_wWWwzg": {
       "type": "altrd-collection-split",
       "blocks": {
@@ -100,6 +82,24 @@
         "accent_color": "#e8ff52",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "altrd_creator_7aVn6R": {
+      "type": "altrd-creator",
+      "name": "ALTRD — Creator story",
+      "settings": {
+        "eyebrow": "The man behind the label",
+        "heading": "I didn't start a brand. I started a conversation.",
+        "body": "<p>I've spent years decoding how money, business, and leverage actually work — and sharing it with millions of people who weren't taught this stuff in school. ALTRD is where that energy becomes physical. Every drop is a chapter. Every piece is a prompt.</p><p>This isn't merch. It's a mindset you can wear.</p>",
+        "creator_name": "Ujjawal Pahwa",
+        "creator_title": "Forbes Top 100 Digital Stars · @cs.ujjawalpahwa",
+        "creator_handle": "@cs.ujjawalpahwa",
+        "cta_label": "Read the full story",
+        "cta_link": "",
+        "image": "shopify://shop_images/IMG_3192.heic",
+        "image_ratio": "portrait",
+        "layout": "image_left",
+        "color_style": "ink"
       }
     },
     "altrd-lookbook-0": {
@@ -267,8 +267,8 @@
   "order": [
     "altrd-hero-0",
     "altrd-drop-0",
-    "altrd_creator_7aVn6R",
     "altrd_collection_split_wWWwzg",
+    "altrd_creator_7aVn6R",
     "altrd-lookbook-0",
     "altrd-philosophy-0",
     "altrd_ugc_QVCKUk",
