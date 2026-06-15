@@ -24,6 +24,19 @@
         "overlay_opacity": 85
       }
     },
+    "altrd-drop-0": {
+      "type": "altrd-featured-drop",
+      "settings": {
+        "drop_label": "Drop 001",
+        "heading": "jhghg",
+        "tagline": "One idea. Worn differently.",
+        "collection": "all-collection",
+        "products_to_show": 12,
+        "show_view_all": true,
+        "view_all_label": "View the full drop",
+        "color_style": "bone"
+      }
+    },
     "altrd_creator_7aVn6R": {
       "type": "altrd-creator",
       "name": "ALTRD — Creator story",
@@ -39,19 +52,6 @@
         "image": "shopify://shop_images/IMG_3192.heic",
         "image_ratio": "portrait",
         "layout": "image_left",
-        "color_style": "ink"
-      }
-    },
-    "altrd-drop-0": {
-      "type": "altrd-featured-drop",
-      "settings": {
-        "drop_label": "Drop 001",
-        "heading": "jhghg",
-        "tagline": "One idea. Worn differently.",
-        "collection": "all-collection",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "view_all_label": "View the full drop",
         "color_style": "ink"
       }
     },
@@ -207,8 +207,8 @@
   },
   "order": [
     "altrd-hero-0",
-    "altrd_creator_7aVn6R",
     "altrd-drop-0",
+    "altrd_creator_7aVn6R",
     "altrd-lookbook-0",
     "altrd-philosophy-0",
     "altrd_ugc_QVCKUk",
