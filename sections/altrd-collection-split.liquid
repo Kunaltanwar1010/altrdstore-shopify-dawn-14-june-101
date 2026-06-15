@@ -1,0 +1,626 @@
+{%- liquid
+  assign cs_height  = section.settings.height
+  assign cs_hover   = section.settings.enable_hover
+  assign cs_marquee = section.settings.enable_marquee
+  assign cs_accent  = section.settings.accent_color
+  assign cs_pt      = section.settings.padding_top
+  assign cs_pb      = section.settings.padding_bottom
+-%}
+
+<div
+  class="altrd-cs altrd-cs--{{ cs_height }}"
+  style="--cs-accent: {{ cs_accent }}; --cs-pt: {{ cs_pt }}px; --cs-pb: {{ cs_pb }}px;"
+>
+  {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+    <div class="altrd-cs__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="altrd-cs__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="altrd-cs__section-heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div
+    class="altrd-cs__inner"
+    {% if cs_hover %}data-cs-hover="true"{% endif %}
+  >
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign bl_col   = block.settings.collection
+        assign bl_label = block.settings.label
+        if bl_label == blank
+          if forloop.index == 1
+            assign bl_label = 'LITE'
+          else
+            assign bl_label = 'MAX'
+          endif
+        endif
+        assign bl_tag   = block.settings.tagline
+        assign bl_cta   = block.settings.cta_label
+        if bl_cta == blank
+          assign bl_cta = 'Explore'
+        endif
+        assign bl_img   = block.settings.image_override
+        if bl_img == blank and bl_col != blank
+          assign bl_img = bl_col.featured_image
+        endif
+        assign bl_treat  = block.settings.overlay_treatment
+        assign bl_focal  = block.settings.focal_point
+        assign bl_url    = bl_col.url | default: routes.collections_url
+        assign bl_show_n = block.settings.show_product_count
+      -%}
+
+      <div
+        class="altrd-cs__panel altrd-cs__panel--{{ bl_treat }} altrd-cs__panel--{{ forloop.index }}"
+        style="--cs-focal: {{ bl_focal }};"
+        {{ block.shopify_attributes }}
+      >
+        {%- assign aria_label = bl_label -%}
+        {%- if bl_tag != blank -%}
+          {%- assign aria_label = bl_label | append: ' — ' | append: bl_tag -%}
+        {%- endif -%}
+        <a
+          class="altrd-cs__link"
+          href="{{ bl_url }}"
+          aria-label="{{ aria_label | escape }}"
+        ></a>
+
+        <div class="altrd-cs__bg-wrap">
+          {%- if bl_img != blank -%}
+            {{
+              bl_img
+              | image_url: width: 1400
+              | image_tag:
+                class: 'altrd-cs__bg-img',
+                loading: 'lazy',
+                sizes: '(min-width: 990px) 50vw, 100vw',
+                widths: '750, 900, 1100, 1400',
+                alt: bl_img.alt | default: bl_label | escape
+            }}
+          {%- else -%}
+            <div class="altrd-cs__bg-placeholder altrd-cs__bg-placeholder--{{ bl_treat }}"></div>
+          {%- endif -%}
+          <div class="altrd-cs__overlay"></div>
+        </div>
+
+        <div class="altrd-cs__wipe" aria-hidden="true"></div>
+
+        <div class="altrd-cs__content">
+          {%- if bl_show_n and bl_col != blank -%}
+            {%- assign prod_count = bl_col.products_count -%}
+            {%- if prod_count > 0 -%}
+              <p class="altrd-cs__count" aria-hidden="true">
+                {{ prod_count }}
+                {%- if prod_count == 1 %} drop{%- else %} drops{%- endif -%}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+          <h2 class="altrd-cs__title">{{ bl_label | escape }}</h2>
+          {%- if bl_tag != blank -%}
+            <p class="altrd-cs__tagline">{{ bl_tag | escape }}</p>
+          {%- endif -%}
+          <span class="altrd-cs__cta" aria-hidden="true">
+            {{- bl_cta | escape -}}
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+
+        {%- if cs_marquee and bl_tag != blank -%}
+          <div class="altrd-cs__marquee-wrap" aria-hidden="true">
+            <div class="altrd-cs__marquee-track">
+              {%- for i in (1..8) -%}
+                <span class="altrd-cs__marquee-item">{{ bl_label | escape }}&nbsp;·&nbsp;{{ bl_tag | escape }}&nbsp;✶&nbsp;</span>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- unless forloop.last -%}
+        <div class="altrd-cs__divider" aria-hidden="true"></div>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+/* === ALTRD Collection split — Lite / Max === */
+
+.altrd-cs {
+  --cs-accent: #E8FF52;
+  --cs-pt: 0px;
+  --cs-pb: 0px;
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--cs-pt);
+  padding-bottom: var(--cs-pb);
+}
+
+.altrd-cs__header {
+  text-align: center;
+  padding: 3rem 1.5rem 2rem;
+}
+
+.altrd-cs__eyebrow {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+  opacity: 0.5;
+}
+
+.altrd-cs__section-heading {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 400;
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.altrd-cs__inner {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.altrd-cs--medium .altrd-cs__inner { min-height: 70vh; }
+.altrd-cs--large  .altrd-cs__inner { min-height: 85vh; }
+.altrd-cs--full   .altrd-cs__inner { min-height: 100svh; }
+
+.altrd-cs__divider {
+  flex: 0 0 3px;
+  background: var(--cs-accent);
+  align-self: stretch;
+  z-index: 2;
+}
+
+.altrd-cs__panel {
+  flex: 1 1 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+  transition: flex-grow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.altrd-cs__panel--expanded { flex-grow: 1.1; }
+.altrd-cs__panel--receded  { flex-grow: 0.9; }
+
+.altrd-cs__link {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+}
+
+.altrd-cs__link:focus-visible {
+  outline: 3px solid var(--cs-accent);
+  outline-offset: -3px;
+}
+
+.altrd-cs__bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.altrd-cs__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--cs-focal, center center);
+  display: block;
+  transition: transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.altrd-cs__bg-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.altrd-cs__bg-placeholder--dark  { background: #0B0B0B; }
+.altrd-cs__bg-placeholder--light { background: #F4EFE6; }
+
+.altrd-cs__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.altrd-cs__panel--dark .altrd-cs__overlay {
+  background: linear-gradient(
+    160deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.38) 55%,
+    rgba(0, 0, 0, 0.78) 100%
+  );
+}
+
+.altrd-cs__panel--light .altrd-cs__overlay {
+  background: linear-gradient(
+    160deg,
+    rgba(244, 239, 230, 0.04) 0%,
+    rgba(244, 239, 230, 0.28) 50%,
+    rgba(244, 239, 230, 0.72) 100%
+  );
+}
+
+.altrd-cs__wipe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--cs-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 3;
+}
+
+.altrd-cs__content {
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem 3rem;
+  width: 100%;
+}
+
+.altrd-cs__count {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 0.625rem;
+  opacity: 0.6;
+}
+
+.altrd-cs__title {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: clamp(6rem, 12vw, 13rem);
+  font-weight: 400;
+  line-height: 0.88;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.altrd-cs__tagline {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.55;
+  margin: 0 0 1.625rem;
+  max-width: 28ch;
+}
+
+.altrd-cs__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid currentColor;
+  transition: gap 0.25s ease;
+}
+
+.altrd-cs__panel--dark .altrd-cs__count,
+.altrd-cs__panel--dark .altrd-cs__title,
+.altrd-cs__panel--dark .altrd-cs__tagline,
+.altrd-cs__panel--dark .altrd-cs__cta {
+  color: #F4EFE6;
+}
+
+.altrd-cs__panel--light .altrd-cs__count,
+.altrd-cs__panel--light .altrd-cs__title,
+.altrd-cs__panel--light .altrd-cs__tagline,
+.altrd-cs__panel--light .altrd-cs__cta {
+  color: #0B0B0B;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .altrd-cs__panel--expanded .altrd-cs__bg-img,
+  .altrd-cs__panel:focus-within .altrd-cs__bg-img {
+    transform: scale(1.06);
+  }
+  .altrd-cs__panel--expanded .altrd-cs__wipe,
+  .altrd-cs__panel:focus-within .altrd-cs__wipe {
+    transform: scaleX(1);
+  }
+  .altrd-cs__panel--expanded .altrd-cs__title,
+  .altrd-cs__panel:focus-within .altrd-cs__title {
+    transform: translateX(0.5rem);
+  }
+  .altrd-cs__panel--expanded .altrd-cs__cta,
+  .altrd-cs__panel:focus-within .altrd-cs__cta {
+    gap: 0.875rem;
+  }
+}
+
+.altrd-cs__marquee-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 3;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 0;
+}
+
+.altrd-cs__marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .altrd-cs__marquee-track {
+    animation: altrd-cs-scroll 22s linear infinite;
+  }
+}
+
+.altrd-cs__marquee-item {
+  font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 0.5rem;
+  color: var(--cs-accent);
+  opacity: 0.85;
+}
+
+@keyframes altrd-cs-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media screen and (max-width: 989px) {
+  .altrd-cs__inner {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .altrd-cs__divider {
+    flex: 0 0 3px;
+    height: 3px;
+    width: 100%;
+    min-width: 0;
+  }
+  .altrd-cs__panel {
+    flex: none;
+    min-height: 75vw;
+  }
+  .altrd-cs__panel--expanded,
+  .altrd-cs__panel--receded {
+    flex: none;
+  }
+  .altrd-cs__title {
+    font-size: clamp(5rem, 22vw, 7rem);
+  }
+  .altrd-cs__content {
+    padding: 2rem 1.5rem 2.5rem;
+  }
+  .altrd-cs__tagline {
+    font-size: 1rem;
+  }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(function () {
+  var pref    = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var desktop = window.matchMedia('(min-width: 990px)');
+
+  document.querySelectorAll('.altrd-cs').forEach(function (cs) {
+    var inner = cs.querySelector('[data-cs-hover]');
+    if (!inner) return;
+
+    var panels = Array.from(cs.querySelectorAll('.altrd-cs__panel'));
+    if (panels.length < 2) return;
+
+    function activate(i) {
+      if (pref.matches || !desktop.matches) return;
+      panels[i].classList.add('altrd-cs__panel--expanded');
+      panels[1 - i].classList.add('altrd-cs__panel--receded');
+    }
+
+    function reset() {
+      panels.forEach(function (p) {
+        p.classList.remove('altrd-cs__panel--expanded', 'altrd-cs__panel--receded');
+      });
+    }
+
+    panels.forEach(function (panel, i) {
+      panel.addEventListener('mouseenter', function () { activate(i); });
+      panel.addEventListener('mouseleave', reset);
+    });
+  });
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "ALTRD — Collection split",
+  "class": "altrd-cs-section",
+  "tag": "div",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Two weights. One mindset."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading (optional)"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "options": [
+        { "value": "medium", "label": "Medium (70vh)" },
+        { "value": "large",  "label": "Large (85vh)" },
+        { "value": "full",   "label": "Full screen" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_hover",
+      "label": "Enable expanding hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_marquee",
+      "label": "Enable panel marquee",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / divider colour",
+      "default": "#E8FF52"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Panel",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Panel label",
+          "default": "LITE"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "Light minds move fast."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA label",
+          "default": "Explore"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_override",
+          "label": "Image override",
+          "info": "Overrides the collection featured image."
+        },
+        {
+          "type": "select",
+          "id": "overlay_treatment",
+          "label": "Overlay treatment",
+          "options": [
+            { "value": "light", "label": "Light (bone tones)" },
+            { "value": "dark",  "label": "Dark (ink tones)" }
+          ],
+          "default": "light"
+        },
+        {
+          "type": "select",
+          "id": "focal_point",
+          "label": "Image focal point",
+          "options": [
+            { "value": "center center", "label": "Center" },
+            { "value": "center top",    "label": "Top" },
+            { "value": "center bottom", "label": "Bottom" },
+            { "value": "left center",   "label": "Left" },
+            { "value": "right center",  "label": "Right" }
+          ],
+          "default": "center center"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_count",
+          "label": "Show product count",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Collection split",
+      "settings": {
+        "eyebrow": "Two weights. One mindset.",
+        "height": "large",
+        "enable_hover": true,
+        "enable_marquee": false,
+        "accent_color": "#E8FF52",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": [
+        {
+          "type": "panel",
+          "settings": {
+            "label": "LITE",
+            "tagline": "Light minds move fast.",
+            "cta_label": "Explore Lite",
+            "overlay_treatment": "light",
+            "focal_point": "center center",
+            "show_product_count": true
+          }
+        },
+        {
+          "type": "panel",
+          "settings": {
+            "label": "MAX",
+            "tagline": "Go all in. Every time.",
+            "cta_label": "Explore Max",
+            "overlay_treatment": "dark",
+            "focal_point": "center center",
+            "show_product_count": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
