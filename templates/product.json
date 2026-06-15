@@ -106,7 +106,8 @@
             "heading": "Description",
             "icon": "shirt",
             "content": "{{ product.description }}",
-            "page": ""
+            "page": "",
+            "default_open": true
           }
         },
         "tab_sizing": {
@@ -115,7 +116,8 @@
             "heading": "Fit & Sizing",
             "icon": "ruler",
             "content": "<p>Model is 6'1\" wearing a Large. Runs true to size. For an oversized fit, size up.</p>",
-            "page": ""
+            "page": "",
+            "default_open": false
           }
         },
         "tab_materials": {
@@ -124,7 +126,8 @@
             "heading": "Materials & Care",
             "icon": "washing",
             "content": "<p>100% heavyweight cotton (340 GSM). Machine wash cold, tumble dry low. Do not bleach.</p>",
-            "page": ""
+            "page": "",
+            "default_open": false
           }
         },
         "tab_shipping": {
@@ -133,7 +136,8 @@
             "heading": "Shipping & Returns",
             "icon": "truck",
             "content": "<p>Dispatched within 2–4 business days. Free shipping on orders over ₹999. Returns accepted within 7 days of delivery.</p>",
-            "page": ""
+            "page": "",
+            "default_open": false
           }
         }
       },
