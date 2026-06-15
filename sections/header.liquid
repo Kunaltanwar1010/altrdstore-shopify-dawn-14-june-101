@@ -166,28 +166,73 @@
     -%}
 
     {%- if section.settings.logo_position != 'middle-center' -%}
+      {%- liquid
+        assign altrd_logo_dark  = section.settings.logo_on_dark
+        assign altrd_logo_light = section.settings.logo_on_light
+        assign altrd_has_dual   = false
+        if altrd_logo_dark != blank and altrd_logo_light != blank
+          assign altrd_has_dual = true
+        endif
+        assign altrd_primary = settings.logo
+        if altrd_logo_dark != blank
+          assign altrd_primary = altrd_logo_dark
+        elsif altrd_logo_light != blank
+          assign altrd_primary = altrd_logo_light
+        endif
+      -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if altrd_primary != blank -%}
           <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
             {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
             {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'header__heading-logo motion-reduce',
-                widths: widths,
-                height: logo_height,
-                width: settings.logo_width,
-                alt: logo_alt,
-                sizes: sizes,
-                preload: true
-            }}
+            {%- if altrd_has_dual -%}
+              {%- assign logo_alt = altrd_logo_dark.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: altrd_logo_dark.aspect_ratio -%}
+              {{
+                altrd_logo_dark
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo motion-reduce altrd-logo--dark',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+              {%- assign logo_alt = altrd_logo_light.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: altrd_logo_light.aspect_ratio -%}
+              {{
+                altrd_logo_light
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo motion-reduce altrd-logo--light',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: false
+              }}
+            {%- else -%}
+              {%- assign logo_alt = altrd_primary.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: altrd_primary.aspect_ratio -%}
+              {{
+                altrd_primary
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            {%- endif -%}
           </div>
         {%- else -%}
           <span class="h2">{{ shop.name }}</span>
@@ -209,28 +254,73 @@
     %}
 
     {%- if section.settings.logo_position == 'middle-center' -%}
+      {%- liquid
+        assign altrd_logo_dark  = section.settings.logo_on_dark
+        assign altrd_logo_light = section.settings.logo_on_light
+        assign altrd_has_dual   = false
+        if altrd_logo_dark != blank and altrd_logo_light != blank
+          assign altrd_has_dual = true
+        endif
+        assign altrd_primary = settings.logo
+        if altrd_logo_dark != blank
+          assign altrd_primary = altrd_logo_dark
+        elsif altrd_logo_light != blank
+          assign altrd_primary = altrd_logo_light
+        endif
+      -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if altrd_primary != blank -%}
           <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
             {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
             {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'header__heading-logo',
-                widths: widths,
-                height: logo_height,
-                width: settings.logo_width,
-                alt: logo_alt,
-                sizes: sizes,
-                preload: true
-            }}
+            {%- if altrd_has_dual -%}
+              {%- assign logo_alt = altrd_logo_dark.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: altrd_logo_dark.aspect_ratio -%}
+              {{
+                altrd_logo_dark
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo altrd-logo--dark',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+              {%- assign logo_alt = altrd_logo_light.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: altrd_logo_light.aspect_ratio -%}
+              {{
+                altrd_logo_light
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo altrd-logo--light',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: false
+              }}
+            {%- else -%}
+              {%- assign logo_alt = altrd_primary.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: altrd_primary.aspect_ratio -%}
+              {{
+                altrd_primary
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            {%- endif -%}
           </div>
         {%- else -%}
           <span class="h2">{{ shop.name }}</span>
@@ -355,6 +445,12 @@
   background-image: none !important;
   box-shadow: none !important;
 }
+
+/* --- Dual logo: dark-bg = white logo, light-bg = black logo -- */
+.altrd-logo--light { display: none; }
+.altrd-logo--dark  { display: block; }
+.altrd-on-light .altrd-logo--dark  { display: none; }
+.altrd-on-light .altrd-logo--light { display: block; }
 
 /* --- Tighter horizontal padding — page-width handles the rest */
 .header {
@@ -858,6 +954,22 @@ account-icon {
       "unit": "px",
       "label": "t:sections.header.settings.margin_bottom.label",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "ALTRD logo variants"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_on_dark",
+      "label": "Logo — dark backgrounds",
+      "info": "White version. Shown over hero video and dark sections."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_on_light",
+      "label": "Logo — light backgrounds",
+      "info": "Black version. Shown over white sections after the hero scrolls away."
     },
     {
       "type": "header",
