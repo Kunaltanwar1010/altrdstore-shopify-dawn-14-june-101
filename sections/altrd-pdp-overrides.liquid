@@ -1,9 +1,25 @@
-<div class="altrd-pdp-overrides" aria-hidden="true" hidden></div>
+{%- liquid
+  assign accent      = section.settings.accent_color     | default: '#E8FF52'
+  assign atc_bg      = section.settings.atc_bg_color     | default: '#0B0B0B'
+  assign atc_text    = section.settings.atc_text_color   | default: '#F4EFE6'
+  assign hivis_hover = section.settings.enable_hivis_atc
+  assign sq_buttons  = section.settings.square_buttons
+-%}
 
-{% stylesheet %}
-/* === ALTRD PDP brand overrides (product template only) === */
+{%- style -%}
+/* === ALTRD PDP brand overrides === */
 
-/* --- Typography --- */
+/* --- Vendor / drop label eyebrow --- */
+product-info .product__text {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: {{ accent }};
+}
+
+/* --- Title --- */
 product-info .product__title {
   font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
   font-size: clamp(2.25rem, 4vw, 5rem);
@@ -11,53 +27,6 @@ product-info .product__title {
   line-height: 0.95;
   text-transform: uppercase;
   letter-spacing: 0.01em;
-}
-
-product-info .product__text.caption-with-letter-spacing,
-product-info .product__text.body {
-  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-}
-
-/* Vendor shown as drop label */
-product-info .product__text {
-  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-altrd-hivis, #FFFFFF);
-}
-
-/* --- ATC button: ink default → hi-vis on hover --- */
-product-info {
-  --color-button: #000000;
-  --color-button-text: #FFFFFF;
-  --color-button-border: #000000;
-}
-
-product-info .product-form__submit {
-  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: 0;
-  min-height: 3.5rem;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-product-info .product-form__submit:not([disabled]):hover {
-  background-color: var(--color-altrd-hivis, #FFFFFF);
-  color: var(--color-altrd-ink, #000000);
-  border-color: var(--color-altrd-hivis, #FFFFFF);
-}
-
-/* --- Variant buttons --- */
-product-info .swatch__input:checked + .swatch__label,
-product-info .button-swatch__input:checked + .button-swatch__label {
-  border-color: var(--color-altrd-ink, #000000);
-  background: var(--color-altrd-ink, #000000);
-  color: var(--color-altrd-bone, #FFFFFF);
 }
 
 /* --- Price --- */
@@ -68,27 +37,169 @@ product-info .price--large {
   letter-spacing: 0.02em;
 }
 
-/* --- Description body text --- */
+/* --- Body text --- */
+product-info .product__text.caption-with-letter-spacing,
+product-info .product__text.body,
 product-info .product__description {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+}
+
+product-info .product__description {
   font-size: 0.9375rem;
   line-height: 1.75;
 }
 
-/* --- Media: subtle ink border on active thumbnail --- */
-product-info .product__media-item--thumbnail.product__media-item--active::after {
-  border-color: var(--color-altrd-ink, #000000);
+/* --- ATC button base --- */
+product-info {
+  --color-button: {{ atc_bg }};
+  --color-button-text: {{ atc_text }};
+  --color-button-border: {{ atc_bg }};
 }
-{% endstylesheet %}
+
+product-info .product-form__submit {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  min-height: 3.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  {%- if sq_buttons %}
+  border-radius: 0;
+  {%- endif %}
+}
+
+{%- if hivis_hover %}
+product-info .product-form__submit:not([disabled]):hover {
+  background-color: {{ accent }};
+  color: #0B0B0B;
+  border-color: {{ accent }};
+}
+{%- endif %}
+
+/* --- Variant / swatch buttons --- */
+product-info .swatch__input:checked + .swatch__label,
+product-info .button-swatch__input:checked + .button-swatch__label {
+  border-color: {{ atc_bg }};
+  background: {{ atc_bg }};
+  color: {{ atc_text }};
+}
+
+/* --- Active thumbnail border --- */
+product-info .product__media-item--thumbnail.product__media-item--active::after {
+  border-color: {{ atc_bg }};
+}
+{%- endstyle -%}
+
+{%- if request.design_mode -%}
+  <div class="altrd-pdp-preview">
+    <p class="altrd-pdp-preview__label">ALTRD — PDP style</p>
+    <div class="altrd-pdp-preview__row">
+      <span class="altrd-pdp-preview__swatch" style="background: {{ atc_bg }};"></span>
+      <span class="altrd-pdp-preview__swatch altrd-pdp-preview__swatch--accent" style="background: {{ accent }};"></span>
+      <span class="altrd-pdp-preview__info">ATC: {{ atc_bg }} → hover {{ accent }}</span>
+    </div>
+    <p class="altrd-pdp-preview__note">Styles apply to all product pages. Nothing renders on the storefront.</p>
+  </div>
+  {%- style -%}
+  .altrd-pdp-preview {
+    padding: 1.5rem 2rem;
+    border: 1.5px dashed rgba(0,0,0,0.18);
+    background: #FAFAFA;
+    font-family: system-ui, sans-serif;
+  }
+  .altrd-pdp-preview__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 0.75rem;
+    color: #555;
+  }
+  .altrd-pdp-preview__row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.75rem;
+  }
+  .altrd-pdp-preview__swatch {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    flex-shrink: 0;
+  }
+  .altrd-pdp-preview__info {
+    font-size: 0.75rem;
+    color: #444;
+  }
+  .altrd-pdp-preview__note {
+    font-size: 0.6875rem;
+    color: #999;
+    margin: 0;
+  }
+  {%- endstyle -%}
+{%- else -%}
+  <div class="altrd-pdp-overrides" aria-hidden="true" hidden></div>
+{%- endif -%}
 
 {% schema %}
 {
   "name": "ALTRD — PDP style",
   "tag": "div",
   "class": "altrd-pdp-overrides-section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Accent colour"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Hi-vis accent (vendor label + ATC hover)",
+      "default": "#E8FF52"
+    },
+    {
+      "type": "header",
+      "content": "Add to Cart button"
+    },
+    {
+      "type": "color",
+      "id": "atc_bg_color",
+      "label": "Button background",
+      "default": "#0B0B0B"
+    },
+    {
+      "type": "color",
+      "id": "atc_text_color",
+      "label": "Button text",
+      "default": "#F4EFE6"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_hivis_atc",
+      "label": "Hi-vis hover effect on Add to Cart",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "square_buttons",
+      "label": "Square buttons (no border radius)",
+      "default": true
+    }
+  ],
   "presets": [
-    { "name": "ALTRD — PDP style" }
+    {
+      "name": "ALTRD — PDP style",
+      "settings": {
+        "accent_color": "#E8FF52",
+        "atc_bg_color": "#0B0B0B",
+        "atc_text_color": "#F4EFE6",
+        "enable_hivis_atc": true,
+        "square_buttons": true
+      }
+    }
   ]
 }
 {% endschema %}
