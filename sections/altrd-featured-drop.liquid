@@ -387,9 +387,20 @@
 }
 
 .altrd-drop__footer {
-  margin-top: 4.5rem;
-  padding-bottom: 1rem;
+  margin-top: 3.5rem;
+  padding: 3rem 0 1rem;
+  border-top: 1px solid;
   text-align: center;
+}
+
+.altrd-drop--ink  .altrd-drop__footer { border-top-color: rgba(255, 255, 255, 0.1); }
+.altrd-drop--bone .altrd-drop__footer { border-top-color: rgba(0, 0, 0, 0.1); }
+
+@media screen and (max-width: 749px) {
+  .altrd-drop__footer {
+    margin-top: 2.5rem;
+    padding: 2.5rem 0 0.5rem;
+  }
 }
 
 .altrd-drop__footer-link {
