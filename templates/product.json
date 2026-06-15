@@ -9,26 +9,9 @@
  */
 {
   "sections": {
-    "altrd-pdp-overrides": {
-      "type": "altrd-pdp-overrides",
-      "settings": {
-        "accent_color": "#E8FF52",
-        "atc_bg_color": "#0B0B0B",
-        "atc_text_color": "#F4EFE6",
-        "enable_hivis_atc": true,
-        "square_buttons": true
-      }
-    },
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
         "title": {
           "type": "title",
           "settings": {
@@ -47,8 +30,9 @@
           "type": "reviews_badge",
           "settings": {
             "rating": 4.9,
-            "review_count": "2,341",
-            "review_text": "Happy Customer Reviews"
+            "review_count": "",
+            "review_text": "",
+            "review_link": ""
           }
         },
         "tagline": {
@@ -60,7 +44,9 @@
         "size_guide": {
           "type": "size_guide",
           "settings": {
-            "link_text": "Size guide"
+            "link_text": "Size guide",
+            "content": "",
+            "page": ""
           }
         },
         "variant_picker": {
@@ -121,12 +107,15 @@
             "offer1_title": "10% OFF",
             "offer1_desc": "Prepaid Discount",
             "offer1_note": "Auto-applied at checkout",
+            "offer1_code": "",
             "offer2_title": "BUY 2 GET 10% OFF",
             "offer2_desc": "10% Off",
             "offer2_code": "BUY2",
+            "offer2_note": "",
             "offer3_title": "15% OFF",
             "offer3_desc": "Buy 3 Get 15% Off",
-            "offer3_code": "BUY3"
+            "offer3_code": "BUY3",
+            "offer3_note": ""
           }
         },
         "trust_row": {
@@ -146,7 +135,8 @@
           "settings": {
             "heading": "Details",
             "icon": "shirt",
-            "content": "<p>Oversized fit. Drop-shoulder silhouette. Side seam pockets. Ribbed collar.</p>"
+            "content": "<p>Oversized fit. Drop-shoulder silhouette. Side seam pockets. Ribbed collar.</p>",
+            "page": ""
           }
         },
         "tab_sizing": {
@@ -154,7 +144,8 @@
           "settings": {
             "heading": "Fit & Sizing",
             "icon": "ruler",
-            "content": "<p>Model is 6'1\" wearing a Large. Runs true to size. For an oversized fit, size up.</p>"
+            "content": "<p>Model is 6'1\" wearing a Large. Runs true to size. For an oversized fit, size up.</p>",
+            "page": ""
           }
         },
         "tab_materials": {
@@ -162,7 +153,8 @@
           "settings": {
             "heading": "Materials & Care",
             "icon": "washing",
-            "content": "<p>100% heavyweight cotton (340 GSM). Machine wash cold, tumble dry low. Do not bleach.</p>"
+            "content": "<p>100% heavyweight cotton (340 GSM). Machine wash cold, tumble dry low. Do not bleach.</p>",
+            "page": ""
           }
         },
         "tab_shipping": {
@@ -170,12 +162,12 @@
           "settings": {
             "heading": "Shipping & Returns",
             "icon": "truck",
-            "content": "<p>Dispatched within 2–4 business days. Free shipping on orders over ₹999. Returns accepted within 7 days of delivery.</p>"
+            "content": "<p>Dispatched within 2–4 business days. Free shipping on orders over ₹999. Returns accepted within 7 days of delivery.</p>",
+            "page": ""
           }
         }
       },
       "block_order": [
-        "vendor",
         "title",
         "rating",
         "price",
@@ -232,7 +224,6 @@
     }
   },
   "order": [
-    "altrd-pdp-overrides",
     "main",
     "related-products"
   ]
