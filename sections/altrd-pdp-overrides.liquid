@@ -64,9 +64,6 @@ product-info .product-form__submit {
   text-transform: uppercase;
   min-height: 3.5rem;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  {%- if sq_buttons %}
-  border-radius: 0;
-  {%- endif %}
 }
 
 {%- if hivis_hover %}
@@ -75,6 +72,23 @@ product-info .product-form__submit:not([disabled]):hover {
   color: #0B0B0B;
   border-color: {{ accent }};
 }
+{%- endif %}
+
+{%- if sq_buttons %}
+/* Override CSS vars so every button, input, and dynamic checkout inherits 0 radius */
+product-info {
+  --buttons-radius: 0px;
+  --buttons-radius-outset: 0px;
+  --inputs-radius: 0px;
+  --inputs-radius-outset: 0px;
+}
+product-info .product-form__submit,
+product-info .product-form__submit::after { border-radius: 0; }
+product-info .quantity,
+product-info .quantity__input,
+product-info .quantity__button { border-radius: 0 !important; }
+product-info .shopify-payment-button__button,
+product-info .shopify-payment-button__button::after { border-radius: 0 !important; }
 {%- endif %}
 
 /* --- Variant / swatch buttons --- */
