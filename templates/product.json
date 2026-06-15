@@ -103,9 +103,9 @@
         "tab_details": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Details",
+            "heading": "Description",
             "icon": "shirt",
-            "content": "<p>Oversized fit. Drop-shoulder silhouette. Side seam pockets. Ribbed collar.</p>",
+            "content": "{{ product.description }}",
             "page": ""
           }
         },
