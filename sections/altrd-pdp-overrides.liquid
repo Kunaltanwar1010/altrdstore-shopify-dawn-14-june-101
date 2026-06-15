@@ -49,13 +49,39 @@ product-info .product__description {
   line-height: 1.75;
 }
 
-/* --- ATC button base --- */
-product-info {
-  --color-button: {{ atc_bg }};
-  --color-button-text: {{ atc_text }};
-  --color-button-border: {{ atc_bg }};
+/* --- Quantity picker: compact + hide label --- */
+product-info .quantity__label { display: none; }
+product-info .quantity {
+  height: 3.5rem;
+  min-width: 0;
+}
+product-info .quantity__button {
+  width: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0;
+}
+product-info .quantity__input {
+  width: 2.25rem;
+  min-width: 0;
+  padding: 0;
+  text-align: center;
 }
 
+/* --- Qty + ATC side by side; Buy Now stacks below --- */
+product-info .product-form__quantity {
+  display: inline-block;
+  width: 8rem;
+  vertical-align: top;
+  margin-right: 0.625rem;
+  margin-bottom: 0;
+}
+product-info .product-form__quantity + div {
+  display: inline-block;
+  width: calc(100% - 8.75rem);
+  vertical-align: top;
+}
+
+/* --- ATC button: force ink/bone colours regardless of button--secondary class --- */
 product-info .product-form__submit {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.875rem;
@@ -64,13 +90,18 @@ product-info .product-form__submit {
   text-transform: uppercase;
   min-height: 3.5rem;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  background-color: {{ atc_bg }} !important;
+  color: {{ atc_text }} !important;
+  border-color: {{ atc_bg }} !important;
 }
+/* Zero out the ::after shadow ring which uses the broken CSS-var colour format */
+product-info .product-form__submit::after { box-shadow: none !important; }
 
 {%- if hivis_hover %}
 product-info .product-form__submit:not([disabled]):hover {
-  background-color: {{ accent }};
-  color: #0B0B0B;
-  border-color: {{ accent }};
+  background-color: {{ accent }} !important;
+  color: #0B0B0B !important;
+  border-color: {{ accent }} !important;
 }
 {%- endif %}
 
@@ -83,7 +114,7 @@ product-info {
   --inputs-radius-outset: 0px;
 }
 product-info .product-form__submit,
-product-info .product-form__submit::after { border-radius: 0; }
+product-info .product-form__submit::after { border-radius: 0 !important; }
 product-info .quantity,
 product-info .quantity__input,
 product-info .quantity__button { border-radius: 0 !important; }
