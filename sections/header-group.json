@@ -78,6 +78,7 @@
         "glass_blur": 32,
         "glass_opacity": 10,
         "margin_bottom": 0,
+        "logo_on_dark": "shopify://shop_images/logo_white.png",
         "padding_top": 12,
         "padding_bottom": 12
       }
