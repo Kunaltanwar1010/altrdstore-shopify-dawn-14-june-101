@@ -395,6 +395,7 @@
 .altrd-drop__footer-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.9375rem;
@@ -406,6 +407,13 @@
   padding: 1.25rem 3.5rem;
   border: 1.5px solid currentColor;
   transition: background 0.18s ease, color 0.18s ease;
+}
+
+@media screen and (max-width: 749px) {
+  .altrd-drop__footer-link {
+    width: 100%;
+    padding: 1.125rem 2rem;
+  }
 }
 
 .altrd-drop--ink .altrd-drop__footer-link:hover {
