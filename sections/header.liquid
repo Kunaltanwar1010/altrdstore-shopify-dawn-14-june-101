@@ -331,23 +331,26 @@
 {%- endif -%}
 
 {% stylesheet %}
-/* === ALTRD glassmorphism — transparent light frosted glass === */
+/* ============================================================
+   ALTRD Header — WearADHD-inspired
+   Light frosted glass · logo left · nav center · icons right
+   ============================================================ */
 
+/* --- Glassmorphism ----------------------------------------- */
 .header-wrapper.altrd-glass {
   background-color: var(--altrd-glass-bg, rgba(255, 255, 255, 0.08)) !important;
   background-image: none !important;
   backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
   transition: background-color 0.4s ease;
 }
-
 .shopify-section-header-sticky .header-wrapper.altrd-glass,
 .scrolled-past-header .header-wrapper.altrd-glass {
-  background-color: rgba(255, 255, 255, 0.28) !important;
+  background-color: rgba(255, 255, 255, 0.55) !important;
 }
 
-/* Dark text/icons on light glass */
+/* --- All header elements: dark on light glass -------------- */
 .header-wrapper.altrd-glass .header__heading-link,
 .header-wrapper.altrd-glass .header__menu-item,
 .header-wrapper.altrd-glass .list-menu__item--link,
@@ -360,10 +363,30 @@
   fill: #000000 !important;
 }
 
-/* === Desktop layout: logo left | nav CENTER | icons right === */
+/* --- Nav typography: uppercase · Space Grotesk · tight ----- */
+.header__menu-item {
+  font-family: var(--font-altrd-body, 'Space Grotesk', sans-serif) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 1rem 1rem !important;
+  text-decoration: none !important;
+}
+.header__menu-item:hover span {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+/* Kill the underline on active item — use clean no-style active */
+.header__active-menu-item {
+  text-decoration: none !important;
+}
+
+/* --- Desktop: logo LEFT | nav CENTER | icons RIGHT --------- */
 @media screen and (min-width: 990px) {
   .header--middle-left {
     grid-template-columns: 1fr auto 1fr !important;
+    column-gap: 0 !important;
   }
   .header--middle-left .header__heading {
     justify-self: start;
@@ -373,19 +396,20 @@
   }
   .header--middle-left .header__inline-menu > .list-menu--inline {
     justify-content: center;
+    gap: 0;
   }
 }
 
-/* === Mobile: show account icon alongside search + cart === */
+/* --- Mobile: hamburger + logo + search + cart only --------- */
+/* Account lives inside the drawer menu — not as a floating icon */
 @media screen and (max-width: 989px) {
   .header__icon--account {
-    display: flex !important;
+    display: none !important;
   }
 }
 
-/* === Uniform icon sizing: 20×20 visual inside 44×44 touch target ===
-   NOTE: no display override on svg-wrapper — Dawn uses display:none
-   on .header__icon-close to hide the X; !important would break that. */
+/* --- Uniform icons: 20×20 visual · 44×44 touch target ------ */
+/* No display override — Dawn controls close-button visibility  */
 .header__icon .svg-wrapper {
   width: 20px !important;
   height: 20px !important;
@@ -396,7 +420,7 @@
   flex-shrink: 0;
 }
 
-/* Account icon */
+/* Account icon container */
 account-icon {
   display: flex !important;
   align-items: center;
