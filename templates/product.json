@@ -59,7 +59,7 @@
         "low_stock_urgency": {
           "type": "low_stock_urgency",
           "settings": {
-            "show_low_stock": true,
+            "show_low_stock": false,
             "low_stock_threshold": 5,
             "show_timer": true,
             "timer_label": "Offer ends in"
@@ -87,47 +87,6 @@
             "item3_label": "Easy Refund Exchange",
             "item4_icon": "cod",
             "item4_label": "COD Available"
-          }
-        },
-        "delivery_estimate": {
-          "type": "delivery_estimate",
-          "settings": {
-            "title": "ESTIMATED DELIVERY",
-            "step1_label": "Order Placed",
-            "step2_label": "Order Packed",
-            "step2_days": 1,
-            "step3_label": "Delivered",
-            "step3_days": 5
-          }
-        },
-        "offers_list": {
-          "type": "offers_list",
-          "settings": {
-            "title": "AVAILABLE OFFERS",
-            "offer1_title": "10% OFF",
-            "offer1_desc": "Prepaid Discount",
-            "offer1_note": "Auto-applied at checkout",
-            "offer1_code": "",
-            "offer2_title": "BUY 2 GET 10% OFF",
-            "offer2_desc": "10% Off",
-            "offer2_code": "BUY2",
-            "offer2_note": "",
-            "offer3_title": "15% OFF",
-            "offer3_desc": "Buy 3 Get 15% Off",
-            "offer3_code": "BUY3",
-            "offer3_note": ""
-          }
-        },
-        "trust_row": {
-          "type": "icon-with-text",
-          "settings": {
-            "layout": "horizontal",
-            "icon_1": "truck",
-            "heading_1": "Free shipping over ₹999",
-            "icon_2": "return",
-            "heading_2": "Easy 7-day returns",
-            "icon_3": "lock",
-            "heading_3": "Secure checkout"
           }
         },
         "tab_details": {
@@ -179,9 +138,6 @@
         "quantity_selector",
         "buy_buttons",
         "trust_strip",
-        "delivery_estimate",
-        "offers_list",
-        "trust_row",
         "tab_details",
         "tab_sizing",
         "tab_materials",
