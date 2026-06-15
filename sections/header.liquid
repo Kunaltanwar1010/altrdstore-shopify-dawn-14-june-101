@@ -22,6 +22,12 @@
     margin-left: -1.2rem;
   }
 
+  @media screen and (max-width: 989px) {
+    header-drawer {
+      margin-left: 0.5rem;
+    }
+  }
+
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
     .scrolled-past-header .header__heading-logo-wrapper {
       width: 75%;
@@ -554,6 +560,9 @@
 @media screen and (max-width: 989px) {
   .header__icon--account {
     display: none !important;
+  }
+  .header__icons {
+    margin-right: 0.5rem;
   }
 }
 
