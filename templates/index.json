@@ -251,17 +251,6 @@
         "success_message": "You're in. First access guaranteed.",
         "color_style": "hivis"
       }
-    },
-    "altrd_pdp_overrides_nHkqLd": {
-      "type": "altrd-pdp-overrides",
-      "name": "ALTRD — PDP style",
-      "settings": {
-        "accent_color": "#e8ff52",
-        "atc_bg_color": "#0b0b0b",
-        "atc_text_color": "#f4efe6",
-        "enable_hivis_atc": true,
-        "square_buttons": true
-      }
     }
   },
   "order": [
@@ -272,7 +261,6 @@
     "altrd-lookbook-0",
     "altrd-philosophy-0",
     "altrd_ugc_QVCKUk",
-    "altrd-newsletter-0",
-    "altrd_pdp_overrides_nHkqLd"
+    "altrd-newsletter-0"
   ]
 }
