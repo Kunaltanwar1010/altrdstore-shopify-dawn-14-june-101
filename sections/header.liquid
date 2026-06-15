@@ -334,15 +334,24 @@
    Logo left · nav centre · icons right
    ============================================================ */
 
-/* --- Strip all colour from the wrapper -------------------- */
+/* --- Glassmorphism base: frosted glass over dark hero ------ */
 .header-wrapper.altrd-glass {
-  background: transparent !important;
+  background: rgba(255, 255, 255, 0.08) !important;
   background-image: none !important;
-  border-bottom: none !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: none !important;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-/* --- Default: white (overlapping dark hero) ---------------- */
+/* --- Over light sections: more opaque white glass --------- */
+.header-wrapper.altrd-glass.altrd-on-light {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* --- Default: white text (dark hero behind glass) ---------- */
 .header-wrapper.altrd-glass .header__heading-link,
 .header-wrapper.altrd-glass .header__menu-item,
 .header-wrapper.altrd-glass .header__icon {
@@ -350,14 +359,14 @@
   transition: color 0.25s ease, filter 0.25s ease;
 }
 
-/* --- Over light sections: flip to black ------------------- */
+/* --- Over light sections: black text ---------------------- */
 .header-wrapper.altrd-glass.altrd-on-light .header__heading-link,
 .header-wrapper.altrd-glass.altrd-on-light .header__menu-item,
 .header-wrapper.altrd-glass.altrd-on-light .header__icon {
   color: #000000;
 }
 
-/* --- Account icon shadow (gold bolt needs contrast) ------- */
+/* --- Account icon shadow (gold bolt on dark bg) ----------- */
 .header-wrapper.altrd-glass .header__icon--account {
   filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
 }
