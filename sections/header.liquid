@@ -100,6 +100,22 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  {%- if section.settings.enable_glassmorphism -%}
+    .header-wrapper.altrd-glass {
+      background: rgba(255, 255, 255, {{ section.settings.glass_opacity | divided_by: 100.0 }}) !important;
+      background-image: none !important;
+      backdrop-filter: blur({{ section.settings.glass_blur }}px) saturate(160%);
+      -webkit-backdrop-filter: blur({{ section.settings.glass_blur }}px) saturate(160%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+      box-shadow: none !important;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .header-wrapper.altrd-glass.altrd-on-light {
+      background: rgba(255, 255, 255, 0.72) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    }
+  {%- endif -%}
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
@@ -334,21 +350,10 @@
    Logo left · nav centre · icons right
    ============================================================ */
 
-/* --- Glassmorphism base: frosted glass over dark hero ------ */
+/* --- Dawn background reset (glass CSS lives in {%- style -%}) */
 .header-wrapper.altrd-glass {
-  background: rgba(255, 255, 255, 0.08) !important;
   background-image: none !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: none !important;
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-/* --- Over light sections: more opaque white glass --------- */
-.header-wrapper.altrd-glass.altrd-on-light {
-  background: rgba(255, 255, 255, 0.72) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
 /* --- Default: white text (dark hero behind glass) ---------- */
