@@ -40,13 +40,7 @@
 
       {%- if section.settings.creator_name != blank -%}
         <div class="altrd-creator__byline">
-          <div class="altrd-creator__byline-name-row">
-            <svg class="altrd-creator__verified-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Verified">
-              <circle cx="10" cy="10" r="10" fill="#D4AF37"/>
-              <path d="M5.5 10l3 3L15 7" stroke="#000000" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="altrd-creator__name">{{ section.settings.creator_name | escape }}</span>
-          </div>
+          <span class="altrd-creator__name">{{ section.settings.creator_name | escape }}</span>
           {%- if section.settings.creator_title != blank -%}
             <span class="altrd-creator__title">{{ section.settings.creator_title | escape }}</span>
           {%- endif -%}
@@ -210,26 +204,29 @@
 .altrd-creator__body p:last-child { margin-bottom: 0; }
 
 .altrd-creator__byline {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   flex-direction: column;
   gap: 0.3rem;
   margin: 0 0 2.5rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--color-altrd-hivis, #D4AF37);
+  padding: 1rem 1.75rem 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.altrd-creator__byline::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #D4AF37;
 }
 
 .altrd-creator--bone .altrd-creator__byline {
-  border-left-color: var(--color-altrd-ink, #000000);
-}
-
-.altrd-creator__byline-name-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.altrd-creator__verified-icon {
-  flex-shrink: 0;
+  border-color: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .altrd-creator__name {
