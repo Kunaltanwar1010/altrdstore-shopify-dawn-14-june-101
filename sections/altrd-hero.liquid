@@ -274,12 +274,45 @@
   from { opacity: 0; transform: translateY(2rem); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* === Pull hero behind sticky header so glass blur has content at page load === */
+.shopify-section:first-of-type .altrd-hero {
+  margin-top: calc(-1 * var(--altrd-header-h, 6.5rem));
+  min-height: calc(100svh + var(--altrd-header-h, 6.5rem));
+}
+
+.shopify-section:first-of-type .altrd-hero__inner {
+  padding-top: calc(var(--altrd-header-h, 6.5rem) + 5rem);
+}
+
+@media screen and (max-width: 749px) {
+  .shopify-section:first-of-type .altrd-hero__inner {
+    padding-top: calc(var(--altrd-header-h, 5rem) + 3.5rem);
+  }
+}
 {% endstylesheet %}
 
 {% javascript %}
 document.querySelectorAll('.altrd-hero__video-wrap video').forEach(function(v) {
   v.setAttribute('playsinline', '');
 });
+
+// Measure header-group height and set --altrd-header-h CSS var
+// so the hero can slide behind the glass header precisely
+(function() {
+  function setHeaderH() {
+    var hg = document.querySelector('.shopify-section-group-header-section');
+    if (hg) {
+      document.documentElement.style.setProperty('--altrd-header-h', hg.offsetHeight + 'px');
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setHeaderH);
+  } else {
+    setHeaderH();
+  }
+  window.addEventListener('resize', setHeaderH);
+})();
 {% endjavascript %}
 
 {% schema %}

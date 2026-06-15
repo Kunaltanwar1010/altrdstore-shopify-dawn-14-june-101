@@ -334,17 +334,18 @@
 /* === ALTRD glassmorphism header === */
 
 .header-wrapper.altrd-glass {
-  background-color: var(--altrd-glass-bg, rgba(0, 0, 0, 0.6)) !important;
+  background-color: var(--altrd-glass-bg, rgba(0, 0, 0, 0.18)) !important;
   background-image: none !important;
-  backdrop-filter: blur(var(--altrd-glass-blur, 16px)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--altrd-glass-blur, 16px)) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  transition: background-color 0.3s ease;
+  backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--altrd-glass-blur, 24px)) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  transition: background-color 0.35s ease;
 }
 
+/* Keep glass visible on scroll — do NOT go solid */
 .shopify-section-header-sticky .header-wrapper.altrd-glass,
 .scrolled-past-header .header-wrapper.altrd-glass {
-  background-color: rgba(0, 0, 0, 0.88) !important;
+  background-color: rgba(0, 0, 0, 0.42) !important;
 }
 
 /* === Mobile: show account icon on the right alongside search + cart === */

@@ -75,8 +75,8 @@
         "enable_language_selector": true,
         "enable_customer_avatar": true,
         "enable_glassmorphism": true,
-        "glass_blur": 16,
-        "glass_opacity": 55,
+        "glass_blur": 24,
+        "glass_opacity": 18,
         "margin_bottom": 0,
         "padding_top": 12,
         "padding_bottom": 12
