@@ -96,7 +96,7 @@
         "heading": "Shop by collection",
         "height": "large",
         "enable_hover": true,
-        "enable_marquee": false,
+        "enable_marquee": true,
         "accent_color": "#e8ff52",
         "padding_top": 0,
         "padding_bottom": 0
