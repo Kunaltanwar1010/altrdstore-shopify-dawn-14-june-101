@@ -9,16 +9,6 @@
  */
 {
   "sections": {
-    "altrd-pdp-overrides": {
-      "type": "altrd-pdp-overrides",
-      "settings": {
-        "accent_color": "#E8FF52",
-        "atc_bg_color": "#0B0B0B",
-        "atc_text_color": "#F4EFE6",
-        "enable_hivis_atc": true,
-        "square_buttons": true
-      }
-    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -50,7 +40,9 @@
         "size_guide": {
           "type": "size_guide",
           "settings": {
-            "link_text": "Size guide"
+            "link_text": "Size guide",
+            "content": "",
+            "page": ""
           }
         },
         "variant_picker": {
@@ -88,7 +80,8 @@
           "settings": {
             "heading": "Details",
             "icon": "shirt",
-            "content": "<p>Oversized fit. Drop-shoulder silhouette. Side seam pockets. Ribbed collar.</p>"
+            "content": "<p>Oversized fit. Drop-shoulder silhouette. Side seam pockets. Ribbed collar.</p>",
+            "page": ""
           }
         },
         "tab_sizing": {
@@ -96,7 +89,8 @@
           "settings": {
             "heading": "Fit & Sizing",
             "icon": "ruler",
-            "content": "<p>Model is 6'1\" wearing a Large. Runs true to size. For an oversized fit, size up.</p>"
+            "content": "<p>Model is 6'1\" wearing a Large. Runs true to size. For an oversized fit, size up.</p>",
+            "page": ""
           }
         },
         "tab_materials": {
@@ -104,7 +98,8 @@
           "settings": {
             "heading": "Materials & Care",
             "icon": "washing",
-            "content": "<p>100% heavyweight cotton (340 GSM). Machine wash cold, tumble dry low. Do not bleach.</p>"
+            "content": "<p>100% heavyweight cotton (340 GSM). Machine wash cold, tumble dry low. Do not bleach.</p>",
+            "page": ""
           }
         },
         "tab_shipping": {
@@ -112,7 +107,8 @@
           "settings": {
             "heading": "Shipping & Returns",
             "icon": "truck",
-            "content": "<p>Dispatched within 2–4 business days. Free shipping on orders over ₹999. Returns accepted within 7 days of delivery.</p>"
+            "content": "<p>Dispatched within 2–4 business days. Free shipping on orders over ₹999. Returns accepted within 7 days of delivery.</p>",
+            "page": ""
           }
         }
       },
@@ -140,9 +136,9 @@
         "constrain_to_viewport": true,
         "media_fit": "cover",
         "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "lightbox",
-        "mobile_thumbnails": "hide",
         "hide_variants": false,
         "enable_video_looping": false,
         "padding_top": 0,
@@ -169,7 +165,6 @@
     }
   },
   "order": [
-    "altrd-pdp-overrides",
     "main",
     "related-products"
   ]
