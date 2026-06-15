@@ -225,35 +225,34 @@
     text-transform: uppercase;
   }
 
-  /* --- Sticky ATC bar --- */
+  /* --- Sticky ATC bar (light / bone theme) --- */
   .altrd-sticky-atc {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     z-index: 100;
-    background: #0B0B0B;
-    color: #F4EFE6;
+    background: #F4EFE6;
+    color: #0B0B0B;
     transform: translateY(100%);
     transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.12);
     border-top: 2px solid var(--color-altrd-hivis, #E8FF52);
     will-change: transform;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .altrd-sticky-atc { transition: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { .altrd-sticky-atc { transition: none; } }
   .altrd-sticky-atc--visible { transform: translateY(0); }
   .altrd-sticky-atc__inner {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 0.875rem 1.5rem;
+    gap: 0.875rem;
+    padding: 0.75rem 1.5rem;
   }
   .altrd-sticky-atc__media {
     flex-shrink: 0;
-    width: 3rem;
-    height: 3rem;
+    width: 3.25rem;
+    height: 3.25rem;
     overflow: hidden;
+    border-radius: 2px;
+    border: 1px solid rgba(11,11,11,0.1);
   }
   .altrd-sticky-atc__img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .altrd-sticky-atc__info { flex: 1 1 auto; min-width: 0; }
@@ -261,51 +260,312 @@
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.875rem;
     font-weight: 600;
+    color: #0B0B0B;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 0 0.125rem;
+    margin: 0 0 0.2rem;
   }
-  .altrd-sticky-atc__meta {
+  .altrd-sticky-atc__prices {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .altrd-sticky-atc__price-compare {
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.75rem;
-    color: rgba(244, 239, 230, 0.45);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
+    color: rgba(11,11,11,0.45);
+    text-decoration: line-through;
   }
-  .altrd-sticky-atc__price {
+  .altrd-sticky-atc__price-sale {
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-    font-size: 1.0625rem;
-    font-weight: 600;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #0B0B0B;
+  }
+  .altrd-sticky-atc__variant-select {
     flex-shrink: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%230B0B0B'/%3E%3C/svg%3E") no-repeat right 0.6rem center;
+    background-size: 8px;
+    border: 1px solid rgba(11,11,11,0.25);
+    border-radius: 2px;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #0B0B0B;
+    padding: 0.5rem 1.75rem 0.5rem 0.75rem;
+    cursor: pointer;
+    min-width: 4.5rem;
+    max-width: 8rem;
   }
   .altrd-sticky-atc__btn {
     flex-shrink: 0;
-    background: var(--color-altrd-hivis, #E8FF52);
-    color: #0B0B0B;
+    background: #0B0B0B;
+    color: #F4EFE6;
     border: none;
+    border-radius: 2px;
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.8125rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 0.875rem 1.625rem;
+    padding: 0.75rem 1.375rem;
     cursor: pointer;
-    transition: opacity 0.15s ease;
+    transition: background 0.18s ease;
     white-space: nowrap;
   }
-  .altrd-sticky-atc__btn:hover:not(:disabled) { opacity: 0.88; }
-  .altrd-sticky-atc__btn:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: -3px;
-  }
+  .altrd-sticky-atc__btn:hover:not(:disabled) { background: #1f1f1f; }
+  .altrd-sticky-atc__btn:focus-visible { outline: 2px solid var(--color-altrd-hivis, #E8FF52); outline-offset: 2px; }
   .altrd-sticky-atc__btn:disabled { opacity: 0.4; cursor: not-allowed; }
   @media screen and (max-width: 549px) {
     .altrd-sticky-atc__media { display: none; }
-    .altrd-sticky-atc__price { display: none; }
-    .altrd-sticky-atc__btn { flex: 0 0 auto; }
+    .altrd-sticky-atc__prices { display: none; }
+    .altrd-sticky-atc__variant-select { max-width: 6rem; }
+  }
+
+  /* === ALTRD new feature blocks === */
+
+  /* --- Breadcrumbs --- */
+  .altrd-breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(11,11,11,0.4);
+  }
+  .altrd-breadcrumbs__link {
+    color: rgba(11,11,11,0.4);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .altrd-breadcrumbs__link:hover { color: #0B0B0B; }
+  .altrd-breadcrumbs__sep { margin: 0 0.125rem; }
+  .altrd-breadcrumbs__current { color: #0B0B0B; font-weight: 600; }
+
+  /* --- Google Reviews badge --- */
+  .altrd-reviews-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .altrd-reviews-badge__stars { color: #FBBC05; font-size: 0.875rem; letter-spacing: -0.05em; line-height: 1; }
+  .altrd-reviews-badge__text {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #0B0B0B;
+  }
+  .altrd-reviews-badge__g { font-weight: 700; }
+  .altrd-reviews-badge__g span:nth-child(1) { color: #4285F4; }
+  .altrd-reviews-badge__g span:nth-child(2) { color: #EA4335; }
+  .altrd-reviews-badge__g span:nth-child(3) { color: #FBBC05; }
+  .altrd-reviews-badge__g span:nth-child(4) { color: #4285F4; }
+  .altrd-reviews-badge__g span:nth-child(5) { color: #34A853; }
+  .altrd-reviews-badge__g span:nth-child(6) { color: #EA4335; }
+  .altrd-reviews-badge__count { color: rgba(11,11,11,0.55); }
+  .altrd-reviews-badge__link { text-decoration: underline; color: rgba(11,11,11,0.5); font-size: 0.75rem; }
+
+  /* --- Low stock + countdown urgency --- */
+  .altrd-urgency {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+  .altrd-urgency__row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .altrd-urgency__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: altrd-pulse 1.8s ease-in-out infinite;
+  }
+  .altrd-urgency__dot--stock { background: #E84040; }
+  .altrd-urgency__dot--timer { background: #E87C00; }
+  @keyframes altrd-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .altrd-urgency__countdown { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* --- Estimated delivery timeline --- */
+  .altrd-delivery {
+    border: 1px solid rgba(11,11,11,0.1);
+    border-radius: 4px;
+    padding: 1.125rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .altrd-delivery__title {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(11,11,11,0.5);
+    margin: 0 0 1rem;
+  }
+  .altrd-delivery__steps {
+    display: flex;
+    align-items: flex-start;
+  }
+  .altrd-delivery__step {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  .altrd-delivery__icon-wrap {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: rgba(11,11,11,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .altrd-delivery__step--done .altrd-delivery__icon-wrap { background: #0B0B0B; color: #F4EFE6; }
+  .altrd-delivery__step--active .altrd-delivery__icon-wrap { background: var(--color-altrd-hivis, #E8FF52); color: #0B0B0B; }
+  .altrd-delivery__connector {
+    flex: 1 1 0;
+    height: 2px;
+    background: rgba(11,11,11,0.12);
+    margin-top: 1.125rem;
+    position: relative;
+  }
+  .altrd-delivery__connector--done { background: #0B0B0B; }
+  .altrd-delivery__label {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: rgba(11,11,11,0.5);
+    margin-bottom: 0.2rem;
+  }
+  .altrd-delivery__step--done .altrd-delivery__label,
+  .altrd-delivery__step--active .altrd-delivery__label { color: #0B0B0B; }
+  .altrd-delivery__date {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0B0B0B;
+  }
+
+  /* --- Available offers cards --- */
+  .altrd-offers {
+    margin-bottom: 1.25rem;
+  }
+  .altrd-offers__title {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(11,11,11,0.5);
+    margin: 0 0 0.75rem;
+  }
+  .altrd-offers__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.625rem;
+  }
+  .altrd-offers__card {
+    border: 1px solid rgba(11,11,11,0.15);
+    border-radius: 4px;
+    padding: 0.875rem 0.75rem;
+    position: relative;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  }
+  .altrd-offers__card--active {
+    border-color: #0B0B0B;
+    background: rgba(11,11,11,0.03);
+  }
+  .altrd-offers__check {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: #34A853;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .altrd-offers__card-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #0B0B0B;
+    margin-bottom: 0.25rem;
+  }
+  .altrd-offers__card-desc {
+    font-size: 0.75rem;
+    color: rgba(11,11,11,0.6);
+    margin-bottom: 0.375rem;
+    line-height: 1.4;
+  }
+  .altrd-offers__code {
+    font-size: 0.6875rem;
+    color: rgba(11,11,11,0.55);
+  }
+  .altrd-offers__code strong {
+    background: rgba(11,11,11,0.07);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+    font-weight: 700;
+    color: #0B0B0B;
+    letter-spacing: 0.04em;
+  }
+  .altrd-offers__note { font-size: 0.6875rem; color: #34A853; font-weight: 500; }
+
+  /* --- Trust strip --- */
+  .altrd-trust-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid rgba(11,11,11,0.1);
+    margin-bottom: 0.25rem;
+  }
+  @media screen and (max-width: 549px) {
+    .altrd-trust-strip { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  }
+  .altrd-trust-strip__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .altrd-trust-strip__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    color: #0B0B0B;
+    flex-shrink: 0;
+  }
+  .altrd-trust-strip__label {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: rgba(11,11,11,0.7);
+    line-height: 1.4;
   }
   {%- endstyle -%}
 
@@ -367,6 +627,21 @@
                   {{- block.settings.text -}}
                 </p>
               {%- when 'title' -%}
+                {%- if block.settings.show_breadcrumbs -%}
+                  {%- assign bc_collection = collection -%}
+                  {%- if bc_collection == blank -%}
+                    {%- assign bc_collection = product.collections | first -%}
+                  {%- endif -%}
+                  <nav class="altrd-breadcrumbs" aria-label="Breadcrumb">
+                    <a href="{{ routes.root_url }}" class="altrd-breadcrumbs__link">Home</a>
+                    <span class="altrd-breadcrumbs__sep" aria-hidden="true">›</span>
+                    {%- if bc_collection != blank -%}
+                      <a href="{{ bc_collection.url }}" class="altrd-breadcrumbs__link">{{ bc_collection.title | escape }}</a>
+                      <span class="altrd-breadcrumbs__sep" aria-hidden="true">›</span>
+                    {%- endif -%}
+                    <span class="altrd-breadcrumbs__current">{{ product.title | escape }}</span>
+                  </nav>
+                {%- endif -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
@@ -1004,6 +1279,187 @@
                     </div>
                   </modal-dialog>
                 {%- endif -%}
+              {%- when 'reviews_badge' -%}
+                {%- assign review_rating = block.settings.rating | default: 4.9 -%}
+                {%- assign full_stars = review_rating | floor -%}
+                <div class="altrd-reviews-badge" {{ block.shopify_attributes }}>
+                  <span class="altrd-reviews-badge__stars">
+                    {%- for i in (1..full_stars) -%}★{%- endfor -%}
+                    {%- if full_stars < 5 -%}☆{%- endif -%}
+                  </span>
+                  <span class="altrd-reviews-badge__text">
+                    {{ review_rating }}
+                    <span class="altrd-reviews-badge__g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span>
+                  </span>
+                  {%- if block.settings.review_count != blank -%}
+                    <span class="altrd-reviews-badge__count">· + {{ block.settings.review_count }} {{ block.settings.review_text | default: 'Happy Customer Reviews' }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.review_link != blank -%}
+                    <a href="{{ block.settings.review_link }}" class="altrd-reviews-badge__link" target="_blank" rel="noopener">View reviews</a>
+                  {%- endif -%}
+                </div>
+
+              {%- when 'low_stock_urgency' -%}
+                {%- assign inv = product.selected_or_first_available_variant.inventory_quantity -%}
+                <div class="altrd-urgency" id="AltrdUrgency-{{ section.id }}" {{ block.shopify_attributes }}>
+                  {%- if block.settings.show_low_stock and inv > 0 and inv <= block.settings.low_stock_threshold -%}
+                    <div class="altrd-urgency__row">
+                      <span class="altrd-urgency__dot altrd-urgency__dot--stock"></span>
+                      <span>Only <strong>{{ inv }}</strong> left in stock</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.show_timer -%}
+                    <div class="altrd-urgency__row">
+                      <span class="altrd-urgency__dot altrd-urgency__dot--timer"></span>
+                      <span>{{ block.settings.timer_label | default: 'Offer ends in' }} <strong class="altrd-urgency__countdown">--:--:--</strong></span>
+                    </div>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.show_timer -%}
+                  <script>
+                  (function(){
+                    var el = document.querySelector('#AltrdUrgency-{{ section.id }} .altrd-urgency__countdown');
+                    if(!el) return;
+                    function tick(){
+                      var now = new Date();
+                      var end = new Date(); end.setHours(24,0,0,0);
+                      var diff = end - now;
+                      var h = Math.floor(diff/3600000);
+                      var m = Math.floor((diff%3600000)/60000);
+                      var s = Math.floor((diff%60000)/1000);
+                      el.textContent = [h,m,s].map(function(v){return String(v).padStart(2,'0')}).join(':');
+                    }
+                    tick(); setInterval(tick,1000);
+                  })();
+                  </script>
+                {%- endif -%}
+
+              {%- when 'delivery_estimate' -%}
+                {%- assign d2 = block.settings.step2_days | default: 1 -%}
+                {%- assign d3 = block.settings.step3_days | default: 5 -%}
+                <div class="altrd-delivery" {{ block.shopify_attributes }}>
+                  <p class="altrd-delivery__title">{{ block.settings.title | default: 'ESTIMATED DELIVERY' }}</p>
+                  <div class="altrd-delivery__steps">
+                    <div class="altrd-delivery__step altrd-delivery__step--done">
+                      <div class="altrd-delivery__icon-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                      </div>
+                      <span class="altrd-delivery__label">{{ block.settings.step1_label | default: 'Order Placed' }}</span>
+                      <span class="altrd-delivery__date" data-offset="0"></span>
+                    </div>
+                    <div class="altrd-delivery__connector altrd-delivery__connector--done"></div>
+                    <div class="altrd-delivery__step altrd-delivery__step--active">
+                      <div class="altrd-delivery__icon-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      </div>
+                      <span class="altrd-delivery__label">{{ block.settings.step2_label | default: 'Order Packed' }}</span>
+                      <span class="altrd-delivery__date" data-offset="{{ d2 }}"></span>
+                    </div>
+                    <div class="altrd-delivery__connector"></div>
+                    <div class="altrd-delivery__step">
+                      <div class="altrd-delivery__icon-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                      </div>
+                      <span class="altrd-delivery__label">{{ block.settings.step3_label | default: 'Delivered' }}</span>
+                      <span class="altrd-delivery__date" data-offset="{{ d3 }}"></span>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                (function(){
+                  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                  document.querySelectorAll('.altrd-delivery__date[data-offset]').forEach(function(el){
+                    var d=new Date(); d.setDate(d.getDate()+parseInt(el.dataset.offset||0));
+                    el.textContent=months[d.getMonth()]+' '+d.getDate();
+                  });
+                })();
+                </script>
+
+              {%- when 'offers_list' -%}
+                <div class="altrd-offers" {{ block.shopify_attributes }}>
+                  {%- unless block.settings.title == blank -%}
+                    <p class="altrd-offers__title">{{ block.settings.title }}</p>
+                  {%- endunless -%}
+                  <div class="altrd-offers__grid">
+                    {%- for i in (1..3) -%}
+                      {%- liquid
+                        case i
+                          when 1
+                            assign ot = block.settings.offer1_title
+                            assign od = block.settings.offer1_desc
+                            assign oc = block.settings.offer1_code
+                            assign on = block.settings.offer1_note
+                          when 2
+                            assign ot = block.settings.offer2_title
+                            assign od = block.settings.offer2_desc
+                            assign oc = block.settings.offer2_code
+                            assign on = block.settings.offer2_note
+                          when 3
+                            assign ot = block.settings.offer3_title
+                            assign od = block.settings.offer3_desc
+                            assign oc = block.settings.offer3_code
+                            assign on = block.settings.offer3_note
+                        endcase
+                      -%}
+                      {%- if ot != blank -%}
+                        <div class="altrd-offers__card{% if i == 1 %} altrd-offers__card--active{% endif %}">
+                          {%- if i == 1 -%}<span class="altrd-offers__check" aria-hidden="true">✓</span>{%- endif -%}
+                          <div class="altrd-offers__card-title">{{ ot | escape }}</div>
+                          {%- if od != blank -%}<div class="altrd-offers__card-desc">{{ od | escape }}</div>{%- endif -%}
+                          {%- if oc != blank -%}
+                            <div class="altrd-offers__code">Use code: <strong>{{ oc | escape }}</strong></div>
+                          {%- elsif on != blank -%}
+                            <div class="altrd-offers__note">{{ on | escape }}</div>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+
+              {%- when 'trust_strip' -%}
+                <div class="altrd-trust-strip" {{ block.shopify_attributes }}>
+                  {%- for i in (1..4) -%}
+                    {%- liquid
+                      case i
+                        when 1
+                          assign tl = block.settings.item1_label
+                          assign ti = block.settings.item1_icon
+                        when 2
+                          assign tl = block.settings.item2_label
+                          assign ti = block.settings.item2_icon
+                        when 3
+                          assign tl = block.settings.item3_label
+                          assign ti = block.settings.item3_icon
+                        when 4
+                          assign tl = block.settings.item4_label
+                          assign ti = block.settings.item4_icon
+                      endcase
+                    -%}
+                    {%- if tl != blank -%}
+                      <div class="altrd-trust-strip__item">
+                        <span class="altrd-trust-strip__icon" aria-hidden="true">
+                          {%- case ti -%}
+                            {%- when 'delivery' -%}
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                            {%- when 'satisfaction' -%}
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            {%- when 'refund' -%}
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+                            {%- when 'cod' -%}
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                            {%- when 'shield' -%}
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            {%- else -%}
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                          {%- endcase -%}
+                        </span>
+                        <span class="altrd-trust-strip__label">{{ tl | escape }}</span>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+
             {%- endcase -%}
           {%- endfor -%}
         </section>
@@ -1018,33 +1474,45 @@
         aria-label="{{ 'products.product.add_to_cart' | t }}"
         data-section="{{ section.id }}"
       >
+        {%- assign sv = product.selected_or_first_available_variant -%}
         <div class="altrd-sticky-atc__inner page-width">
           {%- if product.featured_image -%}
             <div class="altrd-sticky-atc__media">
               {{
                 product.featured_image
-                | image_url: width: 100
+                | image_url: width: 120
                 | image_tag:
                   class: 'altrd-sticky-atc__img',
                   loading: 'lazy',
-                  widths: '60, 80, 100',
+                  widths: '60, 90, 120',
                   alt: product.featured_image.alt | default: product.title | escape
               }}
             </div>
           {%- endif -%}
           <div class="altrd-sticky-atc__info">
             <p class="altrd-sticky-atc__title">{{ product.title | escape }}</p>
-            <p class="altrd-sticky-atc__meta" id="AltrdStickyMeta-{{ section.id }}">
-              {%- assign sv = product.selected_or_first_available_variant -%}
-              {%- unless sv.title == 'Default Title' -%}{{ sv.title | escape }}{%- endunless -%}
-            </p>
+            <div class="altrd-sticky-atc__prices">
+              {%- if sv.compare_at_price > sv.price -%}
+                <span class="altrd-sticky-atc__price-compare" id="AltrdStickyCompare-{{ section.id }}">{{ sv.compare_at_price | money }}</span>
+              {%- endif -%}
+              <span class="altrd-sticky-atc__price-sale" id="AltrdStickyPrice-{{ section.id }}">{{ sv.price | money }}</span>
+            </div>
           </div>
-          <div class="altrd-sticky-atc__price" id="AltrdStickyPrice-{{ section.id }}">
-            {%- if sv.compare_at_price > sv.price -%}
-              <s style="opacity:0.45;font-size:0.8125rem;margin-right:0.375rem;">{{ sv.compare_at_price | money }}</s>
-            {%- endif -%}
-            {{ sv.price | money }}
-          </div>
+          {%- unless product.has_only_default_variant -%}
+            <select
+              class="altrd-sticky-atc__variant-select"
+              id="AltrdStickyVariant-{{ section.id }}"
+              aria-label="{{ 'products.product.product_variants' | t | escape }}"
+            >
+              {%- for variant in product.variants -%}
+                <option
+                  value="{{ variant.id }}"
+                  data-available="{{ variant.available }}"
+                  {% if variant.id == sv.id %}selected{% endif %}
+                >{{ variant.title | escape }}</option>
+              {%- endfor -%}
+            </select>
+          {%- endunless -%}
           <button
             class="altrd-sticky-atc__btn"
             type="button"
@@ -1061,50 +1529,75 @@
       </div>
       <script>
       (function () {
-        var sid   = {{ section.id | json }};
-        var bar   = document.getElementById('AltrdStickyATC-' + sid);
+        var sid = {{ section.id | json }};
+        var bar = document.getElementById('AltrdStickyATC-' + sid);
         var mainBtn = document.getElementById('ProductSubmitButton-' + sid);
         var stickyBtn = document.getElementById('AltrdStickyBtn-' + sid);
-        var stickyMeta  = document.getElementById('AltrdStickyMeta-' + sid);
         var stickyPrice = document.getElementById('AltrdStickyPrice-' + sid);
+        var stickyCompare = document.getElementById('AltrdStickyCompare-' + sid);
+        var stickySelect = document.getElementById('AltrdStickyVariant-' + sid);
+        var atcText = {{ 'products.product.add_to_cart' | t | json }};
+        var soldText = {{ 'products.product.sold_out' | t | json }};
         if (!bar || !mainBtn) return;
 
-        /* Show / hide on scroll */
-        var io = new IntersectionObserver(function (entries) {
+        /* Show / hide when main ATC scrolls off-screen */
+        new IntersectionObserver(function (entries) {
           var below = !entries[0].isIntersecting;
           bar.classList.toggle('altrd-sticky-atc--visible', below);
           bar.setAttribute('aria-hidden', String(!below));
-        }, { rootMargin: '0px 0px -60px 0px' });
-        io.observe(mainBtn);
+        }, { rootMargin: '0px 0px -60px 0px' }).observe(mainBtn);
 
-        /* Sticky btn clicks main form */
+        /* Sticky btn → clicks the main ATC */
         if (stickyBtn) {
           stickyBtn.addEventListener('click', function () { mainBtn.click(); });
         }
 
-        /* Sync on variant change — Dawn fires on product-info element, bubbles */
+        /* Sticky variant select → change main page variant picker */
+        if (stickySelect) {
+          stickySelect.addEventListener('change', function () {
+            var variantId = this.value;
+            /* Update the hidden variant input in the product form */
+            var mainVariantInput = document.querySelector('input[name="id"].product-variant-id');
+            if (mainVariantInput) {
+              mainVariantInput.value = variantId;
+              mainVariantInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            /* Also try to click the matching swatch/button in the main picker */
+            var mainPicker = document.querySelector('variant-selects, variant-radios');
+            if (mainPicker) {
+              var matchInput = mainPicker.querySelector('input[value="' + variantId + '"]');
+              if (matchInput) { matchInput.click(); }
+            }
+          });
+        }
+
+        /* Sync sticky when main page variant changes */
         var productInfo = document.getElementById('MainProduct-' + sid);
         if (productInfo) {
           productInfo.addEventListener('variant:change', function (e) {
             var v = e.detail && e.detail.variant;
             if (!v) return;
-            if (stickyMeta) {
-              stickyMeta.textContent = v.title !== 'Default Title' ? v.title : '';
-            }
+            /* Sync select */
+            if (stickySelect) stickySelect.value = String(v.id);
+            /* Sync button state */
             if (stickyBtn) {
               stickyBtn.disabled = !v.available;
-              stickyBtn.textContent = v.available ? {{ 'products.product.add_to_cart' | t | json }} : {{ 'products.product.sold_out' | t | json }};
+              stickyBtn.textContent = v.available ? atcText : soldText;
+            }
+            /* Sync price */
+            if (stickyPrice) {
+              var priceEl = document.getElementById('price-' + sid);
+              if (priceEl) {
+                var sale = priceEl.querySelector('.price-item--sale');
+                var reg  = priceEl.querySelector('.price-item--regular');
+                stickyPrice.textContent = (sale || reg) ? (sale || reg).textContent.trim() : '';
+              }
+            }
+            /* Sync compare price */
+            if (stickyCompare) {
+              stickyCompare.textContent = (v.compare_at_price > v.price && v.compare_at_price_formatted) ? v.compare_at_price_formatted : '';
             }
           });
-        }
-
-        /* Sync price via MutationObserver on the price container */
-        var priceEl = document.getElementById('price-' + sid);
-        if (priceEl && stickyPrice) {
-          new MutationObserver(function () {
-            var salePriceEl = priceEl.querySelector('.price-item--sale, .price-item--regular');
-            if (salePriceEl) stickyPrice.textContent = salePriceEl.textContent.trim();
-          }).observe(priceEl, { childList: true, subtree: true, characterData: true });
         }
       })();
       </script>
@@ -1210,7 +1703,15 @@
     {
       "type": "title",
       "name": "t:sections.main-product.blocks.title.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_breadcrumbs",
+          "label": "Show breadcrumbs",
+          "default": true
+        }
+      ]
     },
     {
       "type": "price",
@@ -1929,6 +2430,222 @@
           "label": "Or link to a page",
           "info": "If both content and page are set, the inline content above takes priority."
         }
+      ]
+    },
+    {
+      "type": "reviews_badge",
+      "name": "Google Reviews badge",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "default": 4.9
+        },
+        {
+          "type": "text",
+          "id": "review_count",
+          "label": "Review count label",
+          "default": "2,341",
+          "placeholder": "2,341"
+        },
+        {
+          "type": "text",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "Happy Customer Reviews"
+        },
+        {
+          "type": "url",
+          "id": "review_link",
+          "label": "Link to Google reviews page (optional)"
+        }
+      ]
+    },
+    {
+      "type": "low_stock_urgency",
+      "name": "Low stock & timer",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_low_stock",
+          "label": "Show low stock alert",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "low_stock_threshold",
+          "label": "Show alert when stock is below",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "checkbox",
+          "id": "show_timer",
+          "label": "Show offer countdown timer",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "timer_label",
+          "label": "Timer label",
+          "default": "Offer ends in"
+        }
+      ]
+    },
+    {
+      "type": "delivery_estimate",
+      "name": "Estimated delivery",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section title",
+          "default": "ESTIMATED DELIVERY"
+        },
+        {
+          "type": "text",
+          "id": "step1_label",
+          "label": "Step 1 label",
+          "default": "Order Placed"
+        },
+        {
+          "type": "text",
+          "id": "step2_label",
+          "label": "Step 2 label",
+          "default": "Order Packed"
+        },
+        {
+          "type": "range",
+          "id": "step2_days",
+          "label": "Step 2: days from today",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "step3_label",
+          "label": "Step 3 label",
+          "default": "Delivered"
+        },
+        {
+          "type": "range",
+          "id": "step3_days",
+          "label": "Step 3: days from today",
+          "min": 1,
+          "max": 21,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    },
+    {
+      "type": "offers_list",
+      "name": "Available offers",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section title",
+          "default": "AVAILABLE OFFERS"
+        },
+        { "type": "header", "content": "Offer 1 (auto-applied, shown with checkmark)" },
+        { "type": "text", "id": "offer1_title", "label": "Title", "default": "10% OFF" },
+        { "type": "text", "id": "offer1_desc", "label": "Description", "default": "Prepaid Discount" },
+        { "type": "text", "id": "offer1_note", "label": "Note (shown instead of code)", "default": "Auto-applied at checkout" },
+        { "type": "text", "id": "offer1_code", "label": "Coupon code (overrides note if set)" },
+        { "type": "header", "content": "Offer 2" },
+        { "type": "text", "id": "offer2_title", "label": "Title", "default": "BUY 2 GET 10% OFF" },
+        { "type": "text", "id": "offer2_desc", "label": "Description", "default": "10% Off" },
+        { "type": "text", "id": "offer2_code", "label": "Coupon code", "default": "BUY2" },
+        { "type": "text", "id": "offer2_note", "label": "Note (if no code)" },
+        { "type": "header", "content": "Offer 3" },
+        { "type": "text", "id": "offer3_title", "label": "Title", "default": "15% OFF" },
+        { "type": "text", "id": "offer3_desc", "label": "Description", "default": "Buy 3 Get 15% Off" },
+        { "type": "text", "id": "offer3_code", "label": "Coupon code", "default": "BUY3" },
+        { "type": "text", "id": "offer3_note", "label": "Note (if no code)" }
+      ]
+    },
+    {
+      "type": "trust_strip",
+      "name": "Trust icons strip",
+      "limit": 1,
+      "settings": [
+        { "type": "header", "content": "Item 1" },
+        {
+          "type": "select",
+          "id": "item1_icon",
+          "label": "Icon",
+          "options": [
+            { "value": "delivery", "label": "Delivery truck" },
+            { "value": "satisfaction", "label": "Customer satisfaction" },
+            { "value": "refund", "label": "Refund / Exchange" },
+            { "value": "cod", "label": "COD / Payment" },
+            { "value": "shield", "label": "Shield / Secure" },
+            { "value": "check", "label": "Checkmark" }
+          ],
+          "default": "delivery"
+        },
+        { "type": "text", "id": "item1_label", "label": "Label", "default": "3–4 Days Delivery" },
+        { "type": "header", "content": "Item 2" },
+        {
+          "type": "select",
+          "id": "item2_icon",
+          "label": "Icon",
+          "options": [
+            { "value": "delivery", "label": "Delivery truck" },
+            { "value": "satisfaction", "label": "Customer satisfaction" },
+            { "value": "refund", "label": "Refund / Exchange" },
+            { "value": "cod", "label": "COD / Payment" },
+            { "value": "shield", "label": "Shield / Secure" },
+            { "value": "check", "label": "Checkmark" }
+          ],
+          "default": "satisfaction"
+        },
+        { "type": "text", "id": "item2_label", "label": "Label", "default": "100% Customer Satisfaction" },
+        { "type": "header", "content": "Item 3" },
+        {
+          "type": "select",
+          "id": "item3_icon",
+          "label": "Icon",
+          "options": [
+            { "value": "delivery", "label": "Delivery truck" },
+            { "value": "satisfaction", "label": "Customer satisfaction" },
+            { "value": "refund", "label": "Refund / Exchange" },
+            { "value": "cod", "label": "COD / Payment" },
+            { "value": "shield", "label": "Shield / Secure" },
+            { "value": "check", "label": "Checkmark" }
+          ],
+          "default": "refund"
+        },
+        { "type": "text", "id": "item3_label", "label": "Label", "default": "Easy Refund Exchange" },
+        { "type": "header", "content": "Item 4" },
+        {
+          "type": "select",
+          "id": "item4_icon",
+          "label": "Icon",
+          "options": [
+            { "value": "delivery", "label": "Delivery truck" },
+            { "value": "satisfaction", "label": "Customer satisfaction" },
+            { "value": "refund", "label": "Refund / Exchange" },
+            { "value": "cod", "label": "COD / Payment" },
+            { "value": "shield", "label": "Shield / Secure" },
+            { "value": "check", "label": "Checkmark" }
+          ],
+          "default": "cod"
+        },
+        { "type": "text", "id": "item4_label", "label": "Label", "default": "COD Available" }
       ]
     },
     {
