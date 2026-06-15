@@ -386,15 +386,15 @@
   color: #000000 !important;
 }
 
-/* --- Dot under active nav item ---------------------------- */
-.header-wrapper.altrd-glass .header__active-menu-item {
+/* --- Dot under active nav item (anchored to <a>, not span) - */
+/* :has() avoids adding padding to the span which shifts text up */
+.header-wrapper.altrd-glass .header__menu-item:has(.header__active-menu-item) {
   position: relative;
-  padding-bottom: 10px;
 }
-.header-wrapper.altrd-glass .header__active-menu-item::after {
+.header-wrapper.altrd-glass .header__menu-item:has(.header__active-menu-item)::after {
   content: '';
   position: absolute;
-  bottom: 2px;
+  bottom: 6px;
   left: 50%;
   transform: translateX(-50%);
   width: 3px;
@@ -402,6 +402,9 @@
   border-radius: 50%;
   background: currentColor;
   opacity: 0.8;
+}
+.header-wrapper.altrd-glass .header__active-menu-item {
+  padding-bottom: 0;
 }
 
 /* --- Account icon shadow (gold bolt on dark bg) ----------- */
@@ -603,12 +606,17 @@ account-icon {
 
   customElements.define('sticky-header', StickyHeader);
 
-  // White text over dark hero → black text over light sections
+  // Adaptive header: white text over dark hero, black text over light content.
+  // On pages with no hero (collection, PDP, etc.) default to light mode immediately.
   (function() {
     function initAdaptiveHeader() {
       var hero = document.querySelector('.altrd-hero');
       var hw = document.querySelector('.header-wrapper');
-      if (!hero || !hw) return;
+      if (!hw) return;
+      if (!hero) {
+        hw.classList.add('altrd-on-light');
+        return;
+      }
       new IntersectionObserver(function(entries) {
         hw.classList.toggle('altrd-on-light', !entries[0].isIntersecting);
       }, { threshold: 0 }).observe(hero);
