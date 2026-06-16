@@ -179,7 +179,7 @@
         "hide_variants": false,
         "enable_video_looping": false,
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 20
       }
     },
     "related-products": {
@@ -201,6 +201,55 @@
         "padding_bottom": 60
       }
     },
+    "altrd_marquee_yrfC8e": {
+      "type": "altrd-marquee",
+      "blocks": {
+        "item_jXtnp3": {
+          "type": "item",
+          "settings": {
+            "text": "Decode the game."
+          }
+        },
+        "item_eGqqmK": {
+          "type": "item",
+          "settings": {
+            "text": "Own your output."
+          }
+        },
+        "item_yTREew": {
+          "type": "item",
+          "settings": {
+            "text": "Build in public."
+          }
+        },
+        "item_H3xNn7": {
+          "type": "item",
+          "settings": {
+            "text": "Delayed gratification."
+          }
+        },
+        "item_Uf6CBC": {
+          "type": "item",
+          "settings": {
+            "text": "Leverage everything."
+          }
+        }
+      },
+      "block_order": [
+        "item_jXtnp3",
+        "item_eGqqmK",
+        "item_yTREew",
+        "item_H3xNn7",
+        "item_Uf6CBC"
+      ],
+      "name": "ALTRD — Marquee",
+      "settings": {
+        "color_style": "ink",
+        "speed": 30,
+        "separator": "✶",
+        "pause_on_hover": true
+      }
+    },
     "altrd_related_products_f6pdpg": {
       "type": "altrd-related-products",
       "name": "ALTRD — Related products",
@@ -214,14 +263,15 @@
         "columns_desktop": 4,
         "show_secondary_image": true,
         "color_style": "white",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     }
   },
   "order": [
     "main",
     "related-products",
+    "altrd_marquee_yrfC8e",
     "altrd_related_products_f6pdpg"
   ]
 }
