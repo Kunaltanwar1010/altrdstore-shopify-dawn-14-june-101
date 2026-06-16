@@ -1467,16 +1467,28 @@
     </div>
 
     {%- if section.settings.enable_sticky_atc -%}
+      {%- liquid
+        assign s_bg     = section.settings.sticky_atc_bg       | default: '#F4EFE6'
+        assign s_btnbg  = section.settings.sticky_atc_btn_color | default: '#0B0B0B'
+        assign s_btntxt = section.settings.sticky_atc_btn_text  | default: '#F4EFE6'
+        assign s_label  = section.settings.sticky_atc_btn_label
+        if s_label == blank
+          assign s_label = 'products.product.add_to_cart' | t
+        endif
+        assign s_show_variant = section.settings.sticky_atc_show_variant
+        assign s_show_image   = section.settings.sticky_atc_show_image
+      -%}
       <div
         class="altrd-sticky-atc"
         id="AltrdStickyATC-{{ section.id }}"
         aria-hidden="true"
         aria-label="{{ 'products.product.add_to_cart' | t }}"
         data-section="{{ section.id }}"
+        style="background: {{ s_bg }};"
       >
         {%- assign sv = product.selected_or_first_available_variant -%}
         <div class="altrd-sticky-atc__inner page-width">
-          {%- if product.featured_image -%}
+          {%- if product.featured_image and s_show_image != false -%}
             <div class="altrd-sticky-atc__media">
               {{
                 product.featured_image
@@ -1498,7 +1510,7 @@
               <span class="altrd-sticky-atc__price-sale" id="AltrdStickyPrice-{{ section.id }}">{{ sv.price | money }}</span>
             </div>
           </div>
-          {%- unless product.has_only_default_variant -%}
+          {%- unless product.has_only_default_variant or s_show_variant == false -%}
             <select
               class="altrd-sticky-atc__variant-select"
               id="AltrdStickyVariant-{{ section.id }}"
@@ -1517,10 +1529,11 @@
             class="altrd-sticky-atc__btn"
             type="button"
             id="AltrdStickyBtn-{{ section.id }}"
+            style="background: {{ s_btnbg }}; color: {{ s_btntxt }}; border-color: {{ s_btnbg }};"
             {%- unless sv.available %} disabled{%- endunless -%}
           >
             {%- if sv.available -%}
-              {{ 'products.product.add_to_cart' | t }}
+              {{ s_label | escape }}
             {%- else -%}
               {{ 'products.product.sold_out' | t }}
             {%- endif -%}
@@ -3281,14 +3294,51 @@
   "settings": [
     {
       "type": "header",
-      "content": "ALTRD settings"
+      "content": "Sticky Add to Cart bar"
     },
     {
       "type": "checkbox",
       "id": "enable_sticky_atc",
       "label": "Enable sticky Add to Cart bar",
       "default": true,
-      "info": "Appears at the bottom of the screen when the main ATC scrolls out of view."
+      "info": "Slides up from the bottom when the main ATC button scrolls out of view."
+    },
+    {
+      "type": "text",
+      "id": "sticky_atc_btn_label",
+      "label": "Button label",
+      "default": "Add to cart",
+      "info": "Leave blank to use the translated default."
+    },
+    {
+      "type": "color",
+      "id": "sticky_atc_bg",
+      "label": "Bar background colour",
+      "default": "#F4EFE6"
+    },
+    {
+      "type": "color",
+      "id": "sticky_atc_btn_color",
+      "label": "Button colour",
+      "default": "#0B0B0B"
+    },
+    {
+      "type": "color",
+      "id": "sticky_atc_btn_text",
+      "label": "Button text colour",
+      "default": "#F4EFE6"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_atc_show_variant",
+      "label": "Show variant selector in bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_atc_show_image",
+      "label": "Show product thumbnail",
+      "default": true
     },
     {
       "type": "checkbox",
