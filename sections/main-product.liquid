@@ -260,7 +260,7 @@
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.875rem;
     font-weight: 600;
-    color: #0B0B0B;
+    color: var(--satc-text, #F4EFE6);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -275,27 +275,31 @@
   .altrd-sticky-atc__price-compare {
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.75rem;
-    color: rgba(11,11,11,0.45);
+    color: var(--satc-text, #F4EFE6);
+    opacity: 0.45;
     text-decoration: line-through;
   }
   .altrd-sticky-atc__price-sale {
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.9375rem;
     font-weight: 700;
-    color: #0B0B0B;
+    color: var(--satc-text, #F4EFE6);
   }
   .altrd-sticky-atc__variant-select {
     flex-shrink: 0;
     appearance: none;
     -webkit-appearance: none;
-    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%230B0B0B'/%3E%3C/svg%3E") no-repeat right 0.6rem center;
+    background-color: var(--satc-sel-bg, #1C1C1C);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='var(--satc-sel-txt-enc,%23F4EFE6)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
     background-size: 8px;
-    border: 1px solid rgba(11,11,11,0.25);
+    border: 1px solid var(--satc-sel-border, rgba(244,239,230,0.25));
     border-radius: 2px;
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.8125rem;
     font-weight: 600;
-    color: #0B0B0B;
+    color: var(--satc-sel-txt, #F4EFE6);
     padding: 0.5rem 1.75rem 0.5rem 0.75rem;
     cursor: pointer;
     min-width: 4.5rem;
@@ -303,8 +307,8 @@
   }
   .altrd-sticky-atc__btn {
     flex-shrink: 0;
-    background: #0B0B0B;
-    color: #F4EFE6;
+    background: var(--satc-btn, #E8FF52);
+    color: var(--satc-btn-txt, #0B0B0B);
     border: none;
     border-radius: 2px;
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
@@ -314,12 +318,12 @@
     text-transform: uppercase;
     padding: 0.75rem 1.375rem;
     cursor: pointer;
-    transition: background 0.18s ease;
+    transition: opacity 0.18s ease;
     white-space: nowrap;
   }
-  .altrd-sticky-atc__btn:hover:not(:disabled) { background: #1f1f1f; }
-  .altrd-sticky-atc__btn:focus-visible { outline: 2px solid var(--color-altrd-hivis, #E8FF52); outline-offset: 2px; }
-  .altrd-sticky-atc__btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .altrd-sticky-atc__btn:hover:not(:disabled) { opacity: 0.85; }
+  .altrd-sticky-atc__btn:focus-visible { outline: 2px solid var(--satc-btn, #E8FF52); outline-offset: 2px; }
+  .altrd-sticky-atc__btn:disabled { opacity: 0.35; cursor: not-allowed; }
   @media screen and (max-width: 549px) {
     .altrd-sticky-atc__media { display: none; }
     .altrd-sticky-atc__prices { display: none; }
@@ -1468,10 +1472,14 @@
 
     {%- if section.settings.enable_sticky_atc -%}
       {%- liquid
-        assign s_bg     = section.settings.sticky_atc_bg       | default: '#F4EFE6'
-        assign s_btnbg  = section.settings.sticky_atc_btn_color | default: '#0B0B0B'
-        assign s_btntxt = section.settings.sticky_atc_btn_text  | default: '#F4EFE6'
-        assign s_label  = section.settings.sticky_atc_btn_label
+        assign s_bg         = section.settings.sticky_atc_bg          | default: '#0B0B0B'
+        assign s_text       = section.settings.sticky_atc_text_color   | default: '#F4EFE6'
+        assign s_btnbg      = section.settings.sticky_atc_btn_color    | default: '#E8FF52'
+        assign s_btntxt     = section.settings.sticky_atc_btn_text     | default: '#0B0B0B'
+        assign s_select_bg  = section.settings.sticky_atc_select_bg    | default: '#1C1C1C'
+        assign s_select_txt = section.settings.sticky_atc_select_text  | default: '#F4EFE6'
+        assign s_select_enc = s_select_txt | remove: '#' | prepend: '%23'
+        assign s_label      = section.settings.sticky_atc_btn_label
         if s_label == blank
           assign s_label = 'products.product.add_to_cart' | t
         endif
@@ -1484,7 +1492,7 @@
         aria-hidden="true"
         aria-label="{{ 'products.product.add_to_cart' | t }}"
         data-section="{{ section.id }}"
-        style="background: {{ s_bg }};"
+        style="background:{{ s_bg }};--satc-text:{{ s_text }};--satc-btn:{{ s_btnbg }};--satc-btn-txt:{{ s_btntxt }};--satc-sel-bg:{{ s_select_bg }};--satc-sel-txt:{{ s_select_txt }};--satc-sel-border:{{ s_select_txt }}40;"
       >
         {%- assign sv = product.selected_or_first_available_variant -%}
         <div class="altrd-sticky-atc__inner page-width">
@@ -1529,7 +1537,6 @@
             class="altrd-sticky-atc__btn"
             type="button"
             id="AltrdStickyBtn-{{ section.id }}"
-            style="background: {{ s_btnbg }}; color: {{ s_btntxt }}; border-color: {{ s_btnbg }};"
             {%- unless sv.available %} disabled{%- endunless -%}
           >
             {%- if sv.available -%}
@@ -3327,6 +3334,24 @@
       "id": "sticky_atc_btn_text",
       "label": "Button text colour",
       "default": "#F4EFE6"
+    },
+    {
+      "type": "color",
+      "id": "sticky_atc_text_color",
+      "label": "Bar text colour (title + price)",
+      "default": "#0B0B0B"
+    },
+    {
+      "type": "color",
+      "id": "sticky_atc_select_bg",
+      "label": "Variant select background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "sticky_atc_select_text",
+      "label": "Variant select text colour",
+      "default": "#0B0B0B"
     },
     {
       "type": "checkbox",
