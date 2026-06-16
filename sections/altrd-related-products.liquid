@@ -1,7 +1,7 @@
 {%- liquid
   assign source_collection = section.settings.collection
   assign products_to_show  = section.settings.products_to_show | default: 4
-  assign color_style       = section.settings.color_style | default: 'bone'
+  assign color_style       = section.settings.color_style | default: 'white'
 -%}
 
 {%- style -%}
@@ -14,8 +14,9 @@
     padding: {{ section.settings.padding_top | times: 0.65 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.65 | round: 0 }}px;
   }
 }
-.altrd-rp--ink  { background: #0B0B0B; color: #F4EFE6; }
-.altrd-rp--bone { background: #F4EFE6; color: #0B0B0B; }
+.altrd-rp--ink   { background: #0B0B0B; color: #F4EFE6; }
+.altrd-rp--bone  { background: #F4EFE6; color: #0B0B0B; }
+.altrd-rp--white { background: #FFFFFF; color: #0B0B0B; }
 
 /* Header */
 .altrd-rp__header {
@@ -86,18 +87,48 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 0.875rem;
-    padding: 0 1.25rem 0.75rem;
-    margin: 0 -1.25rem;
+    padding: 0 1.5rem 0.75rem;
+    margin: 0 -1.5rem;
+    cursor: grab;
+    user-select: none;
   }
   .altrd-rp__grid::-webkit-scrollbar { display: none; }
-  .altrd-rp__grid > li {
-    flex: 0 0 72vw;
-    max-width: 18rem;
-    scroll-snap-align: start;
+  .altrd-rp__grid.altrd-rp__grid--dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
   }
+  .altrd-rp__grid > li {
+    flex: 0 0 78vw;
+    max-width: 19rem;
+    scroll-snap-align: start;
+    pointer-events: auto;
+  }
+  .altrd-rp__grid.altrd-rp__grid--dragging > li { pointer-events: none; }
   /* Peek indicator — trailing padding via last card */
-  .altrd-rp__grid > li:last-child { margin-right: 1.25rem; }
+  .altrd-rp__grid > li:last-child { margin-right: 0.5rem; }
 }
+
+/* Dot indicators — mobile carousel only */
+.altrd-rp__dots {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4375rem;
+  margin-top: 1.125rem;
+}
+@media screen and (max-width: 749px) {
+  .altrd-rp__dots { display: flex; }
+}
+.altrd-rp__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.25;
+  transform: scale(1);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.altrd-rp__dot--active { opacity: 1; transform: scale(1.4); }
 
 /* === Card: identical to altrd-featured-drop === */
 .altrd-rp__card {
@@ -111,7 +142,8 @@
   aspect-ratio: 3 / 4;
   background: #1a1a1a;
 }
-.altrd-rp--bone .altrd-rp__card-media { background: #E8E3DA; }
+.altrd-rp--bone  .altrd-rp__card-media { background: #E8E3DA; }
+.altrd-rp--white .altrd-rp__card-media { background: #F0F0F0; }
 .altrd-rp__card-img {
   width: 100%;
   height: 100%;
@@ -201,8 +233,9 @@
   font-size: 1.0625rem;
   font-weight: 700;
 }
-.altrd-rp--ink  .altrd-rp__card-price--sale { color: var(--color-altrd-hivis, #E8FF52); }
-.altrd-rp--bone .altrd-rp__card-price--sale { color: #b33; }
+.altrd-rp--ink   .altrd-rp__card-price--sale { color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-rp--bone  .altrd-rp__card-price--sale { color: #b33; }
+.altrd-rp--white .altrd-rp__card-price--sale { color: #b33; }
 .altrd-rp__card-compare {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.9375rem;
@@ -233,8 +266,9 @@
   border: 1.5px solid currentColor;
   transition: background 0.18s ease, color 0.18s ease;
 }
-.altrd-rp--ink .altrd-rp__footer-link:hover { background: #F4EFE6; color: #0B0B0B; }
-.altrd-rp--bone .altrd-rp__footer-link:hover { background: #0B0B0B; color: #F4EFE6; }
+.altrd-rp--ink   .altrd-rp__footer-link:hover { background: #F4EFE6; color: #0B0B0B; }
+.altrd-rp--bone  .altrd-rp__footer-link:hover { background: #0B0B0B; color: #F4EFE6; }
+.altrd-rp--white .altrd-rp__footer-link:hover { background: #0B0B0B; color: #FFFFFF; }
 
 /* Empty state (editor only) */
 .altrd-rp__empty {
@@ -271,7 +305,7 @@
     {%- endif -%}
 
     {%- if source_collection != blank and source_collection.products_count > 0 -%}
-      <ul class="altrd-rp__grid" role="list">
+      <ul class="altrd-rp__grid" id="AltrdRPTrack-{{ section.id }}" role="list">
         {%- for product in source_collection.products limit: products_to_show -%}
           {%- liquid
             assign is_on_sale = false
@@ -343,6 +377,14 @@
         {%- endfor -%}
       </ul>
 
+      {%- if source_collection.products_count > 1 -%}
+        <div class="altrd-rp__dots" id="AltrdRPDots-{{ section.id }}" aria-hidden="true">
+          {%- for product in source_collection.products limit: products_to_show -%}
+            <span class="altrd-rp__dot{% if forloop.first %} altrd-rp__dot--active{% endif %}"></span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
       {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
         <div class="altrd-rp__footer">
           <a href="{{ section.settings.cta_link }}" class="altrd-rp__footer-link">
@@ -353,6 +395,73 @@
           </a>
         </div>
       {%- endif -%}
+
+      <script>
+        (function () {
+          var track = document.getElementById('AltrdRPTrack-{{ section.id }}');
+          var dotsWrap = document.getElementById('AltrdRPDots-{{ section.id }}');
+          if (!track) return;
+          var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll('.altrd-rp__dot')) : [];
+
+          function updateDots() {
+            if (!dots.length) return;
+            var cards = track.querySelectorAll('li');
+            var trackLeft = track.getBoundingClientRect().left;
+            var closest = 0;
+            var closestDist = Infinity;
+            cards.forEach(function (card, i) {
+              var dist = Math.abs(card.getBoundingClientRect().left - trackLeft);
+              if (dist < closestDist) {
+                closestDist = dist;
+                closest = i;
+              }
+            });
+            dots.forEach(function (dot, i) {
+              dot.classList.toggle('altrd-rp__dot--active', i === closest);
+            });
+          }
+
+          var ticking = false;
+          track.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () {
+              updateDots();
+              ticking = false;
+            });
+          }, { passive: true });
+
+          /* Pointer drag-to-scroll so a mouse/trackpad can swipe the carousel too */
+          var isDown = false;
+          var startX = 0;
+          var startScroll = 0;
+
+          track.addEventListener('pointerdown', function (e) {
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+            isDown = true;
+            track.classList.add('altrd-rp__grid--dragging');
+            startX = e.clientX;
+            startScroll = track.scrollLeft;
+            track.setPointerCapture(e.pointerId);
+          });
+
+          track.addEventListener('pointermove', function (e) {
+            if (!isDown) return;
+            var dx = e.clientX - startX;
+            track.scrollLeft = startScroll - dx;
+          });
+
+          function endDrag(e) {
+            if (!isDown) return;
+            isDown = false;
+            track.classList.remove('altrd-rp__grid--dragging');
+            updateDots();
+          }
+          track.addEventListener('pointerup', endDrag);
+          track.addEventListener('pointercancel', endDrag);
+          track.addEventListener('pointerleave', endDrag);
+        })();
+      </script>
 
     {%- elsif request.design_mode -%}
       <p class="altrd-rp__empty">
@@ -441,10 +550,11 @@
       "type": "select",
       "id": "color_style",
       "label": "Background",
-      "default": "bone",
+      "default": "white",
       "options": [
-        { "value": "bone", "label": "Bone (light)" },
-        { "value": "ink",  "label": "Ink (dark)" }
+        { "value": "white", "label": "White" },
+        { "value": "bone",  "label": "Bone (light)" },
+        { "value": "ink",   "label": "Ink (dark)" }
       ]
     },
     {
@@ -481,7 +591,7 @@
         "products_to_show": 4,
         "columns_desktop": 4,
         "show_secondary_image": true,
-        "color_style": "bone"
+        "color_style": "white"
       }
     }
   ]
