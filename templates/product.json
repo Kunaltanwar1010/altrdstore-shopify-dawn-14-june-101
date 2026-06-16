@@ -179,8 +179,37 @@
         "hide_variants": false,
         "enable_video_looping": false,
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 32
       }
+    },
+    "1781583730c7bbf8a3": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_f7319fa_RXFEke": {
+          "type": "ai_gen_block_f7319fa",
+          "settings": {
+            "offer_1": "Free shipping on orders over ₹999",
+            "offer_2": "Shop now and save up to 30%",
+            "offer_3": "New arrivals every week",
+            "background_color": "#000000",
+            "text_color": "#ffffff",
+            "font_size": 14,
+            "font_weight": "400",
+            "padding_vertical": 8,
+            "show_separator": true,
+            "separator_color": "#ffffff",
+            "separator_size": 8,
+            "item_spacing": 20,
+            "scroll_speed": 50,
+            "pause_on_hover": true
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_f7319fa_RXFEke"
+      ],
+      "settings": {}
     },
     "related-products": {
       "type": "related-products",
@@ -213,7 +242,7 @@
         "products_to_show": 4,
         "columns_desktop": 4,
         "show_secondary_image": true,
-        "color_style": "white",
+        "color_style": "bone",
         "padding_top": 20,
         "padding_bottom": 20
       }
@@ -221,6 +250,7 @@
   },
   "order": [
     "main",
+    "1781583730c7bbf8a3",
     "related-products",
     "altrd_related_products_f6pdpg"
   ]
