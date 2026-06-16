@@ -1,0 +1,198 @@
+{%- style -%}
+/* === ALTRD PDP — Typography sizes === */
+
+product-info .product__text {
+  font-size: {{ section.settings.sz_vendor }}px !important;
+}
+
+product-info .altrd-breadcrumbs {
+  font-size: {{ section.settings.sz_breadcrumb }}px !important;
+}
+
+product-info .product__title {
+  font-size: {{ section.settings.sz_title_desk }}px !important;
+}
+@media screen and (max-width: 749px) {
+  product-info .product__title {
+    font-size: {{ section.settings.sz_title_mob }}px !important;
+  }
+}
+
+product-info .altrd-pdp-tagline {
+  font-size: {{ section.settings.sz_tagline }}px !important;
+}
+
+product-info .altrd-reviews-badge__stars {
+  font-size: {{ section.settings.sz_reviews | plus: 2 }}px !important;
+}
+product-info .altrd-reviews-badge__text {
+  font-size: {{ section.settings.sz_reviews }}px !important;
+}
+product-info .altrd-reviews-badge__link {
+  font-size: {{ section.settings.sz_reviews | minus: 2 }}px !important;
+}
+
+product-info .price--large {
+  font-size: {{ section.settings.sz_price }}px !important;
+}
+
+product-info .accordion__title.h4 {
+  font-size: {{ section.settings.sz_tab_heading }}px !important;
+}
+
+product-info .accordion__content {
+  font-size: {{ section.settings.sz_tab_content }}px !important;
+}
+
+product-info .altrd-trust-strip__label {
+  font-size: {{ section.settings.sz_trust }}px !important;
+}
+{%- endstyle -%}
+
+{%- if request.design_mode -%}
+  <div style="padding:1rem 1.5rem;background:#f9f9f9;border:1.5px dashed rgba(0,0,0,0.12);font-family:system-ui,sans-serif;">
+    <p style="margin:0 0 0.25rem;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;">ALTRD — PDP Typography</p>
+    <p style="margin:0;font-size:0.7rem;color:#aaa;">Font size controls for this product page. Nothing renders on the storefront.</p>
+  </div>
+{%- else -%}
+  <div hidden></div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ALTRD — PDP Typography",
+  "tag": "div",
+  "class": "altrd-pdp-typography-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "range",
+      "id": "sz_title_desk",
+      "label": "Desktop",
+      "min": 28,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "sz_title_mob",
+      "label": "Mobile",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumbs & Vendor label"
+    },
+    {
+      "type": "range",
+      "id": "sz_breadcrumb",
+      "label": "Breadcrumbs",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "sz_vendor",
+      "label": "Vendor / drop label",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "header",
+      "content": "Tagline & Reviews badge"
+    },
+    {
+      "type": "range",
+      "id": "sz_tagline",
+      "label": "Tagline",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "sz_reviews",
+      "label": "Reviews badge",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Price"
+    },
+    {
+      "type": "range",
+      "id": "sz_price",
+      "label": "Price",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Collapsible tabs"
+    },
+    {
+      "type": "range",
+      "id": "sz_tab_heading",
+      "label": "Tab heading",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "sz_tab_content",
+      "label": "Tab body text",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Trust strip"
+    },
+    {
+      "type": "range",
+      "id": "sz_trust",
+      "label": "Trust strip text",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — PDP Typography"
+    }
+  ]
+}
+{% endschema %}

@@ -269,9 +269,15 @@
         "padding_top": 32,
         "padding_bottom": 32
       }
+    },
+    "altrd_pdp_typography": {
+      "type": "altrd-pdp-typography",
+      "name": "ALTRD — PDP Typography",
+      "settings": {}
     }
   },
   "order": [
+    "altrd_pdp_typography",
     "main",
     "related-products",
     "altrd_marquee_yrfC8e",

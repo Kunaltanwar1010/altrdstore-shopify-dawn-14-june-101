@@ -4,17 +4,6 @@
   assign atc_text    = section.settings.atc_text_color   | default: '#F4EFE6'
   assign hivis_hover = section.settings.enable_hivis_atc
   assign sq_buttons  = section.settings.square_buttons
-
-  assign sz_breadcrumb   = section.settings.sz_breadcrumb   | default: 13
-  assign sz_title_desk   = section.settings.sz_title_desk   | default: 60
-  assign sz_title_mob    = section.settings.sz_title_mob    | default: 36
-  assign sz_tagline      = section.settings.sz_tagline      | default: 20
-  assign sz_reviews      = section.settings.sz_reviews      | default: 16
-  assign sz_price        = section.settings.sz_price        | default: 22
-  assign sz_tab_heading  = section.settings.sz_tab_heading  | default: 13
-  assign sz_tab_content  = section.settings.sz_tab_content  | default: 15
-  assign sz_trust        = section.settings.sz_trust        | default: 11
-  assign sz_vendor       = section.settings.sz_vendor       | default: 11
 -%}
 
 {%- style -%}
@@ -146,65 +135,6 @@ product-info .product__media-item--thumbnail.product__media-item--active::after 
   border-color: {{ atc_bg }};
 }
 
-/* ============================================================
-   ALTRD PDP — Typography sizes (schema-controlled)
-   ============================================================ */
-
-/* Vendor / drop label */
-product-info .product__text {
-  font-size: {{ sz_vendor }}px !important;
-}
-
-/* Breadcrumbs */
-product-info .altrd-breadcrumbs {
-  font-size: {{ sz_breadcrumb }}px !important;
-}
-
-/* Product title */
-product-info .product__title {
-  font-size: {{ sz_title_desk }}px !important;
-}
-@media screen and (max-width: 749px) {
-  product-info .product__title {
-    font-size: {{ sz_title_mob }}px !important;
-  }
-}
-
-/* Tagline */
-product-info .altrd-pdp-tagline {
-  font-size: {{ sz_tagline }}px !important;
-}
-
-/* Reviews badge */
-product-info .altrd-reviews-badge__stars {
-  font-size: {{ sz_reviews | times: 1.1 | round: 0 }}px !important;
-}
-product-info .altrd-reviews-badge__text {
-  font-size: {{ sz_reviews }}px !important;
-}
-product-info .altrd-reviews-badge__link {
-  font-size: {{ sz_reviews | minus: 2 }}px !important;
-}
-
-/* Price */
-product-info .price--large {
-  font-size: {{ sz_price }}px !important;
-}
-
-/* Collapsible tab headings */
-product-info .accordion__title.h4 {
-  font-size: {{ sz_tab_heading }}px !important;
-}
-
-/* Collapsible tab body content */
-product-info .accordion__content {
-  font-size: {{ sz_tab_content }}px !important;
-}
-
-/* Trust strip */
-product-info .altrd-trust-strip__label {
-  font-size: {{ sz_trust }}px !important;
-}
 {%- endstyle -%}
 
 {%- if request.design_mode -%}
