@@ -80,9 +80,9 @@
   /* --- Tagline block --- */
   .altrd-pdp-tagline {
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: 400;
-    line-height: 1.65;
+    line-height: 1.6;
     color: rgba(11, 11, 11, 0.55);
     max-width: 36ch;
     margin: 0 0 1.75rem;
@@ -162,6 +162,7 @@
   }
   .altrd-pdp-v2 .accordion__content {
     padding-bottom: 1.25rem;
+    padding-left: calc(var(--font-heading-scale, 1.1) * 3rem);
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 0.9375rem;
     line-height: 1.72;
@@ -340,9 +341,9 @@
     gap: 0.25rem;
     margin-bottom: 1rem;
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: rgba(11,11,11,0.4);
   }
@@ -352,8 +353,8 @@
     transition: color 0.15s ease;
   }
   .altrd-breadcrumbs__link:hover { color: #0B0B0B; }
-  .altrd-breadcrumbs__sep { margin: 0 0.125rem; }
-  .altrd-breadcrumbs__current { color: #0B0B0B; font-weight: 600; }
+  .altrd-breadcrumbs__sep { margin: 0 0.25rem; }
+  .altrd-breadcrumbs__current { color: #0B0B0B; font-weight: 700; }
 
   /* --- Google Reviews badge --- */
   .altrd-reviews-badge {
@@ -363,10 +364,10 @@
     margin-bottom: 1.25rem;
     flex-wrap: wrap;
   }
-  .altrd-reviews-badge__stars { color: #FBBC05; font-size: 0.875rem; letter-spacing: -0.05em; line-height: 1; }
+  .altrd-reviews-badge__stars { color: #FBBC05; font-size: 1.125rem; letter-spacing: -0.05em; line-height: 1; }
   .altrd-reviews-badge__text {
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-    font-size: 0.8125rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #0B0B0B;
   }
@@ -378,7 +379,7 @@
   .altrd-reviews-badge__g span:nth-child(5) { color: #34A853; }
   .altrd-reviews-badge__g span:nth-child(6) { color: #EA4335; }
   .altrd-reviews-badge__count { color: rgba(11,11,11,0.55); }
-  .altrd-reviews-badge__link { text-decoration: underline; color: rgba(11,11,11,0.5); font-size: 0.75rem; }
+  .altrd-reviews-badge__link { text-decoration: underline; color: rgba(11,11,11,0.5); font-size: 0.875rem; }
 
   /* --- Low stock + countdown urgency --- */
   .altrd-urgency {

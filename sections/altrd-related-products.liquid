@@ -90,8 +90,8 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: 0.875rem;
-    padding: 0 1.5rem 0.75rem;
+    gap: 1rem;
+    padding: 0 1.25rem 0.75rem;
     margin: 0 -1.5rem;
     cursor: grab;
     user-select: none;
@@ -403,6 +403,15 @@
       <script>
         (function () {
           var track = document.getElementById('AltrdRPTrack-{{ section.id }}');
+          /* Shuffle products randomly on each page load */
+          if (track) {
+            var items = Array.prototype.slice.call(track.querySelectorAll('li'));
+            for (var i = items.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              track.insertBefore(items[j], items[i].nextSibling);
+              var tmp = items[i]; items[i] = items[j]; items[j] = tmp;
+            }
+          }
           var dotsWrap = document.getElementById('AltrdRPDots-{{ section.id }}');
           if (!track) return;
           var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll('.altrd-rp__dot')) : [];
