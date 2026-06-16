@@ -1,20 +1,23 @@
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
-{{ 'component-price.css' | asset_url | stylesheet_tag }}
-{{ 'component-badge.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign source_collection = section.settings.collection
+  assign products_to_show  = section.settings.products_to_show | default: 4
+  assign color_style       = section.settings.color_style | default: 'bone'
+-%}
 
 {%- style -%}
-.section-{{ section.id }}-padding {
-  padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-  padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+/* === ALTRD Related Products === */
+.altrd-rp {
+  padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
 }
-@media screen and (min-width: 750px) {
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
+@media screen and (max-width: 749px) {
+  .altrd-rp {
+    padding: {{ section.settings.padding_top | times: 0.65 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.65 | round: 0 }}px;
   }
 }
+.altrd-rp--ink  { background: #0B0B0B; color: #F4EFE6; }
+.altrd-rp--bone { background: #F4EFE6; color: #0B0B0B; }
 
-/* --- ALTRD related products editorial header --- */
+/* Header */
 .altrd-rp__header {
   display: flex;
   align-items: flex-end;
@@ -23,137 +26,232 @@
   flex-wrap: wrap;
   margin-bottom: 2rem;
 }
-.altrd-rp__header-left { flex: 1 1 auto; min-width: 0; }
 .altrd-rp__eyebrow {
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-altrd-hivis, #E8FF52);
-  {%- if section.settings.color_style == 'bone' -%}
-  color: rgba(11,11,11,0.45);
-  {%- endif -%}
   margin: 0 0 0.625rem;
+  opacity: 0.45;
 }
+.altrd-rp--ink .altrd-rp__eyebrow { color: var(--color-altrd-hivis, #E8FF52); opacity: 1; }
 .altrd-rp__heading {
   font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
-  font-size: clamp(2rem, 4vw, 3.75rem);
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
   font-weight: 400;
   line-height: 0.93;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
   margin: 0;
-  {%- if section.settings.color_style == 'ink' -%}
-  color: #F4EFE6;
-  {%- else -%}
-  color: #0B0B0B;
-  {%- endif -%}
 }
-.altrd-rp__cta {
+.altrd-rp__view-all {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border: 1.5px solid;
-  transition: background 0.18s ease, color 0.18s ease;
+  color: inherit;
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 2px;
+  transition: gap 0.18s ease;
   white-space: nowrap;
-  {%- if section.settings.color_style == 'ink' -%}
-  color: #0B0B0B;
-  background: var(--color-altrd-hivis, #E8FF52);
-  border-color: var(--color-altrd-hivis, #E8FF52);
-  {%- else -%}
-  color: #0B0B0B;
-  background: transparent;
-  border-color: #0B0B0B;
-  {%- endif -%}
 }
-.altrd-rp__cta:hover {
-  {%- if section.settings.color_style == 'ink' -%}
-  background: #fff;
-  border-color: #fff;
-  {%- else -%}
-  background: #0B0B0B;
-  color: #F4EFE6;
-  {%- endif -%}
-}
-.altrd-rp__cta svg { transition: transform 0.18s ease; }
-.altrd-rp__cta:hover svg { transform: translateX(3px); }
+.altrd-rp__view-all:hover { gap: 0.875rem; }
+@media screen and (max-width: 749px) { .altrd-rp__view-all { display: none; } }
 
-/* --- Grid --- */
+/* Desktop grid */
 .altrd-rp__grid {
   display: grid;
-  gap: 1.25rem;
   grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-@media screen and (max-width: 989px) {
+@media screen and (min-width: 750px) and (max-width: 989px) {
   .altrd-rp__grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 }
-@media screen and (max-width: 549px) {
+
+/* Mobile: horizontal snap carousel */
+@media screen and (max-width: 749px) {
   .altrd-rp__grid {
-    grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
-    gap: 0.75rem;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.875rem;
+    padding: 0 1.25rem 0.75rem;
+    margin: 0 -1.25rem;
   }
+  .altrd-rp__grid::-webkit-scrollbar { display: none; }
+  .altrd-rp__grid > li {
+    flex: 0 0 72vw;
+    max-width: 18rem;
+    scroll-snap-align: start;
+  }
+  /* Peek indicator — trailing padding via last card */
+  .altrd-rp__grid > li:last-child { margin-right: 1.25rem; }
 }
 
-/* --- Card overrides for ALTRD brand --- */
-.altrd-rp-section .card-wrapper { border-radius: 0; }
-.altrd-rp-section .card__heading {
-  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+/* === Card: identical to altrd-featured-drop === */
+.altrd-rp__card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
-.altrd-rp-section .price__sale { font-weight: 700; }
-.altrd-rp-section .badge--sale {
-  background: var(--color-altrd-hivis, #E8FF52);
-  color: #0B0B0B;
-  border-radius: 0;
+.altrd-rp__card-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: #1a1a1a;
+}
+.altrd-rp--bone .altrd-rp__card-media { background: #E8E3DA; }
+.altrd-rp__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.altrd-rp__card:hover .altrd-rp__card-img { transform: scale(1.05); }
+.altrd-rp__card-img--alt {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.5s ease, transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.altrd-rp__card:hover .altrd-rp__card-img--alt { opacity: 1; }
+.altrd-rp__card-badges {
+  position: absolute;
+  top: 0.875rem;
+  left: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  z-index: 2;
+}
+.altrd-rp__badge {
+  display: inline-block;
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-  font-size: 0.5625rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.375rem 0.75rem;
+}
+.altrd-rp__badge--sold-out { background: rgba(0,0,0,0.65); color: #fff; }
+.altrd-rp__badge--sale { background: var(--color-altrd-hivis, #E8FF52); color: #0B0B0B; }
+.altrd-rp__card-hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 3;
+}
+.altrd-rp__card:hover .altrd-rp__card-hover { opacity: 1; }
+@media (hover: none) { .altrd-rp__card-hover { display: none; } }
+.altrd-rp__card-shop {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0B0B0B;
+  background: #F4EFE6;
+  padding: 0.5rem 1.25rem;
+}
+.altrd-rp__card-info {
+  padding: 1.125rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.altrd-rp__card-name {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.altrd-rp__card-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.altrd-rp__card-price {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.altrd-rp--ink  .altrd-rp__card-price--sale { color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-rp--bone .altrd-rp__card-price--sale { color: #b33; }
+.altrd-rp__card-compare {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  opacity: 0.38;
+  text-decoration: line-through;
 }
 
-/* --- Empty state --- */
+/* Footer view-all (mobile only) */
+.altrd-rp__footer {
+  display: none;
+  text-align: center;
+  margin-top: 1.75rem;
+}
+@media screen and (max-width: 749px) { .altrd-rp__footer { display: block; } }
+.altrd-rp__footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.875rem 2.25rem;
+  border: 1.5px solid currentColor;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.altrd-rp--ink .altrd-rp__footer-link:hover { background: #F4EFE6; color: #0B0B0B; }
+.altrd-rp--bone .altrd-rp__footer-link:hover { background: #0B0B0B; color: #F4EFE6; }
+
+/* Empty state (editor only) */
 .altrd-rp__empty {
   text-align: center;
   padding: 3rem 0;
   font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   font-size: 0.9375rem;
-  color: rgba(11,11,11,0.45);
+  opacity: 0.45;
 }
 {%- endstyle -%}
 
-{%- liquid
-  assign color_bg = '#F4EFE6'
-  assign color_text = '#0B0B0B'
-  if section.settings.color_style == 'ink'
-    assign color_bg = '#0B0B0B'
-    assign color_text = '#F4EFE6'
-  endif
-
-  assign source_collection = section.settings.collection
-  assign products_to_show = section.settings.products_to_show | default: 4
--%}
-
-<section
-  class="altrd-rp-section section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-  style="background: {{ color_bg }}; color: {{ color_text }};"
-  aria-label="{{ section.settings.heading | default: 'Related products' | escape }}"
->
+<div class="altrd-rp altrd-rp--{{ color_style }}">
   <div class="page-width">
 
     {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.cta_label != blank -%}
       <div class="altrd-rp__header">
-        <div class="altrd-rp__header-left">
+        <div>
           {%- if section.settings.eyebrow != blank -%}
             <p class="altrd-rp__eyebrow">{{ section.settings.eyebrow | escape }}</p>
           {%- endif -%}
@@ -162,10 +260,10 @@
           {%- endif -%}
         </div>
         {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
-          <a href="{{ section.settings.cta_link }}" class="altrd-rp__cta">
+          <a href="{{ section.settings.cta_link }}" class="altrd-rp__view-all">
             {{ section.settings.cta_label | escape }}
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
         {%- endif -%}
@@ -173,35 +271,101 @@
     {%- endif -%}
 
     {%- if source_collection != blank and source_collection.products_count > 0 -%}
-      {%- assign skip_card_product_styles = false -%}
       <ul class="altrd-rp__grid" role="list">
         {%- for product in source_collection.products limit: products_to_show -%}
+          {%- liquid
+            assign is_on_sale = false
+            if product.compare_at_price > product.price
+              assign is_on_sale = true
+            endif
+          -%}
           <li>
-            {%- render 'card-product',
-              card_product: product,
-              media_aspect_ratio: section.settings.image_ratio,
-              image_shape: 'default',
-              show_secondary_image: section.settings.show_secondary_image,
-              show_vendor: section.settings.show_vendor,
-              show_rating: section.settings.show_rating,
-              skip_styles: skip_card_product_styles
-            -%}
-            {%- assign skip_card_product_styles = true -%}
+            <a
+              href="{{ product.url }}"
+              class="altrd-rp__card{% unless product.available %} altrd-rp__card--sold-out{% endunless %}"
+              aria-label="{{ product.title | escape }}"
+            >
+              <div class="altrd-rp__card-media">
+                {%- if product.featured_image != blank -%}
+                  {{
+                    product.featured_image
+                    | image_url: width: 900
+                    | image_tag:
+                      class: 'altrd-rp__card-img',
+                      loading: 'lazy',
+                      sizes: '(min-width: 990px) 25vw, 75vw',
+                      widths: '375, 550, 750, 900',
+                      alt: product.featured_image.alt | escape
+                  }}
+                  {%- if product.images.size > 1 and section.settings.show_secondary_image -%}
+                    {{
+                      product.images[1]
+                      | image_url: width: 900
+                      | image_tag:
+                        class: 'altrd-rp__card-img altrd-rp__card-img--alt',
+                        loading: 'lazy',
+                        sizes: '(min-width: 990px) 25vw, 75vw',
+                        widths: '375, 550, 750, 900',
+                        alt: product.images[1].alt | escape
+                    }}
+                  {%- endif -%}
+                {%- else -%}
+                  {{ 'product-apparel-1' | placeholder_svg_tag: 'altrd-rp__card-placeholder' }}
+                {%- endif -%}
+
+                <div class="altrd-rp__card-badges">
+                  {%- unless product.available -%}
+                    <span class="altrd-rp__badge altrd-rp__badge--sold-out">Sold out</span>
+                  {%- endunless -%}
+                  {%- if is_on_sale and product.available -%}
+                    <span class="altrd-rp__badge altrd-rp__badge--sale">Sale</span>
+                  {%- endif -%}
+                </div>
+
+                <div class="altrd-rp__card-hover" aria-hidden="true">
+                  <span class="altrd-rp__card-shop">Shop now</span>
+                </div>
+              </div>
+
+              <div class="altrd-rp__card-info">
+                <p class="altrd-rp__card-name">{{ product.title | escape }}</p>
+                <div class="altrd-rp__card-pricing">
+                  <span class="altrd-rp__card-price{% if is_on_sale %} altrd-rp__card-price--sale{% endif %}">
+                    {{- product.price | money -}}
+                  </span>
+                  {%- if is_on_sale -%}
+                    <s class="altrd-rp__card-compare">{{ product.compare_at_price | money }}</s>
+                  {%- endif -%}
+                </div>
+              </div>
+            </a>
           </li>
         {%- endfor -%}
       </ul>
-    {%- elsif source_collection == blank -%}
-      {%- if request.design_mode -%}
-        <p class="altrd-rp__empty">Select a collection in the section settings to display products here.</p>
+
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <div class="altrd-rp__footer">
+          <a href="{{ section.settings.cta_link }}" class="altrd-rp__footer-link">
+            {{ section.settings.cta_label | escape }}
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
       {%- endif -%}
-    {%- else -%}
-      {%- if request.design_mode -%}
-        <p class="altrd-rp__empty">The selected collection has no products.</p>
-      {%- endif -%}
+
+    {%- elsif request.design_mode -%}
+      <p class="altrd-rp__empty">
+        {%- if source_collection == blank -%}
+          Select a collection in the section settings to display products here.
+        {%- else -%}
+          The selected collection has no products.
+        {%- endif -%}
+      </p>
     {%- endif -%}
 
   </div>
-</section>
+</div>
 
 {% schema %}
 {
@@ -264,47 +428,10 @@
       "label": "Columns on desktop"
     },
     {
-      "type": "select",
-      "id": "columns_mobile",
-      "label": "Columns on mobile",
-      "default": "2",
-      "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
-      ]
-    },
-    {
-      "type": "header",
-      "content": "Card options"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "label": "Image ratio",
-      "default": "portrait",
-      "options": [
-        { "value": "adapt", "label": "Adapt to image" },
-        { "value": "portrait", "label": "Portrait (2:3)" },
-        { "value": "square", "label": "Square (1:1)" }
-      ]
-    },
-    {
       "type": "checkbox",
       "id": "show_secondary_image",
-      "label": "Show hover image",
+      "label": "Show hover / alt image",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show vendor",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_rating",
-      "label": "Show rating",
-      "default": false
     },
     {
       "type": "header",
@@ -317,7 +444,7 @@
       "default": "bone",
       "options": [
         { "value": "bone", "label": "Bone (light)" },
-        { "value": "ink", "label": "Ink (dark)" }
+        { "value": "ink",  "label": "Ink (dark)" }
       ]
     },
     {
@@ -353,8 +480,6 @@
         "heading": "You might also like",
         "products_to_show": 4,
         "columns_desktop": 4,
-        "columns_mobile": "2",
-        "image_ratio": "portrait",
         "show_secondary_image": true,
         "color_style": "bone"
       }
