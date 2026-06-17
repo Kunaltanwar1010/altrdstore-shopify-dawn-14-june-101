@@ -1,0 +1,142 @@
+{%- liquid
+  assign bg = section.settings.bg_color   | default: '#F4EFE6'
+  assign tx = section.settings.text_color | default: '#0B0B0B'
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .altrd-trust-bar {
+    background: {{ bg }};
+    color: {{ tx }};
+    text-align: center;
+    padding: {{ section.settings.padding_y }}px 1rem;
+    {% if section.settings.border_top %}border-top: 1px solid {{ tx }}1f;{% endif %}
+    {% if section.settings.border_bottom %}border-bottom: 1px solid {{ tx }}1f;{% endif %}
+  }
+  #shopify-section-{{ section.id }} .altrd-trust-bar__text {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: {{ section.settings.font_weight }};
+    letter-spacing: {{ section.settings.letter_spacing }}em;
+    {% if section.settings.uppercase %}text-transform: uppercase;{% endif %}
+    margin: 0;
+    line-height: 1.4;
+  }
+  #shopify-section-{{ section.id }} .altrd-trust-bar__text strong { font-weight: 700; }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .altrd-trust-bar__text {
+      font-size: {{ section.settings.font_size | minus: 1 | at_least: 9 }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- if section.settings.text != blank -%}
+  <div class="altrd-trust-bar">
+    <p class="altrd-trust-bar__text">{{ section.settings.text }}</p>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ALTRD — Trust bar",
+  "class": "altrd-trust-bar-section",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "Loved by over 10,000+ customers since 2016",
+      "info": "Select a word and use bold for emphasis."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#F4EFE6"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0B0B0B"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 9,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "default": "500",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 0.3,
+      "step": 0.01,
+      "unit": "em",
+      "label": "Letter spacing",
+      "default": 0.04
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "Uppercase",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 2,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "border_top",
+      "label": "Top border",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "border_bottom",
+      "label": "Bottom border",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALTRD — Trust bar"
+    }
+  ]
+}
+{% endschema %}
