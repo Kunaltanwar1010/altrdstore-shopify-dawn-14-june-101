@@ -78,7 +78,13 @@
         "size_guide": {
           "type": "size_guide",
           "settings": {
-            "link_text": "Size guide",
+            "link_text": "Size Chart",
+            "tab1_label": "",
+            "tab1_content": "",
+            "tab2_label": "",
+            "tab2_content": "",
+            "tab3_label": "",
+            "tab3_content": "",
             "content": "",
             "page": ""
           }
