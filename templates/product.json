@@ -282,6 +282,7 @@
       "name": "ALTRD — Marquee",
       "settings": {
         "color_style": "ink",
+        "font_size": 13,
         "speed": 30,
         "separator": "✶",
         "pause_on_hover": true
