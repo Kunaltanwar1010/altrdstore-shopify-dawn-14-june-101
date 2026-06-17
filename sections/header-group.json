@@ -88,16 +88,16 @@
     "altrd_trust_bar": {
       "type": "altrd-trust-bar",
       "settings": {
-        "text": "Loved by over 10,000+ customers since 2016",
-        "bg_color": "#f4efe6",
-        "text_color": "#0b0b0b",
+        "text": "Loved by over 10,000+ customers since 2025",
+        "bg_color": "#000000",
+        "text_color": "#FFFFFF",
         "font_size": 12,
         "font_weight": "500",
         "letter_spacing": 4,
         "uppercase": false,
         "padding_y": 8,
-        "border_top": true,
-        "border_bottom": true
+        "border_top": false,
+        "border_bottom": false
       }
     }
   },
