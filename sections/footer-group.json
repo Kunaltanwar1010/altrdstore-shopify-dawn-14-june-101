@@ -40,17 +40,17 @@
         "include_margins": false
       }
     },
-    "altrd-footer-main": {
+    "altrd_footer_wRJr6f": {
       "type": "altrd-footer",
       "blocks": {
-        "nav-shop": {
+        "nav_column_d9RtWi": {
           "type": "nav_column",
           "settings": {
             "heading": "Shop",
             "menu": "main-menu"
           }
         },
-        "nav-about": {
+        "nav_column_emjyka": {
           "type": "nav_column",
           "settings": {
             "heading": "About",
@@ -59,13 +59,14 @@
         }
       },
       "block_order": [
-        "nav-shop",
-        "nav-about"
+        "nav_column_d9RtWi",
+        "nav_column_emjyka"
       ],
+      "name": "ALTRD — Footer",
       "settings": {
         "tagline": "Wear what you stand for.",
         "social_heading": "Connect",
-        "instagram_url": "#",
+        "instagram_url": "",
         "youtube_url": "",
         "tiktok_url": "",
         "twitter_url": "",
@@ -129,7 +130,7 @@
   },
   "order": [
     "1781446507082ec830",
-    "altrd-footer-main",
+    "altrd_footer_wRJr6f",
     "newsletter",
     "footer"
   ]
