@@ -113,7 +113,7 @@
             "author_name": "Aarav M.",
             "author_meta": "Mumbai · Verified buyer",
             "verified": true,
-            "product": ""
+            "product": "aura-unisex-oversized-t-shirt"
           }
         },
         "testimonial_dmnpHw": {
@@ -137,24 +137,12 @@
             "verified": true,
             "product": ""
           }
-        },
-        "testimonial_T9chNz": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "<p>Best fit I've owned. The fabric is heavy in the best way and it hasn't faded after a dozen washes.</p>",
-            "author_name": "Aarav M.",
-            "author_meta": "Mumbai · Verified buyer",
-            "verified": true,
-            "product": ""
-          }
         }
       },
       "block_order": [
         "testimonial_zzz6x9",
         "testimonial_dmnpHw",
-        "testimonial_NbtWDD",
-        "testimonial_T9chNz"
+        "testimonial_NbtWDD"
       ],
       "name": "ALTRD — Testimonials",
       "settings": {
