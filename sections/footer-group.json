@@ -45,6 +45,7 @@
       "blocks": {
         "service_item_6pxaaJ": {
           "type": "service_item",
+          "disabled": true,
           "settings": {
             "icon": "truck",
             "title": "Fast Delivery",
@@ -53,6 +54,7 @@
         },
         "service_item_dTJPqd": {
           "type": "service_item",
+          "disabled": true,
           "settings": {
             "icon": "heart",
             "title": "Customer service",
@@ -61,6 +63,7 @@
         },
         "service_item_jMMYHY": {
           "type": "service_item",
+          "disabled": true,
           "settings": {
             "icon": "shield",
             "title": "Trust",
@@ -69,6 +72,7 @@
         },
         "service_item_UpPpyr": {
           "type": "service_item",
+          "disabled": true,
           "settings": {
             "icon": "lock",
             "title": "COD Available",
