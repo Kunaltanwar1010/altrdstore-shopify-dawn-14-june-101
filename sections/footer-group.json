@@ -43,6 +43,38 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "service_item_6pxaaJ": {
+          "type": "service_item",
+          "settings": {
+            "icon": "chat",
+            "title": "Customer service",
+            "subtext": "Real people, real replies."
+          }
+        },
+        "service_item_dTJPqd": {
+          "type": "service_item",
+          "settings": {
+            "icon": "chat",
+            "title": "Customer service",
+            "subtext": "Real people, real replies."
+          }
+        },
+        "service_item_jMMYHY": {
+          "type": "service_item",
+          "settings": {
+            "icon": "chat",
+            "title": "Customer service",
+            "subtext": "Real people, real replies."
+          }
+        },
+        "service_item_UpPpyr": {
+          "type": "service_item",
+          "settings": {
+            "icon": "chat",
+            "title": "Customer service",
+            "subtext": "Real people, real replies."
+          }
+        },
         "col1": {
           "type": "menu_column",
           "settings": {
@@ -66,6 +98,10 @@
         }
       },
       "block_order": [
+        "service_item_6pxaaJ",
+        "service_item_dTJPqd",
+        "service_item_jMMYHY",
+        "service_item_UpPpyr",
         "col1",
         "col2",
         "col3"
@@ -73,8 +109,8 @@
       "settings": {
         "background_mode": "dark",
         "footer_logo": "shopify://shop_images/logo_white.png",
-        "footer_logo_width": 60,
-        "show_service_strip": false,
+        "footer_logo_width": 100,
+        "show_service_strip": true,
         "newsletter_enable": false,
         "newsletter_label": "Newsletter",
         "newsletter_fineprint": "kejfsnd",
