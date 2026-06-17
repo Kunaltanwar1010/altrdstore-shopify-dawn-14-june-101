@@ -45,6 +45,7 @@
           "type": "panel",
           "settings": {
             "collection": "lite",
+            "link": "shopify://collections/lite",
             "label": "LITE",
             "tagline": "Light minds move fast.",
             "cta_label": "Explore Lite",
@@ -58,6 +59,7 @@
           "type": "panel",
           "settings": {
             "collection": "max",
+            "link": "",
             "label": "MAX",
             "tagline": "Go all in. Every time.",
             "cta_label": "Explore Max",
