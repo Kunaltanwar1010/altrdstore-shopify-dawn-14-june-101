@@ -80,7 +80,7 @@
         "heading": "Shop by collection",
         "height": "medium",
         "enable_hover": true,
-        "enable_marquee": true,
+        "enable_marquee": false,
         "accent_color": "#e8ff52",
         "padding_top": 0,
         "padding_bottom": 0
