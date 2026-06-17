@@ -1,5 +1,26 @@
 # Changelog
 
+## Black/white collection page (wearadhd-style) — phase 1
+
+Rebuilt the collection header in strict black & white (`sections/main-collection-banner.liquid`) and switched filtering to Shopify's **native drawer** facets. Theme-check clean, validated via the Dev MCP, OS 2.0.
+
+**Delivered:**
+- **Collection header** — lowercase H1 title, product count ("N products"), optional description. Color mode toggle (light/dark, monochrome either way).
+- **Sub-collection pills** — editable as `pill` blocks (pick a collection, optional custom label/link). The pill matching the current collection auto-highlights. Hidden when no pills are added.
+- **Grid-density toggles** — desktop 2/3 (4 available) and mobile 1/2 icon buttons. The choice persists in `localStorage` (`altrd-density-desktop` / `altrd-density-mobile`) so it sticks across pages. Controls the native `#product-grid` columns via robust data-attribute CSS (no dependency on Dawn class names).
+- **Filter & sort drawer** — `templates/collection.json` → `product-grid.filter_type: "drawer"` (native Shopify facets; sort, availability, size, price all keep working with state in the URL `?filter.*` / `?sort_by=`).
+
+**How to edit (Theme editor → Collection template):**
+- **Sub-collection pills:** open the **Collection banner** section → add **Sub-collection pill** blocks → pick a collection (e.g. on a hoodies page add Pullover / Zip). Label defaults to the collection title; override with the Label/Link fields.
+- **Density defaults:** Collection banner → *Default columns — desktop/mobile*. (Shoppers can still toggle; their choice is saved per-browser.)
+- **Color mode:** Collection banner → *Color mode* (light = white bg/black text, dark = inverted). Strict monochrome either way.
+
+**Admin step you must do (Shopify → Search & Discovery → Filters):**
+Enable the **Availability**, **Size** (variant option), and **Price** filters so the drawer facets and counts ("S (12)") populate. Without this, the drawer shows only Sort.
+
+**Phase 2 (pending — shared snippets, site-wide impact):**
+`snippets/card-product.liquid` + `snippets/price.liquid` carry the product card and pricing and are used across the whole theme (home, search, related, cart). The wearadhd card touches — **Save X% badge**, monochrome badge stack, tag/metafield-driven labels (New In, Limited, Best Seller), "Choose options" quick-add styling — will be applied in a follow-up so the global regression surface can be verified. Hover image-swap is already on (`show_secondary_image: true`).
+
 ## Black/white footer (wearadhd-style) — `sections/footer.liquid`
 
 Rebuilt Refresh's footer into a near-exact ditto of the wearadhd.com footer in a **strict black & white** scheme (no hi-vis accent). OS 2.0, fully editable, theme-check clean. The newsletter `customer` form, payment icons, and country/language localization selectors remain functional.
