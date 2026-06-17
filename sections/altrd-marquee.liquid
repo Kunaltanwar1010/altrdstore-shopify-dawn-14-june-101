@@ -17,6 +17,12 @@
     {%- endfor -%}
   </div>
 </div>
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .altrd-marquee__item {
+    font-size: {{ section.settings.font_size }}px;
+  }
+{%- endstyle -%}
 {%- endif -%}
 
 {% stylesheet %}
@@ -98,6 +104,16 @@
         { "value": "hivis", "label": "Hi-vis (yellow)" }
       ],
       "default": "ink"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 15
     },
     {
       "type": "range",
