@@ -164,14 +164,14 @@
     color: var(--af-tx);
   }
 
-  /* Link columns */
-  .altrd-footer__cols {
+  /* Top grid: logo + menu columns */
+  .altrd-footer__top {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    padding: 3rem 0;
-    border-bottom: 1px solid var(--af-line);
+    grid-template-columns: 1.3fr repeat(3, 1fr);
+    gap: 2.5rem 3rem;
+    padding: 0 0 2.5rem;
   }
+  .altrd-footer__top-logo { display: flex; align-items: flex-start; }
   .altrd-footer__col { border: 0; }
   .altrd-footer__col-summary {
     display: flex;
@@ -229,25 +229,20 @@
   }
   .altrd-footer__rotation-embed iframe { width: 100%; border: 0; border-radius: 0; display: block; }
 
-  /* Trademark */
+  /* Trademark band */
   .altrd-footer__trademark {
-    padding: 2rem 0 0;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--af-line);
     font-size: 0.8125rem;
     line-height: 1.6;
     color: var(--af-muted);
-    max-width: 60ch;
+    max-width: 70ch;
   }
   .altrd-footer__trademark a { color: var(--af-tx); }
 
-  /* Bottom bar */
-  .altrd-footer__bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem 2rem;
-    flex-wrap: wrap;
-    padding-top: 2rem;
-    margin-top: 2rem;
+  /* Social band */
+  .altrd-footer__social-band {
+    padding: 1.5rem 0;
     border-top: 1px solid var(--af-line);
   }
   .altrd-footer__social { display: flex; align-items: center; gap: 0.625rem; flex-wrap: wrap; }
@@ -268,14 +263,21 @@
   .altrd-footer__localization { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .altrd-footer__localization .caption-large { color: var(--af-muted); }
 
+  /* Bottom band: copyright + policies + utils */
+  .altrd-footer__bottom-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--af-line);
+  }
   .altrd-footer__copyright {
     display: flex;
     align-items: center;
     gap: 0.75rem 1.25rem;
     flex-wrap: wrap;
-    padding-top: 1.5rem;
-    margin-top: 1.5rem;
-    border-top: 1px solid var(--af-line);
   }
   .altrd-footer__copyright small,
   .altrd-footer__copyright a {
@@ -288,15 +290,15 @@
 
   /* Mobile */
   @media screen and (max-width: 989px) {
-    .altrd-footer__news { grid-template-columns: 1fr; }
-    .altrd-footer__cols { grid-template-columns: 1fr; gap: 0; padding: 1rem 0; }
+    .altrd-footer__top { grid-template-columns: 1fr; gap: 0; padding-bottom: 0.5rem; }
+    .altrd-footer__top-logo { padding: 0.5rem 0 1.5rem; }
     .altrd-footer__col {
-      border-bottom: 1px solid var(--af-line);
+      border-top: 1px solid var(--af-line);
       padding: 1.125rem 0;
     }
     .altrd-footer__col-heading { margin: 0; }
     .altrd-footer__col-list { padding-top: 1.125rem; }
-    .altrd-footer__bottom { flex-direction: column; align-items: flex-start; }
+    .altrd-footer__bottom-band { flex-direction: column; align-items: flex-start; }
   }
   @media screen and (max-width: 749px) {
     .altrd-footer__service { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; }
@@ -352,91 +354,42 @@
       </div>
     {%- endif -%}
 
-    {%- if section.settings.show_brand -%}
-      <div class="altrd-footer__news">
-        <div class="altrd-footer__news-brand">
-          {%- if section.settings.footer_logo != blank -%}
-            {%- assign logo_h = section.settings.footer_logo_width | divided_by: section.settings.footer_logo.aspect_ratio -%}
-            {{
-              section.settings.footer_logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'altrd-footer__logo-img',
-                widths: '120, 240, 360, 480, 600',
-                width: section.settings.footer_logo_width,
-                height: logo_h,
-                loading: 'lazy',
-                alt: shop.name | escape
-            }}
-          {%- elsif settings.logo != blank -%}
-            {%- assign logo_h = section.settings.footer_logo_width | divided_by: settings.logo.aspect_ratio -%}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'altrd-footer__logo-img altrd-footer__logo-img--auto',
-                widths: '120, 240, 360, 480, 600',
-                width: section.settings.footer_logo_width,
-                height: logo_h,
-                loading: 'lazy',
-                alt: shop.name | escape
-            }}
-          {%- else -%}
-            <p class="altrd-footer__logo-text">{{ shop.name }}</p>
-          {%- endif -%}
-        </div>
-        <div class="altrd-footer__news-text">
-          {%- if section.settings.about_heading != blank -%}
-            <h2 class="altrd-footer__news-heading">{{ section.settings.about_heading | escape }}</h2>
-          {%- endif -%}
-          {%- if section.settings.about_text != blank -%}
-            <div class="altrd-footer__about rte">{{ section.settings.about_text }}</div>
-          {%- endif -%}
+    {%- if section.settings.show_brand or menu_columns.size > 0 -%}
+      <div class="altrd-footer__top">
+        {%- if section.settings.show_brand -%}
+          <div class="altrd-footer__top-logo">
+            {%- if section.settings.footer_logo != blank -%}
+              {%- assign logo_h = section.settings.footer_logo_width | divided_by: section.settings.footer_logo.aspect_ratio -%}
+              {{
+                section.settings.footer_logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'altrd-footer__logo-img',
+                  widths: '120, 240, 360, 480, 600',
+                  width: section.settings.footer_logo_width,
+                  height: logo_h,
+                  loading: 'lazy',
+                  alt: shop.name | escape
+              }}
+            {%- elsif settings.logo != blank -%}
+              {%- assign logo_h = section.settings.footer_logo_width | divided_by: settings.logo.aspect_ratio -%}
+              {{
+                settings.logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'altrd-footer__logo-img altrd-footer__logo-img--auto',
+                  widths: '120, 240, 360, 480, 600',
+                  width: section.settings.footer_logo_width,
+                  height: logo_h,
+                  loading: 'lazy',
+                  alt: shop.name | escape
+              }}
+            {%- else -%}
+              <p class="altrd-footer__logo-text">{{ shop.name }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
-          {%- if section.settings.newsletter_enable -%}
-            <p class="altrd-footer__news-eyebrow">{{ section.settings.newsletter_label | default: 'Newsletter' | escape }}</p>
-            {%- form 'customer', id: 'ContactFooter', class: 'altrd-footer__form' -%}
-              <input type="hidden" name="contact[tags]" value="newsletter">
-              <div class="altrd-footer__form-row">
-                <input
-                  id="NewsletterForm--{{ section.id }}"
-                  type="email"
-                  name="contact[email]"
-                  class="altrd-footer__input"
-                  value="{{ form.email }}"
-                  aria-label="{{ 'newsletter.label' | t }}"
-                  autocorrect="off"
-                  autocapitalize="off"
-                  autocomplete="email"
-                  placeholder="{{ 'newsletter.label' | t }}"
-                  required
-                >
-                <button type="submit" class="altrd-footer__submit" name="commit">
-                  {{ 'newsletter.button_label' | t }}
-                </button>
-              </div>
-              {%- if section.settings.newsletter_fineprint != blank -%}
-                <p class="altrd-footer__fineprint">{{ section.settings.newsletter_fineprint | escape }}</p>
-              {%- endif -%}
-              {%- if form.errors -%}
-                <p class="altrd-footer__form-msg" role="alert">
-                  {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
-                </p>
-              {%- elsif form.posted_successfully? -%}
-                <p class="altrd-footer__form-msg" tabindex="-1">{{ 'newsletter.success' | t }}</p>
-              {%- endif -%}
-            {%- endform -%}
-          {%- endif -%}
-
-          {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
-            <div class="altrd-footer__follow">{{ shop | login_button: action: 'follow' }}</div>
-          {%- endif -%}
-        </div>
-      </div>
-    {%- endif -%}
-
-    {%- if menu_columns.size > 0 -%}
-      <div class="altrd-footer__cols">
         {%- for block in menu_columns -%}
           <details class="altrd-footer__col" open {{ block.shopify_attributes }}>
             <summary class="altrd-footer__col-summary">
@@ -483,13 +436,13 @@
       <div class="altrd-footer__trademark rte">{{ section.settings.trademark_text }}</div>
     {%- endif -%}
 
-    <div class="altrd-footer__bottom">
-      {%- liquid
-        assign ig_url = section.settings.social_instagram | default: settings.social_instagram_link
-        assign fb_url = section.settings.social_facebook | default: settings.social_facebook_link
-        assign x_url  = settings.social_twitter_link
-      -%}
-      {%- if section.settings.show_social -%}
+    {%- liquid
+      assign ig_url = section.settings.social_instagram | default: settings.social_instagram_link
+      assign fb_url = section.settings.social_facebook | default: settings.social_facebook_link
+      assign x_url  = settings.social_twitter_link
+    -%}
+    {%- if section.settings.show_social and ig_url != blank or fb_url != blank or x_url != blank -%}
+      <div class="altrd-footer__social-band">
         <div class="altrd-footer__social">
           {%- if ig_url != blank -%}
             <a href="{{ ig_url }}" class="altrd-footer__social-link" target="_blank" rel="noopener" aria-label="Instagram">
@@ -507,7 +460,22 @@
             </a>
           {%- endif -%}
         </div>
-      {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="altrd-footer__bottom-band">
+      <div class="altrd-footer__copyright">
+        <small>&copy; {{ current_year }} — {{ shop.name | link_to: routes.root_url }}</small>
+        {%- if section.settings.show_policy -%}
+          <ul class="altrd-footer__policies" role="list">
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
 
       <div class="altrd-footer__utils">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 or section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
@@ -546,21 +514,27 @@
       </div>
     </div>
 
-    <div class="altrd-footer__copyright">
-      <small>&copy; {{ current_year }} — {{ shop.name | link_to: routes.root_url }}</small>
-      {%- if section.settings.show_policy -%}
-        <ul class="altrd-footer__policies" role="list">
-          {%- for policy in shop.policies -%}
-            {%- if policy != blank -%}
-              <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-    </div>
-
   </div>
 </footer>
+
+<script>
+  (function () {
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+    var cols = section.querySelectorAll('.altrd-footer__col');
+    if (!cols.length) return;
+    var desktop = window.matchMedia('(min-width: 990px)');
+    function sync() {
+      cols.forEach(function (d) { d.open = desktop.matches; });
+    }
+    sync();
+    if (desktop.addEventListener) {
+      desktop.addEventListener('change', sync);
+    } else if (desktop.addListener) {
+      desktop.addListener(sync);
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -629,12 +603,12 @@
     },
     {
       "type": "header",
-      "content": "Brand (logo + about)"
+      "content": "Logo"
     },
     {
       "type": "checkbox",
       "id": "show_brand",
-      "label": "Show brand band",
+      "label": "Show logo column",
       "default": true
     },
     {
@@ -652,18 +626,6 @@
       "unit": "px",
       "label": "Logo width",
       "default": 140
-    },
-    {
-      "type": "text",
-      "id": "about_heading",
-      "label": "About heading",
-      "default": "About us"
-    },
-    {
-      "type": "richtext",
-      "id": "about_text",
-      "label": "About text",
-      "default": "<p>ALTRD is streetwear built for the builder generation — heavyweight pieces designed to wear your mindset. Made in small drops, worn loud.</p>"
     },
     {
       "type": "header",
