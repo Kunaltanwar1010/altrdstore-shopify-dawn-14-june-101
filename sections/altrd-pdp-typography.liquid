@@ -79,6 +79,32 @@ product-info .product-form__input .product-form__label {
   font-size: {{ s.sz_variant_value }}px !important;
 }
 
+/* Low stock / countdown timer */
+product-info .altrd-urgency {
+  font-size: {{ s.sz_urgency }}px !important;
+  margin-bottom: {{ s.sp_urgency }}px !important;
+}
+
+/* Quantity selector */
+product-info .quantity__label {
+  font-size: {{ s.sz_qty_label }}px !important;
+}
+product-info .product-form__quantity {
+  margin-bottom: {{ s.sp_qty }}px !important;
+}
+
+/* Estimated delivery */
+product-info .altrd-delivery {
+  margin-bottom: {{ s.sp_delivery }}px !important;
+}
+product-info .altrd-delivery__title {
+  font-size: {{ s.sz_delivery_title }}px !important;
+}
+product-info .altrd-delivery__label,
+product-info .altrd-delivery__date {
+  font-size: {{ s.sz_delivery_text }}px !important;
+}
+
 /* Collapsible tabs */
 product-info .accordion__title.h4 {
   font-size: {{ s.sz_tab_heading }}px !important;
@@ -298,6 +324,88 @@ product-info .altrd-trust-strip__label {
       "step": 1,
       "unit": "px",
       "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Low stock / Countdown timer"
+    },
+    {
+      "type": "range",
+      "id": "sz_urgency",
+      "label": "Text size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "sp_urgency",
+      "label": "Space below",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Quantity selector"
+    },
+    {
+      "type": "range",
+      "id": "sz_qty_label",
+      "label": "Label size (QUANTITY)",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "sp_qty",
+      "label": "Space below",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Estimated delivery"
+    },
+    {
+      "type": "range",
+      "id": "sz_delivery_title",
+      "label": "Heading size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "sz_delivery_text",
+      "label": "Step text size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "sp_delivery",
+      "label": "Space below",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
     },
     {
       "type": "header",
