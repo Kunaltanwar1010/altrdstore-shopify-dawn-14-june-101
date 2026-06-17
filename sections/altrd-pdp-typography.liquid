@@ -119,6 +119,12 @@ product-info .altrd-trust-strip__label {
 }
 
 /* Size chart popup — covers the custom paged modal AND Dawn's native popup block */
+product-info .altrd-pdp-size-guide,
+product-info .product-popup-modal__opener {
+  display: inline-flex !important;
+  margin-top: {{ s.sp_sizechart_top }}px !important;
+  margin-bottom: {{ s.sp_sizechart }}px !important;
+}
 product-info .altrd-pdp-size-guide__btn,
 product-info .product-popup-modal__button {
   font-size: {{ s.sz_sizechart_trigger }}px !important;
@@ -483,6 +489,26 @@ product-info .product-popup-modal__content-info th {
       "step": 1,
       "unit": "px",
       "default": 11
+    },
+    {
+      "type": "range",
+      "id": "sp_sizechart_top",
+      "label": "Space above trigger",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "sp_sizechart",
+      "label": "Space below trigger",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
     },
     {
       "type": "range",
