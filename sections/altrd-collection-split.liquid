@@ -69,11 +69,6 @@
         {%- if bl_tag != blank -%}
           {%- assign aria_label = bl_label | append: ' — ' | append: bl_tag -%}
         {%- endif -%}
-        <a
-          class="altrd-cs__link"
-          href="{{ bl_url }}"
-          aria-label="{{ aria_label | escape }}"
-        ></a>
 
         <div class="altrd-cs__bg-wrap">
           {%- if bl_img != blank -%}
@@ -126,6 +121,12 @@
             </div>
           </div>
         {%- endif -%}
+
+        <a
+          class="altrd-cs__link"
+          href="{{ bl_url }}"
+          aria-label="{{ aria_label | escape }}"
+        ></a>
       </div>
 
       {%- unless forloop.last -%}
