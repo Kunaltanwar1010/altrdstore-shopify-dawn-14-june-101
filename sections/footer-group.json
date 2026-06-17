@@ -40,48 +40,58 @@
         "include_margins": false
       }
     },
-    "altrd_footer_wRJr6f": {
-      "type": "altrd-footer",
+    "footer": {
+      "type": "footer",
       "blocks": {
-        "nav_column_YGEFBk": {
-          "type": "nav_column",
-          "settings": {
-            "heading": "Shop",
-            "menu": "footer"
-          }
-        },
-        "nav_column_d9RtWi": {
-          "type": "nav_column",
+        "col1": {
+          "type": "menu_column",
           "settings": {
             "heading": "Shop",
             "menu": "main-menu"
           }
         },
-        "nav_column_emjyka": {
-          "type": "nav_column",
+        "col2": {
+          "type": "menu_column",
           "settings": {
-            "heading": "About",
+            "heading": "Info",
+            "menu": "footer"
+          }
+        },
+        "col3": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Support",
             "menu": "footer"
           }
         }
       },
       "block_order": [
-        "nav_column_YGEFBk",
-        "nav_column_d9RtWi",
-        "nav_column_emjyka"
+        "col1",
+        "col2",
+        "col3"
       ],
-      "name": "ALTRD — Footer",
-      "disabled": true,
       "settings": {
-        "tagline": "Wear what you stand for.",
-        "social_heading": "Connect",
-        "instagram_url": "",
-        "youtube_url": "",
-        "tiktok_url": "",
-        "twitter_url": "",
-        "attribution": "Co-created with @cs.ujjawalpahwa",
-        "copyright": "© 2025 ALTRD. All rights reserved.",
-        "show_policy": true
+        "background_mode": "dark",
+        "footer_logo": "shopify://shop_images/logo_white.png",
+        "footer_logo_width": 140,
+        "show_service_strip": true,
+        "newsletter_enable": false,
+        "newsletter_label": "Newsletter",
+        "newsletter_heading": "Subscribe and get 10% off",
+        "newsletter_fineprint": "Cannot be combined with other offers. Min. purchase ₹999.",
+        "show_on_rotation": true,
+        "trademark_text": "ALTRD® and the ALTRD wordmark are trademarks of ALTRD. All designs, graphics and copy © ALTRD — unauthorized reproduction is prohibited.",
+        "show_social": true,
+        "social_whatsapp": "",
+        "social_spotify": "",
+        "enable_follow_on_shop": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 40,
+        "padding_bottom": 36
       }
     },
     "newsletter": {
@@ -117,44 +127,11 @@
         "padding_top": 28,
         "padding_bottom": 0
       }
-    },
-    "footer": {
-      "type": "footer",
-      "blocks": {
-        "svc1": { "type": "service_item", "settings": { "icon": "chat", "title": "Customer service", "subtext": "Real people, real replies." } },
-        "svc2": { "type": "service_item", "settings": { "icon": "truck", "title": "Fast dispatch", "subtext": "Packed and shipped in 24–48 hrs." } },
-        "svc3": { "type": "service_item", "settings": { "icon": "heart", "title": "Trusted by 10K+", "subtext": "Closets that get it." } },
-        "svc4": { "type": "service_item", "settings": { "icon": "lock", "title": "Secure payment", "subtext": "Processed securely." } },
-        "col1": { "type": "menu_column", "settings": { "heading": "Shop", "menu": "main-menu" } },
-        "col2": { "type": "menu_column", "settings": { "heading": "Info", "menu": "footer" } },
-        "col3": { "type": "menu_column", "settings": { "heading": "Support", "menu": "footer" } }
-      },
-      "block_order": ["svc1", "svc2", "svc3", "svc4", "col1", "col2", "col3"],
-      "settings": {
-        "background_mode": "dark",
-        "footer_logo_width": 140,
-        "newsletter_enable": true,
-        "newsletter_label": "Newsletter",
-        "newsletter_heading": "Subscribe and get 10% off",
-        "newsletter_fineprint": "Cannot be combined with other offers. Min. purchase ₹999.",
-        "show_service_strip": true,
-        "show_on_rotation": false,
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 40,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
     "1781446507082ec830",
-    "altrd_footer_wRJr6f",
-    "newsletter",
-    "footer"
+    "footer",
+    "newsletter"
   ]
 }
