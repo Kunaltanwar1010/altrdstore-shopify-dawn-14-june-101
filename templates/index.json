@@ -102,6 +102,71 @@
         "color_style": "ink"
       }
     },
+    "altrd_testimonials_WJPYpe": {
+      "type": "altrd-testimonials",
+      "blocks": {
+        "testimonial_zzz6x9": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "<p>Best fit I've owned. The fabric is heavy in the best way and it hasn't faded after a dozen washes.</p>",
+            "author_name": "Aarav M.",
+            "author_meta": "Mumbai · Verified buyer",
+            "verified": true,
+            "product": ""
+          }
+        },
+        "testimonial_dmnpHw": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "<p>Oversized but structured — exactly what the photos showed. Shipping was quick too.</p>",
+            "author_name": "Diya K.",
+            "author_meta": "Delhi · Verified buyer",
+            "verified": true,
+            "product": ""
+          }
+        },
+        "testimonial_NbtWDD": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "<p>The print quality is unreal. Gets compliments every single time I wear it.</p>",
+            "author_name": "Kabir S.",
+            "author_meta": "Bengaluru · Verified buyer",
+            "verified": true,
+            "product": ""
+          }
+        },
+        "testimonial_T9chNz": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "<p>Best fit I've owned. The fabric is heavy in the best way and it hasn't faded after a dozen washes.</p>",
+            "author_name": "Aarav M.",
+            "author_meta": "Mumbai · Verified buyer",
+            "verified": true,
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_zzz6x9",
+        "testimonial_dmnpHw",
+        "testimonial_NbtWDD",
+        "testimonial_T9chNz"
+      ],
+      "name": "ALTRD — Testimonials",
+      "settings": {
+        "eyebrow": "Real reviews",
+        "heading": "What the squad says",
+        "columns_desktop": 3,
+        "show_product_tag": true,
+        "color_style": "bone",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
     "altrd-lookbook-0": {
       "type": "altrd-lookbook",
       "disabled": true,
@@ -259,6 +324,7 @@
     "altrd-drop-0",
     "altrd_collection_split_wWWwzg",
     "altrd_creator_7aVn6R",
+    "altrd_testimonials_WJPYpe",
     "altrd-lookbook-0",
     "altrd-philosophy-0",
     "altrd_ugc_QVCKUk",
