@@ -60,16 +60,17 @@
         endif
       -%}
 
-      <div
+      {%- assign aria_label = bl_label -%}
+      {%- if bl_tag != blank -%}
+        {%- assign aria_label = bl_label | append: ' — ' | append: bl_tag -%}
+      {%- endif -%}
+      <a
+        href="{{ bl_url }}"
         class="altrd-cs__panel altrd-cs__panel--{{ bl_treat }} altrd-cs__panel--{{ forloop.index }}"
         style="--cs-focal: {{ bl_focal }};"
+        aria-label="{{ aria_label | escape }}"
         {{ block.shopify_attributes }}
       >
-        {%- assign aria_label = bl_label -%}
-        {%- if bl_tag != blank -%}
-          {%- assign aria_label = bl_label | append: ' — ' | append: bl_tag -%}
-        {%- endif -%}
-
         <div class="altrd-cs__bg-wrap">
           {%- if bl_img != blank -%}
             {{
@@ -121,13 +122,7 @@
             </div>
           </div>
         {%- endif -%}
-
-        <a
-          class="altrd-cs__link"
-          href="{{ bl_url }}"
-          aria-label="{{ aria_label | escape }}"
-        ></a>
-      </div>
+      </a>
 
       {%- unless forloop.last -%}
         <div class="altrd-cs__divider" aria-hidden="true"></div>
@@ -197,19 +192,16 @@
   display: flex;
   align-items: flex-end;
   min-width: 0;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
   transition: flex-grow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .altrd-cs__panel--expanded { flex-grow: 1.1; }
 .altrd-cs__panel--receded  { flex-grow: 0.9; }
 
-.altrd-cs__link {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-}
-
-.altrd-cs__link:focus-visible {
+.altrd-cs__panel:focus-visible {
   outline: 3px solid var(--cs-accent);
   outline-offset: -3px;
 }
