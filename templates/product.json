@@ -32,7 +32,7 @@
         "sp_variant": 14,
         "sz_urgency": 14,
         "sp_urgency": 16,
-        "sz_qty_label": 13,
+        "sz_qty_label": 8,
         "sp_qty": 0,
         "sz_delivery_title": 11,
         "sz_delivery_text": 12,
