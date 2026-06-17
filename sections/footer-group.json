@@ -54,14 +54,14 @@
           "type": "menu_column",
           "settings": {
             "heading": "Discover",
-            "menu": "footer"
+            "menu": "discover"
           }
         },
         "col3": {
           "type": "menu_column",
           "settings": {
             "heading": "Policies",
-            "menu": "footer"
+            "menu": "policy"
           }
         }
       },
