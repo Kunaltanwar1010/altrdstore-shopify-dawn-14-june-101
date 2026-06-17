@@ -20,7 +20,7 @@
         "cta_style": "outline",
         "text_position": "center",
         "min_height": "large",
-        "video": "shopify://files/videos/compressed_1080p_web.mp4",
+        "video": "shopify://files/videos/compressed_1080p.mp4",
         "overlay_opacity": 85
       }
     },
