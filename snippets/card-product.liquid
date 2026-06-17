@@ -114,8 +114,7 @@
               {%- if card_product.available == false -%}
                 <span class="altrd-card-badge altrd-card-badge--out">{{ 'products.product.sold_out' | t }}</span>
               {%- elsif cp_on_sale -%}
-                {%- assign cp_save = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
-                <span class="altrd-card-badge">Save {{ cp_save }}%</span>
+                <span class="altrd-card-badge altrd-card-badge--sale">Sale</span>
               {%- endif -%}
               {%- if card_product.tags contains 'New In' or card_product.tags contains 'new-in' -%}<span class="altrd-card-badge">New In</span>{%- endif -%}
               {%- if card_product.tags contains 'Limited' -%}<span class="altrd-card-badge">Limited</span>{%- endif -%}
@@ -690,10 +689,10 @@
   text-transform: uppercase;
   line-height: 1;
   padding: 0.375rem 0.75rem;
-  background: #0B0B0B;
-  color: #FFFFFF;
+  background: #FFFFFF;
+  color: #0B0B0B;
 }
-.altrd-card-badge--out { background: rgba(0, 0, 0, 0.7); }
+.altrd-card-badge--out { background: rgba(0, 0, 0, 0.7); color: #FFFFFF; }
 
 /* "Shop now" hover overlay */
 .altrd-card-hover {
@@ -732,29 +731,18 @@
   letter-spacing: 0;
   margin: 0;
 }
-.card__heading a { text-transform: lowercase; }
 .card-information { margin-top: 0.5rem; }
 
-/* Pricing: bold sale, struck muted compare, Save % pill */
+/* Pricing: bold sale (red on sale), struck muted compare */
 .price { font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif); }
 .card-information .price .price-item--sale,
 .card-information .price .price-item--regular,
 .card-information .price .price-item { font-size: 1.125rem; font-weight: 700; color: inherit; }
 .card-information .price s.price-item--regular { font-weight: 400; opacity: 0.38; }
-.price__save {
-  display: inline-block;
-  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1;
-  background: #0B0B0B;
-  color: #FFFFFF;
-  padding: 0.28em 0.5em;
-  margin-left: 0.4rem;
-  vertical-align: middle;
-}
+.card-information .price--on-sale .price-item--sale { color: #b3261e; }
+/* Sale shown via the SALE badge + struck compare — hide the Save% pill on cards */
+.card-information .price__save,
+.card__information .price__save { display: none; }
 
 /* Quick add: monochrome (no accent) */
 .card .quick-add__submit.button--secondary {
