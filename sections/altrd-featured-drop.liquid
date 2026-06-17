@@ -22,14 +22,24 @@
         <h2 class="altrd-drop__title">{{ section_heading | escape }}</h2>
       {%- endif -%}
 
-      {%- if section.settings.show_view_all and has_collection -%}
-        <a href="{{ the_collection.url }}" class="altrd-drop__view-all altrd-drop__view-all--desktop">
-          <span>{{ section.settings.view_all_label | default: 'View all' | escape }}</span>
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      {%- endif -%}
+      <div class="altrd-drop__header-actions">
+        <div class="altrd-drop__arrows">
+          <button type="button" class="altrd-drop__arrow" id="AltrdDropPrev-{{ section.id }}" aria-label="Previous">
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="altrd-drop__arrow" id="AltrdDropNext-{{ section.id }}" aria-label="Next">
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        {%- if section.settings.show_view_all and has_collection -%}
+          <a href="{{ the_collection.url }}" class="altrd-drop__view-all altrd-drop__view-all--desktop">
+            <span>{{ section.settings.view_all_label | default: 'View all' | escape }}</span>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
     </div>
 
     {%- if section.settings.tagline != blank -%}
@@ -37,7 +47,7 @@
     {%- endif -%}
   </div>
 
-  <div class="altrd-drop__grid page-width">
+  <div class="altrd-drop__grid page-width" id="AltrdDropTrack-{{ section.id }}">
     {%- if has_collection and the_collection.products.size > 0 -%}
       {%- for product in the_collection.products limit: section.settings.products_to_show -%}
         {%- liquid
@@ -178,6 +188,12 @@
   gap: 2rem;
   margin-bottom: 1.25rem;
 }
+.altrd-drop__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
 
 .altrd-drop__title {
   font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
@@ -222,22 +238,59 @@
   .altrd-drop__view-all--desktop { display: none; }
 }
 
+/* Horizontal carousel (desktop + mobile) */
 .altrd-drop__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+  padding-bottom: 0.5rem;
 }
+.altrd-drop__grid::-webkit-scrollbar { display: none; }
+.altrd-drop__grid.is-dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+.altrd-drop__grid > .altrd-drop__card {
+  flex: 0 0 calc((100% - 3 * 1.5rem) / 4);
+  scroll-snap-align: start;
+}
+.altrd-drop__grid.is-dragging > .altrd-drop__card { pointer-events: none; }
 
 @media screen and (min-width: 750px) and (max-width: 989px) {
-  .altrd-drop__grid { grid-template-columns: repeat(3, 1fr); }
+  .altrd-drop__grid > .altrd-drop__card { flex-basis: calc((100% - 2 * 1.5rem) / 3); }
+}
+@media screen and (max-width: 749px) {
+  .altrd-drop__grid { gap: 1rem; }
+  .altrd-drop__grid > .altrd-drop__card { flex: 0 0 72vw; max-width: 18rem; }
 }
 
-@media screen and (max-width: 749px) {
-  .altrd-drop__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
+/* Carousel arrows */
+.altrd-drop__arrows {
+  display: none;
+  gap: 0.5rem;
 }
+@media screen and (min-width: 750px) {
+  .altrd-drop__arrows { display: inline-flex; }
+}
+.altrd-drop__arrow {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+}
+.altrd-drop__arrow:hover { background: currentColor; }
+.altrd-drop__arrow:hover svg { color: var(--altrd-drop-arrow-hover, #000); }
+.altrd-drop__arrow svg { width: 1.1rem; height: 1.1rem; }
+.altrd-drop__arrow[disabled] { opacity: 0.25; pointer-events: none; }
 
 .altrd-drop__card {
   display: block;
@@ -423,6 +476,58 @@
   border-color: var(--color-altrd-ink, #000000);
 }
 {% endstylesheet %}
+
+<script>
+  (function () {
+    var track = document.getElementById('AltrdDropTrack-{{ section.id }}');
+    if (!track) return;
+    var prev = document.getElementById('AltrdDropPrev-{{ section.id }}');
+    var next = document.getElementById('AltrdDropNext-{{ section.id }}');
+
+    function step() {
+      var card = track.querySelector('.altrd-drop__card');
+      if (!card) return track.clientWidth;
+      var styles = getComputedStyle(track);
+      var gap = parseFloat(styles.columnGap || styles.gap || 0) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max;
+    }
+    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+
+    var ticking = false;
+    track.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { sync(); ticking = false; });
+    }, { passive: true });
+
+    var down = false, startX = 0, startScroll = 0, moved = false;
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      down = true; moved = false; track.classList.add('is-dragging');
+      startX = e.clientX; startScroll = track.scrollLeft;
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      if (Math.abs(e.clientX - startX) > 4) moved = true;
+      track.scrollLeft = startScroll - (e.clientX - startX);
+    });
+    function end() { if (!down) return; down = false; track.classList.remove('is-dragging'); sync(); }
+    track.addEventListener('pointerup', end);
+    track.addEventListener('pointercancel', end);
+    track.addEventListener('pointerleave', end);
+    track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+    window.addEventListener('resize', sync);
+    sync();
+  })();
+</script>
 
 {% schema %}
 {
