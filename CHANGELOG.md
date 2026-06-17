@@ -1,6 +1,6 @@
 # Changelog
 
-## Black/white collection page (wearadhd-style) — phase 1
+## Black/white collection page (wearadhd-style)
 
 Rebuilt the collection header in strict black & white (`sections/main-collection-banner.liquid`) and switched filtering to Shopify's **native drawer** facets. Theme-check clean, validated via the Dev MCP, OS 2.0.
 
@@ -18,8 +18,14 @@ Rebuilt the collection header in strict black & white (`sections/main-collection
 **Admin step you must do (Shopify → Search & Discovery → Filters):**
 Enable the **Availability**, **Size** (variant option), and **Price** filters so the drawer facets and counts ("S (12)") populate. Without this, the drawer shows only Sort.
 
-**Phase 2 (pending — shared snippets, site-wide impact):**
-`snippets/card-product.liquid` + `snippets/price.liquid` carry the product card and pricing and are used across the whole theme (home, search, related, cart). The wearadhd card touches — **Save X% badge**, monochrome badge stack, tag/metafield-driven labels (New In, Limited, Best Seller), "Choose options" quick-add styling — will be applied in a follow-up so the global regression surface can be verified. Hover image-swap is already on (`show_secondary_image: true`).
+**Phase 2 (done — `snippets/card-product.liquid` + `snippets/price.liquid`, applies to every product card site-wide):**
+- **Monochrome badge stack** (top-left, stackable) — Dawn's coloured badges are hidden and replaced with black pill / white text badges: **Sold out**, computed **Save X%** on sale, plus **tag-driven labels**.
+- **Save X% pill** added to pricing (`price.liquid`) — shows next to the struck compare-at price (matches the PDP). Compare-at is struck + muted grey; sale price stays monochrome (no accent).
+- **Lowercase card titles**, underline-on-hover, monochrome "Choose options" quick-add.
+- Hover image-swap is Refresh's native `show_secondary_image` (on in `collection.json`).
+
+**Badge tags (set on a product in Admin → Products → Tags):**
+`New In`, `Limited`, `Best Seller`, `Last Few Sizes` → render as monochrome badges on the card (also accepts `new-in` / `best-seller`). Save X% and Sold out are automatic. Add/rename tags to control labels; edit the badge list in `snippets/card-product.liquid` (the `altrd-card-badges` block).
 
 ## Black/white footer (wearadhd-style) — `sections/footer.liquid`
 
