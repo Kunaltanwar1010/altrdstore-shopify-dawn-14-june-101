@@ -107,6 +107,10 @@
             </s>
           </span>
         {%- endunless -%}
+        {%- if compare_at_price > price -%}
+          {%- assign altrd_save_pct = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round -%}
+          <span class="price__save">Save {{ altrd_save_pct }}%</span>
+        {%- endif -%}
       </div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}

@@ -104,6 +104,24 @@
                 >
               {%- endif -%}
             </div>
+            {%- liquid
+              assign cp_on_sale = false
+              if card_product.compare_at_price > card_product.price and card_product.available
+                assign cp_on_sale = true
+              endif
+            -%}
+            <div class="altrd-card-badges">
+              {%- if card_product.available == false -%}
+                <span class="altrd-card-badge altrd-card-badge--out">{{ 'products.product.sold_out' | t }}</span>
+              {%- elsif cp_on_sale -%}
+                {%- assign cp_save = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round -%}
+                <span class="altrd-card-badge">Save {{ cp_save }}%</span>
+              {%- endif -%}
+              {%- if card_product.tags contains 'New In' or card_product.tags contains 'new-in' -%}<span class="altrd-card-badge">New In</span>{%- endif -%}
+              {%- if card_product.tags contains 'Limited' -%}<span class="altrd-card-badge">Limited</span>{%- endif -%}
+              {%- if card_product.tags contains 'Best Seller' or card_product.tags contains 'best-seller' -%}<span class="altrd-card-badge">Best Seller</span>{%- endif -%}
+              {%- if card_product.tags contains 'Last Few Sizes' -%}<span class="altrd-card-badge">Last Few</span>{%- endif -%}
+            </div>
           </div>
         {%- endif -%}
         <div class="card__content">
@@ -622,3 +640,64 @@
     </div>
   </div>
 {%- endif -%}
+
+{% stylesheet %}
+/* === ALTRD custom === */
+.card__media { position: relative; }
+
+/* Monochrome badge stack (top-left) — replaces Dawn's coloured badges */
+.card__badge { display: none !important; }
+.altrd-card-badges {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  pointer-events: none;
+}
+.altrd-card-badge {
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.34em 0.6em;
+  background: #0B0B0B;
+  color: #FFFFFF;
+}
+.altrd-card-badge--out { background: rgba(11, 11, 11, 0.55); }
+
+/* Pricing: monochrome, struck compare, Save % pill */
+.price__save {
+  display: inline-block;
+  font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  background: #0B0B0B;
+  color: #FFFFFF;
+  padding: 0.28em 0.5em;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.card__information .price .price-item--sale,
+.card-information .price .price-item--sale { font-weight: 700; color: inherit; }
+.card__information .price s.price-item--regular,
+.card-information .price s.price-item--regular { opacity: 0.5; }
+
+/* Card title lowercase, underline on hover */
+.card__heading a { text-transform: lowercase; }
+
+/* Quick add: monochrome (no accent) */
+.card .quick-add__submit.button--secondary {
+  --color-button: 11, 11, 11;
+  --color-button-text: 255, 255, 255;
+  --color-button-border: 11, 11, 11;
+}
+{% endstylesheet %}
