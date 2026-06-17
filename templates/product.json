@@ -292,7 +292,7 @@
       "type": "altrd-related-products",
       "name": "ALTRD — Related products",
       "settings": {
-        "collection": "all-collection",
+        "collection": "bestsellers",
         "eyebrow": "More from this drop",
         "heading": "You might also like",
         "cta_label": "",
