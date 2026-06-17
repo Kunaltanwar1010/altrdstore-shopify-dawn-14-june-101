@@ -99,13 +99,22 @@
     margin: 0;
     color: var(--af-tx);
   }
+  .altrd-footer__about {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--af-muted);
+    max-width: 46ch;
+  }
+  .altrd-footer__about p { margin: 0 0 0.75rem; }
+  .altrd-footer__about p:last-child { margin-bottom: 0; }
+  .altrd-footer__about a { color: var(--af-tx); }
   .altrd-footer__news-eyebrow {
     font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--af-muted);
-    margin: 1.25rem 0 0.5rem;
+    margin: 1.5rem 0 0.5rem;
   }
   .altrd-footer__news-heading {
     font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
@@ -343,7 +352,7 @@
       </div>
     {%- endif -%}
 
-    {%- if section.settings.newsletter_enable -%}
+    {%- if section.settings.show_brand -%}
       <div class="altrd-footer__news">
         <div class="altrd-footer__news-brand">
           {%- if section.settings.footer_logo != blank -%}
@@ -377,41 +386,47 @@
           {%- endif -%}
         </div>
         <div class="altrd-footer__news-text">
-          <p class="altrd-footer__news-eyebrow">{{ section.settings.newsletter_label | default: 'Newsletter' | escape }}</p>
-          {%- if section.settings.newsletter_heading != blank -%}
-            <h2 class="altrd-footer__news-heading">{{ section.settings.newsletter_heading }}</h2>
+          {%- if section.settings.about_heading != blank -%}
+            <h2 class="altrd-footer__news-heading">{{ section.settings.about_heading | escape }}</h2>
           {%- endif -%}
-          {%- form 'customer', id: 'ContactFooter', class: 'altrd-footer__form' -%}
-            <input type="hidden" name="contact[tags]" value="newsletter">
-            <div class="altrd-footer__form-row">
-              <input
-                id="NewsletterForm--{{ section.id }}"
-                type="email"
-                name="contact[email]"
-                class="altrd-footer__input"
-                value="{{ form.email }}"
-                aria-label="{{ 'newsletter.label' | t }}"
-                autocorrect="off"
-                autocapitalize="off"
-                autocomplete="email"
-                placeholder="{{ 'newsletter.label' | t }}"
-                required
-              >
-              <button type="submit" class="altrd-footer__submit" name="commit">
-                {{ 'newsletter.button_label' | t }}
-              </button>
-            </div>
-            {%- if section.settings.newsletter_fineprint != blank -%}
-              <p class="altrd-footer__fineprint">{{ section.settings.newsletter_fineprint | escape }}</p>
-            {%- endif -%}
-            {%- if form.errors -%}
-              <p class="altrd-footer__form-msg" role="alert">
-                {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
-              </p>
-            {%- elsif form.posted_successfully? -%}
-              <p class="altrd-footer__form-msg" tabindex="-1">{{ 'newsletter.success' | t }}</p>
-            {%- endif -%}
-          {%- endform -%}
+          {%- if section.settings.about_text != blank -%}
+            <div class="altrd-footer__about rte">{{ section.settings.about_text }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.newsletter_enable -%}
+            <p class="altrd-footer__news-eyebrow">{{ section.settings.newsletter_label | default: 'Newsletter' | escape }}</p>
+            {%- form 'customer', id: 'ContactFooter', class: 'altrd-footer__form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="altrd-footer__form-row">
+                <input
+                  id="NewsletterForm--{{ section.id }}"
+                  type="email"
+                  name="contact[email]"
+                  class="altrd-footer__input"
+                  value="{{ form.email }}"
+                  aria-label="{{ 'newsletter.label' | t }}"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  placeholder="{{ 'newsletter.label' | t }}"
+                  required
+                >
+                <button type="submit" class="altrd-footer__submit" name="commit">
+                  {{ 'newsletter.button_label' | t }}
+                </button>
+              </div>
+              {%- if section.settings.newsletter_fineprint != blank -%}
+                <p class="altrd-footer__fineprint">{{ section.settings.newsletter_fineprint | escape }}</p>
+              {%- endif -%}
+              {%- if form.errors -%}
+                <p class="altrd-footer__form-msg" role="alert">
+                  {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
+                </p>
+              {%- elsif form.posted_successfully? -%}
+                <p class="altrd-footer__form-msg" tabindex="-1">{{ 'newsletter.success' | t }}</p>
+              {%- endif -%}
+            {%- endform -%}
+          {%- endif -%}
 
           {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
             <div class="altrd-footer__follow">{{ shop | login_button: action: 'follow' }}</div>
@@ -423,7 +438,7 @@
     {%- if menu_columns.size > 0 -%}
       <div class="altrd-footer__cols">
         {%- for block in menu_columns -%}
-          <details class="altrd-footer__col" {{ block.shopify_attributes }}>
+          <details class="altrd-footer__col" open {{ block.shopify_attributes }}>
             <summary class="altrd-footer__col-summary">
               <h3 class="altrd-footer__col-heading">{{ block.settings.heading | escape }}</h3>
               <svg class="altrd-footer__col-chevron" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -614,13 +629,19 @@
     },
     {
       "type": "header",
-      "content": "Logo"
+      "content": "Brand (logo + about)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand",
+      "label": "Show brand band",
+      "default": true
     },
     {
       "type": "image_picker",
       "id": "footer_logo",
       "label": "Footer logo",
-      "info": "Use a white logo for the dark footer. Falls back to the theme logo."
+      "info": "Use a white logo for the dark footer. Falls back to the theme logo (auto-inverted to white)."
     },
     {
       "type": "range",
@@ -631,6 +652,18 @@
       "unit": "px",
       "label": "Logo width",
       "default": 140
+    },
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "About heading",
+      "default": "About us"
+    },
+    {
+      "type": "richtext",
+      "id": "about_text",
+      "label": "About text",
+      "default": "<p>ALTRD is streetwear built for the builder generation — heavyweight pieces designed to wear your mindset. Made in small drops, worn loud.</p>"
     },
     {
       "type": "header",
@@ -644,25 +677,19 @@
     },
     {
       "type": "header",
-      "content": "Newsletter"
+      "content": "Newsletter (optional)"
     },
     {
       "type": "checkbox",
       "id": "newsletter_enable",
       "label": "t:sections.footer.settings.newsletter_enable.label",
-      "default": true
+      "default": false
     },
     {
       "type": "text",
       "id": "newsletter_label",
       "label": "Eyebrow label",
       "default": "Newsletter"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "newsletter_heading",
-      "label": "Heading",
-      "default": "Subscribe and get 10% off"
     },
     {
       "type": "text",
