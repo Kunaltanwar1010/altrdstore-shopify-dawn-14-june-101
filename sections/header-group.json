@@ -93,7 +93,7 @@
         "text_color": "#0B0B0B",
         "font_size": 12,
         "font_weight": "500",
-        "letter_spacing": 0.04,
+        "letter_spacing": 4,
         "uppercase": false,
         "padding_y": 8,
         "border_top": false,
