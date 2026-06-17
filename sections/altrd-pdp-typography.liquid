@@ -117,6 +117,23 @@ product-info .accordion__content {
 product-info .altrd-trust-strip__label {
   font-size: {{ s.sz_trust }}px !important;
 }
+
+/* Size chart popup */
+product-info .altrd-pdp-size-guide__btn {
+  font-size: {{ s.sz_sizechart_trigger }}px !important;
+}
+product-info .altrd-sg__heading {
+  font-size: {{ s.sz_sizechart_heading }}px !important;
+}
+product-info .altrd-sg__tab {
+  font-size: {{ s.sz_sizechart_tab }}px !important;
+}
+product-info .altrd-sg__panel,
+product-info .altrd-sg__panel .rte,
+product-info .altrd-sg__panel td,
+product-info .altrd-sg__panel th {
+  font-size: {{ s.sz_sizechart_body }}px !important;
+}
 {%- endstyle -%}
 
 <div hidden></div>
@@ -444,6 +461,50 @@ product-info .altrd-trust-strip__label {
       "step": 1,
       "unit": "px",
       "default": 11
+    },
+    {
+      "type": "header",
+      "content": "Size chart popup"
+    },
+    {
+      "type": "range",
+      "id": "sz_sizechart_trigger",
+      "label": "Trigger link size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "sz_sizechart_heading",
+      "label": "Popup heading size",
+      "min": 18,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "sz_sizechart_tab",
+      "label": "Tab label size",
+      "min": 9,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "sz_sizechart_body",
+      "label": "Body / table text size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
     }
   ],
   "presets": [
