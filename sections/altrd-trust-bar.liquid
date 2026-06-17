@@ -4,7 +4,13 @@
 -%}
 
 {%- style -%}
+  /* Sit above the hero video (which pulls up under the glass header) but below the sticky header */
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 2;
+  }
   #shopify-section-{{ section.id }} .altrd-trust-bar {
+    position: relative;
     background: {{ bg }};
     color: {{ tx }};
     text-align: center;
