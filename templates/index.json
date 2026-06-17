@@ -32,7 +32,7 @@
         "heading": "Bestsellers",
         "tagline": "",
         "collection": "bestsellers",
-        "products_to_show": 4,
+        "products_to_show": 12,
         "show_view_all": true,
         "view_all_label": "View the full drop",
         "color_style": "bone"
