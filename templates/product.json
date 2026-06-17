@@ -78,24 +78,14 @@
         "size_guide": {
           "type": "size_guide",
           "settings": {
-<<<<<<< Updated upstream
-            "link_text": "Size Chart",
-            "tab1_label": "",
-            "tab1_content": "",
-            "tab2_label": "",
-            "tab2_content": "",
-            "tab3_label": "",
-            "tab3_content": "",
-=======
             "link_text": "Size chart",
             "tab1_label": "Size chart",
             "tab1_content": "<p><strong>Oversized fit — measurements in inches.</strong></p><ul><li>S — Chest 42, Length 27</li><li>M — Chest 44, Length 28</li><li>L — Chest 46, Length 29</li><li>XL — Chest 48, Length 30</li><li>XXL — Chest 50, Length 31</li></ul><p>Upload your size-chart image in the theme editor → Main product → Size chart → Tab 1.</p>",
             "tab2_label": "How to measure",
             "tab2_content": "<p>Lay a similar garment flat and measure:</p><ul><li><strong>Chest</strong> — armpit to armpit, then double it.</li><li><strong>Length</strong> — highest shoulder point straight down to the hem.</li></ul>",
             "tab3_label": "Fit & care",
->>>>>>> Stashed changes
             "content": "",
-            "page": "size-chart"
+            "page": ""
           }
         },
         "low_stock_urgency": {
