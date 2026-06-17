@@ -43,6 +43,13 @@
     "altrd_footer_wRJr6f": {
       "type": "altrd-footer",
       "blocks": {
+        "nav_column_YGEFBk": {
+          "type": "nav_column",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer"
+          }
+        },
         "nav_column_d9RtWi": {
           "type": "nav_column",
           "settings": {
@@ -59,6 +66,7 @@
         }
       },
       "block_order": [
+        "nav_column_YGEFBk",
         "nav_column_d9RtWi",
         "nav_column_emjyka"
       ],
