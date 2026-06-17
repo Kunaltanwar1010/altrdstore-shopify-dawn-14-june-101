@@ -32,8 +32,11 @@ product-info .altrd-reviews-badge__link {
   font-size: {{ section.settings.sz_reviews | minus: 2 }}px !important;
 }
 
-product-info .price--large {
+product-info .altrd-pdp-price__current {
   font-size: {{ section.settings.sz_price }}px !important;
+}
+product-info .altrd-pdp-price__compare {
+  font-size: {{ section.settings.sz_price | times: 0.68 | round: 0 }}px !important;
 }
 
 product-info .accordion__title.h4 {

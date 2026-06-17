@@ -60,22 +60,52 @@
   }
   .altrd-pdp-v2 .product__title a.product__title { display: none; }
 
-  /* --- Price spacing --- */
-  .altrd-pdp-v2 #price-{{ section.id }} { margin-bottom: 1.75rem; }
-  .altrd-pdp-v2 #price-{{ section.id }} .price-item--sale {
+  /* --- Price: drop-card style --- */
+  .altrd-pdp-price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-bottom: 1.75rem;
+  }
+  .altrd-pdp-price__current {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
     font-size: 1.625rem;
     font-weight: 700;
-  }
-  .altrd-pdp-v2 .badge--sale {
-    background: var(--color-altrd-hivis, #E8FF52);
+    line-height: 1;
+    letter-spacing: 0.01em;
     color: #0B0B0B;
-    border-radius: 0;
+  }
+  .altrd-pdp-price--on-sale .altrd-pdp-price__current { color: #b33; }
+  .altrd-pdp-price__compare {
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
-    font-size: 0.625rem;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1;
+    color: rgba(11, 11, 11, 0.45);
+    text-decoration: line-through;
+  }
+  .altrd-pdp-price__save {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0B0B0B;
+    background: var(--color-altrd-hivis, #E8FF52);
+    padding: 0.3em 0.625em;
+    align-self: center;
+  }
+  .altrd-pdp-price__soldout {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    padding: 0.25em 0.625em;
+    text-transform: uppercase;
+    color: rgba(11, 11, 11, 0.5);
+    align-self: center;
   }
+  .altrd-pdp-price--sold-out .altrd-pdp-price__current { color: rgba(11, 11, 11, 0.5); }
 
   /* --- Tagline block --- */
   .altrd-pdp-tagline {
@@ -656,13 +686,32 @@
                   </a>
                 </div>
               {%- when 'price' -%}
-                <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {%- render 'price',
-                    product: product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'price--large'
-                  -%}
+                {%- liquid
+                  assign cv = product.selected_or_first_available_variant
+                  assign pdp_on_sale = false
+                  if cv.compare_at_price > cv.price
+                    assign pdp_on_sale = true
+                  endif
+                  assign pdp_sold_out = false
+                  unless cv.available
+                    assign pdp_sold_out = true
+                  endunless
+                -%}
+                <div
+                  id="price-{{ section.id }}"
+                  class="altrd-pdp-price{% if pdp_on_sale %} altrd-pdp-price--on-sale{% endif %}{% if pdp_sold_out %} altrd-pdp-price--sold-out{% endif %}"
+                  role="status"
+                  {{ block.shopify_attributes }}
+                >
+                  <span class="altrd-pdp-price__current price-item price-item--sale">{{ cv.price | money }}</span>
+                  {%- if pdp_on_sale -%}
+                    <s class="altrd-pdp-price__compare price-item price-item--regular">{{ cv.compare_at_price | money }}</s>
+                    {%- assign pdp_save_pct = cv.compare_at_price | minus: cv.price | times: 100.0 | divided_by: cv.compare_at_price | round -%}
+                    <span class="altrd-pdp-price__save">Save {{ pdp_save_pct }}%</span>
+                  {%- endif -%}
+                  {%- if pdp_sold_out -%}
+                    <span class="altrd-pdp-price__soldout">{{ 'products.product.sold_out' | t }}</span>
+                  {%- endif -%}
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
