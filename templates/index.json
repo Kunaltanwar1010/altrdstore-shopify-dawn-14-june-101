@@ -163,8 +163,8 @@
         "columns_desktop": 3,
         "show_product_tag": true,
         "color_style": "bone",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     },
     "altrd-lookbook-0": {
