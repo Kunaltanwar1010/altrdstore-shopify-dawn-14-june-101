@@ -152,7 +152,7 @@
         "heading": "What the squad says",
         "columns_desktop": 3,
         "show_product_tag": true,
-        "color_style": "bone",
+        "color_style": "white",
         "padding_top": 32,
         "padding_bottom": 32
       }
