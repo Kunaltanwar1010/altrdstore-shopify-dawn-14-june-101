@@ -160,6 +160,7 @@
         "principle-03",
         "principle-04"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "How we move",
         "heading": "The principles.",
