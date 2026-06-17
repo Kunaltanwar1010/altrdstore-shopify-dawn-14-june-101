@@ -44,7 +44,7 @@
         "panel_nbTpyP": {
           "type": "panel",
           "settings": {
-            "collection": "all-collection",
+            "collection": "lite",
             "label": "LITE",
             "tagline": "Light minds move fast.",
             "cta_label": "Explore Lite",
@@ -57,7 +57,7 @@
         "panel_AcNUbk": {
           "type": "panel",
           "settings": {
-            "collection": "frontpage",
+            "collection": "max",
             "label": "MAX",
             "tagline": "Go all in. Every time.",
             "cta_label": "Explore Max",
