@@ -15,13 +15,17 @@
         "pill_lite": {
           "type": "pill",
           "settings": {
-            "collection": "lite"
+            "collection": "lite",
+            "label": "",
+            "link": ""
           }
         },
         "pill_max": {
           "type": "pill",
           "settings": {
-            "collection": "max"
+            "collection": "max",
+            "label": "",
+            "link": ""
           }
         }
       },
@@ -34,7 +38,7 @@
         "show_count": true,
         "show_collection_description": false,
         "show_density_toggles": true,
-        "default_columns_desktop": "3",
+        "default_columns_desktop": "4",
         "default_columns_mobile": "2",
         "padding_top": 40,
         "padding_bottom": 20
@@ -44,8 +48,9 @@
       "type": "main-collection-product-grid",
       "settings": {
         "products_per_page": 24,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
-        "columns_desktop": 3,
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -55,7 +60,6 @@
         "enable_filtering": true,
         "filter_type": "drawer",
         "enable_sorting": true,
-        "columns_mobile": "2",
         "padding_top": 0,
         "padding_bottom": 60
       }
