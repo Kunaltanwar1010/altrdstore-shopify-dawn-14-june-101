@@ -48,7 +48,7 @@
         endif
         assign bl_treat  = block.settings.overlay_treatment
         assign bl_focal  = block.settings.focal_point
-        assign bl_url    = bl_col.url | default: routes.collections_url
+        assign bl_url    = block.settings.link | default: bl_col.url | default: routes.collections_url
         assign bl_show_n = block.settings.show_product_count
       -%}
 
@@ -526,7 +526,14 @@
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "Collection",
+          "info": "Used for the image, product count, and as the default link."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link",
+          "info": "Where this panel/button goes. Overrides the collection link above — pick any collection or page."
         },
         {
           "type": "text",
