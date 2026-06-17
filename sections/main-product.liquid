@@ -227,6 +227,46 @@
     outline-offset: 3px;
   }
   /* --- Size chart: paged/tabbed modal --- */
+  .altrd-size-guide-modal[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .altrd-size-guide-modal .product-popup-modal__content {
+    position: relative;
+    width: min(92vw, 720px);
+    max-width: 720px;
+    max-height: 88vh;
+    overflow-y: auto;
+    margin: auto;
+    background: #FFFFFF;
+    color: #0B0B0B;
+  }
+  @media screen and (max-width: 749px) {
+    .altrd-size-guide-modal .product-popup-modal__content {
+      width: 94vw;
+      max-height: 90vh;
+    }
+  }
+  .altrd-size-guide-modal .product-popup-modal__toggle {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 5;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border: 1px solid rgba(11, 11, 11, 0.15);
+    border-radius: 50%;
+    cursor: pointer;
+    color: #0B0B0B;
+  }
+  .altrd-size-guide-modal .product-popup-modal__toggle:hover { background: #0B0B0B; color: #FFFFFF; }
+  .altrd-size-guide-modal .product-popup-modal__toggle svg,
+  .altrd-size-guide-modal .product-popup-modal__toggle .icon { width: 1rem; height: 1rem; }
   .altrd-sg__body { padding: 2rem 2rem 2.5rem; }
   @media screen and (max-width: 749px) { .altrd-sg__body { padding: 1.5rem 1.25rem 2rem; } }
   .altrd-sg__heading {
