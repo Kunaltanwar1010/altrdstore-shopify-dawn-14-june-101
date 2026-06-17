@@ -118,11 +118,14 @@ product-info .altrd-trust-strip__label {
   font-size: {{ s.sz_trust }}px !important;
 }
 
-/* Size chart popup */
-product-info .altrd-pdp-size-guide__btn {
+/* Size chart popup — covers the custom paged modal AND Dawn's native popup block */
+product-info .altrd-pdp-size-guide__btn,
+product-info .product-popup-modal__button {
   font-size: {{ s.sz_sizechart_trigger }}px !important;
 }
-product-info .altrd-sg__heading {
+product-info .altrd-sg__heading,
+product-info .product-popup-modal__content-info h1,
+product-info .product-popup-modal__content-info .h2 {
   font-size: {{ s.sz_sizechart_heading }}px !important;
 }
 product-info .altrd-sg__tab {
@@ -131,7 +134,12 @@ product-info .altrd-sg__tab {
 product-info .altrd-sg__panel,
 product-info .altrd-sg__panel .rte,
 product-info .altrd-sg__panel td,
-product-info .altrd-sg__panel th {
+product-info .altrd-sg__panel th,
+product-info .product-popup-modal__content-info,
+product-info .product-popup-modal__content-info p,
+product-info .product-popup-modal__content-info li,
+product-info .product-popup-modal__content-info td,
+product-info .product-popup-modal__content-info th {
   font-size: {{ s.sz_sizechart_body }}px !important;
 }
 {%- endstyle -%}
