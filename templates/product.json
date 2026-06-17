@@ -39,7 +39,11 @@
         "sp_delivery": 20,
         "sz_tab_heading": 12,
         "sz_tab_content": 12,
-        "sz_trust": 12
+        "sz_trust": 12,
+        "sz_sizechart_trigger": 11,
+        "sz_sizechart_heading": 36,
+        "sz_sizechart_tab": 11,
+        "sz_sizechart_body": 14
       }
     },
     "main": {
