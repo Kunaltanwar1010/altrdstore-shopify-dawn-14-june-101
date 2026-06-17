@@ -506,19 +506,28 @@
       requestAnimationFrame(function () { sync(); ticking = false; });
     }, { passive: true });
 
-    var down = false, startX = 0, startScroll = 0, moved = false;
+    var down = false, startX = 0, startScroll = 0, moved = false, captured = false, pid = null;
     track.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
-      down = true; moved = false; track.classList.add('is-dragging');
+      down = true; moved = false; captured = false; pid = e.pointerId;
       startX = e.clientX; startScroll = track.scrollLeft;
-      track.setPointerCapture(e.pointerId);
     });
     track.addEventListener('pointermove', function (e) {
       if (!down) return;
-      if (Math.abs(e.clientX - startX) > 4) moved = true;
-      track.scrollLeft = startScroll - (e.clientX - startX);
+      if (!moved && Math.abs(e.clientX - startX) > 6) {
+        moved = true;
+        track.classList.add('is-dragging');
+        try { track.setPointerCapture(pid); captured = true; } catch (err) {}
+      }
+      if (moved) track.scrollLeft = startScroll - (e.clientX - startX);
     });
-    function end() { if (!down) return; down = false; track.classList.remove('is-dragging'); sync(); }
+    function end() {
+      if (!down) return;
+      down = false;
+      track.classList.remove('is-dragging');
+      if (captured) { try { track.releasePointerCapture(pid); } catch (err) {} captured = false; }
+      sync();
+    }
     track.addEventListener('pointerup', end);
     track.addEventListener('pointercancel', end);
     track.addEventListener('pointerleave', end);

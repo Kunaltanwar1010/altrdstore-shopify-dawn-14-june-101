@@ -448,31 +448,41 @@
           var isDown = false;
           var startX = 0;
           var startScroll = 0;
+          var moved = false;
+          var captured = false;
+          var pid = null;
 
           track.addEventListener('pointerdown', function (e) {
             if (e.pointerType === 'mouse' && e.button !== 0) return;
             isDown = true;
-            track.classList.add('altrd-rp__grid--dragging');
+            moved = false;
+            captured = false;
+            pid = e.pointerId;
             startX = e.clientX;
             startScroll = track.scrollLeft;
-            track.setPointerCapture(e.pointerId);
           });
 
           track.addEventListener('pointermove', function (e) {
             if (!isDown) return;
-            var dx = e.clientX - startX;
-            track.scrollLeft = startScroll - dx;
+            if (!moved && Math.abs(e.clientX - startX) > 6) {
+              moved = true;
+              track.classList.add('altrd-rp__grid--dragging');
+              try { track.setPointerCapture(pid); captured = true; } catch (err) {}
+            }
+            if (moved) track.scrollLeft = startScroll - (e.clientX - startX);
           });
 
-          function endDrag(e) {
+          function endDrag() {
             if (!isDown) return;
             isDown = false;
             track.classList.remove('altrd-rp__grid--dragging');
+            if (captured) { try { track.releasePointerCapture(pid); } catch (err) {} captured = false; }
             updateDots();
           }
           track.addEventListener('pointerup', endDrag);
           track.addEventListener('pointercancel', endDrag);
           track.addEventListener('pointerleave', endDrag);
+          track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
         })();
       </script>
 
