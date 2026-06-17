@@ -31,7 +31,7 @@
         "sz_variant_value": 11,
         "sp_variant": 0,
         "sz_urgency": 14,
-        "sp_urgency": 16,
+        "sp_urgency": 0,
         "sz_qty_label": 8,
         "sp_qty": 0,
         "sz_delivery_title": 11,
@@ -103,18 +103,18 @@
             "timer_label": "Offer ends in"
           }
         },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "none"
-          }
-        },
         "popup_w4cXGR": {
           "type": "popup",
           "settings": {
             "text": "Size Chart",
             "page": "size-chart"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "none"
           }
         },
         "quantity_selector": {
@@ -201,8 +201,8 @@
         "tagline",
         "size_guide",
         "low_stock_urgency",
-        "variant_picker",
         "popup_w4cXGR",
+        "variant_picker",
         "quantity_selector",
         "buy_buttons",
         "trust_strip",
