@@ -9,6 +9,22 @@
  */
 {
   "sections": {
+    "altrd_pdp_typography": {
+      "type": "altrd-pdp-typography",
+      "name": "ALTRD — PDP Typography",
+      "settings": {
+        "sz_title_desk": 60,
+        "sz_title_mob": 36,
+        "sz_breadcrumb": 9,
+        "sz_vendor": 11,
+        "sz_tagline": 14,
+        "sz_reviews": 14,
+        "sz_price": 26,
+        "sz_tab_heading": 12,
+        "sz_tab_content": 12,
+        "sz_trust": 12
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -107,7 +123,7 @@
             "icon": "shirt",
             "content": "{{ product.description }}",
             "page": "",
-            "default_open": true
+            "default_open": false
           }
         },
         "tab_sizing": {
@@ -162,10 +178,10 @@
       "settings": {
         "enable_sticky_atc": true,
         "sticky_atc_btn_label": "Add to cart",
-        "sticky_atc_bg": "#FFFFFF",
-        "sticky_atc_text_color": "#0b0b0b",
+        "sticky_atc_bg": "#ffffff",
         "sticky_atc_btn_color": "#0b0b0b",
-        "sticky_atc_btn_text": "#FFFFFF",
+        "sticky_atc_btn_text": "#ffffff",
+        "sticky_atc_text_color": "#0b0b0b",
         "sticky_atc_select_bg": "#f4f4f4",
         "sticky_atc_select_text": "#0b0b0b",
         "sticky_atc_show_variant": true,
@@ -269,11 +285,6 @@
         "padding_top": 32,
         "padding_bottom": 32
       }
-    },
-    "altrd_pdp_typography": {
-      "type": "altrd-pdp-typography",
-      "name": "ALTRD — PDP Typography",
-      "settings": {}
     }
   },
   "order": [
