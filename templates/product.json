@@ -22,14 +22,21 @@
         "sz_price": 20,
         "sz_save": 11,
         "sz_tax": 14,
-        "sp_price": 28,
+        "sp_price": 16,
         "sz_tagline": 14,
-        "sp_tagline": 28,
+        "sp_tagline": 16,
         "sz_reviews": 14,
-        "sp_reviews": 20,
+        "sp_reviews": 16,
         "sz_variant_label": 11,
         "sz_variant_value": 11,
         "sp_variant": 14,
+        "sz_urgency": 14,
+        "sp_urgency": 16,
+        "sz_qty_label": 13,
+        "sp_qty": 0,
+        "sz_delivery_title": 11,
+        "sz_delivery_text": 12,
+        "sp_delivery": 20,
         "sz_tab_heading": 12,
         "sz_tab_content": 12,
         "sz_trust": 12
@@ -63,6 +70,7 @@
         },
         "tagline": {
           "type": "tagline",
+          "disabled": true,
           "settings": {
             "text": "Built different. On purpose."
           }
@@ -75,13 +83,6 @@
             "page": ""
           }
         },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "none"
-          }
-        },
         "low_stock_urgency": {
           "type": "low_stock_urgency",
           "settings": {
@@ -89,6 +90,13 @@
             "low_stock_threshold": 5,
             "show_timer": true,
             "timer_label": "Offer ends in"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "none"
           }
         },
         "quantity_selector": {
@@ -174,8 +182,8 @@
         "reviews_badge",
         "tagline",
         "size_guide",
-        "variant_picker",
         "low_stock_urgency",
+        "variant_picker",
         "quantity_selector",
         "buy_buttons",
         "trust_strip",
