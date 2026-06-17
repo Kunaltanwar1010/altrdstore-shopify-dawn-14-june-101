@@ -19,10 +19,14 @@
 
 /* Header */
 .altrd-testi__header {
-  text-align: center;
-  max-width: 40rem;
-  margin: 0 auto 2.75rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  max-width: 100%;
+  margin: 0 0 2.75rem;
 }
+.altrd-testi__header-text { text-align: left; }
 @media screen and (max-width: 749px) {
   .altrd-testi__header { margin-bottom: 1.75rem; }
 }
@@ -32,7 +36,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.625rem;
   opacity: 0.45;
 }
 .altrd-testi--ink .altrd-testi__eyebrow { color: var(--color-altrd-hivis, #E8FF52); opacity: 1; }
@@ -45,39 +49,79 @@
   margin: 0;
 }
 
-/* Grid */
+/* Carousel viewport + arrows */
+.altrd-testi__carousel { position: relative; }
+
+.altrd-testi__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  background: var(--altrd-testi-arrow-bg, #FFFFFF);
+  color: inherit;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: opacity 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+.altrd-testi--ink .altrd-testi__arrow { --altrd-testi-arrow-bg: #0B0B0B; }
+.altrd-testi--bone .altrd-testi__arrow { --altrd-testi-arrow-bg: #F4EFE6; }
+.altrd-testi__arrow:hover { background: var(--color-altrd-hivis, #E8FF52); color: #0B0B0B; border-color: var(--color-altrd-hivis, #E8FF52); }
+.altrd-testi__arrow svg { width: 1.1rem; height: 1.1rem; }
+.altrd-testi__arrow--prev { left: -1.1rem; }
+.altrd-testi__arrow--next { right: -1.1rem; }
+.altrd-testi__arrow[disabled] { opacity: 0; pointer-events: none; }
+.altrd-testi__arrow.is-hidden { display: none; }
+@media screen and (max-width: 749px) {
+  .altrd-testi__arrow { display: none; }
+}
+
+/* Track (carousel) */
 .altrd-testi__grid {
-  display: grid;
-  grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-  gap: 1.5rem;
+  --cols: {{ section.settings.columns_desktop }};
+  --gap: 1.5rem;
+  display: flex;
+  gap: var(--gap);
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.altrd-testi__grid::-webkit-scrollbar { display: none; }
+.altrd-testi__grid.altrd-testi__grid--dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+.altrd-testi__grid > li {
+  flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
+  scroll-snap-align: start;
+}
+/* When everything fits, behave like a centered static row */
+.altrd-testi__grid--fits { justify-content: center; overflow-x: visible; }
+.altrd-testi__grid--fits > li { scroll-snap-align: none; }
+
 @media screen and (min-width: 750px) and (max-width: 989px) {
-  .altrd-testi__grid { grid-template-columns: repeat(2, 1fr); }
+  .altrd-testi__grid { --cols: 2; cursor: grab; }
 }
 
-/* Mobile carousel */
 @media screen and (max-width: 749px) {
   .altrd-testi__grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
     gap: 1rem;
     padding: 0 1.25rem 0.5rem;
     margin: 0 -1.5rem;
     cursor: grab;
   }
-  .altrd-testi__grid::-webkit-scrollbar { display: none; }
-  .altrd-testi__grid.altrd-testi__grid--dragging { cursor: grabbing; scroll-snap-type: none; }
   .altrd-testi__grid > li {
     flex: 0 0 82vw;
     max-width: 22rem;
-    scroll-snap-align: start;
   }
+  .altrd-testi__grid--fits { overflow-x: auto; justify-content: flex-start; }
 }
 
 /* Card */
@@ -232,16 +276,25 @@
 
     {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
       <div class="altrd-testi__header">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="altrd-testi__eyebrow">{{ section.settings.eyebrow | escape }}</p>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h2 class="altrd-testi__heading">{{ section.settings.heading | escape }}</h2>
-        {%- endif -%}
+        <div class="altrd-testi__header-text">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="altrd-testi__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="altrd-testi__heading">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+        </div>
       </div>
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
+      <div class="altrd-testi__carousel">
+      <button type="button" class="altrd-testi__arrow altrd-testi__arrow--prev" id="AltrdTestiPrev-{{ section.id }}" aria-label="Previous">
+        <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="altrd-testi__arrow altrd-testi__arrow--next" id="AltrdTestiNext-{{ section.id }}" aria-label="Next">
+        <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
       <ul class="altrd-testi__grid" id="AltrdTestiTrack-{{ section.id }}" role="list">
         {%- for block in section.blocks -%}
           {%- liquid
@@ -306,6 +359,7 @@
           </li>
         {%- endfor -%}
       </ul>
+      </div>
 
       {%- if section.blocks.size > 1 -%}
         <div class="altrd-testi__dots" id="AltrdTestiDots-{{ section.id }}" aria-hidden="true">
@@ -319,8 +373,34 @@
         (function () {
           var track = document.getElementById('AltrdTestiTrack-{{ section.id }}');
           var dotsWrap = document.getElementById('AltrdTestiDots-{{ section.id }}');
+          var prevBtn = document.getElementById('AltrdTestiPrev-{{ section.id }}');
+          var nextBtn = document.getElementById('AltrdTestiNext-{{ section.id }}');
           if (!track) return;
           var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll('.altrd-testi__dot')) : [];
+
+          function cardStep() {
+            var card = track.querySelector('li');
+            if (!card) return track.clientWidth;
+            var styles = getComputedStyle(track);
+            var gap = parseFloat(styles.columnGap || styles.gap || 0) || 0;
+            return card.getBoundingClientRect().width + gap;
+          }
+
+          function fits() {
+            return track.scrollWidth <= track.clientWidth + 2;
+          }
+
+          function syncControls() {
+            var allFit = fits();
+            track.classList.toggle('altrd-testi__grid--fits', allFit);
+            if (prevBtn) prevBtn.classList.toggle('is-hidden', allFit);
+            if (nextBtn) nextBtn.classList.toggle('is-hidden', allFit);
+            if (!allFit) {
+              if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
+              if (nextBtn) nextBtn.disabled = track.scrollLeft >= (track.scrollWidth - track.clientWidth - 2);
+            }
+            updateDots();
+          }
 
           function updateDots() {
             if (!dots.length) return;
@@ -334,31 +414,41 @@
             dots.forEach(function (dot, i) { dot.classList.toggle('altrd-testi__dot--active', i === closest); });
           }
 
+          if (prevBtn) prevBtn.addEventListener('click', function () { track.scrollBy({ left: -cardStep(), behavior: 'smooth' }); });
+          if (nextBtn) nextBtn.addEventListener('click', function () { track.scrollBy({ left: cardStep(), behavior: 'smooth' }); });
+
           var ticking = false;
           track.addEventListener('scroll', function () {
             if (ticking) return;
             ticking = true;
-            window.requestAnimationFrame(function () { updateDots(); ticking = false; });
+            window.requestAnimationFrame(function () { syncControls(); ticking = false; });
           }, { passive: true });
 
-          var isDown = false, startX = 0, startScroll = 0;
+          var isDown = false, startX = 0, startScroll = 0, moved = false;
           track.addEventListener('pointerdown', function (e) {
             if (e.pointerType === 'mouse' && e.button !== 0) return;
-            isDown = true; track.classList.add('altrd-testi__grid--dragging');
+            if (fits()) return;
+            isDown = true; moved = false; track.classList.add('altrd-testi__grid--dragging');
             startX = e.clientX; startScroll = track.scrollLeft;
             track.setPointerCapture(e.pointerId);
           });
           track.addEventListener('pointermove', function (e) {
             if (!isDown) return;
+            if (Math.abs(e.clientX - startX) > 4) moved = true;
             track.scrollLeft = startScroll - (e.clientX - startX);
           });
           function endDrag() {
             if (!isDown) return;
-            isDown = false; track.classList.remove('altrd-testi__grid--dragging'); updateDots();
+            isDown = false; track.classList.remove('altrd-testi__grid--dragging'); syncControls();
           }
           track.addEventListener('pointerup', endDrag);
           track.addEventListener('pointercancel', endDrag);
           track.addEventListener('pointerleave', endDrag);
+          /* Prevent a drag from triggering a link click on the product chip */
+          track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+          window.addEventListener('resize', syncControls);
+          syncControls();
         })();
       </script>
 
