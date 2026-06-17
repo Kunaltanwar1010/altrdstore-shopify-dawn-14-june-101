@@ -131,6 +131,8 @@
     {%- endif -%}
   </div>
 
+  <div class="altrd-drop__dots page-width" id="AltrdDropDots-{{ section.id }}" aria-hidden="true"></div>
+
   {%- if section.settings.show_view_all and has_collection -%}
     <div class="altrd-drop__footer page-width">
       <a href="{{ the_collection.url }}" class="altrd-drop__footer-link">
@@ -291,6 +293,28 @@
 .altrd-drop__arrow:hover svg { color: var(--altrd-drop-arrow-hover, #000); }
 .altrd-drop__arrow svg { width: 1.1rem; height: 1.1rem; }
 .altrd-drop__arrow[disabled] { opacity: 0.25; pointer-events: none; }
+
+/* Pagination dots */
+.altrd-drop__dots {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.altrd-drop__dots.is-active { display: flex; }
+.altrd-drop__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: currentColor;
+  opacity: 0.25;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.altrd-drop__dot--active { opacity: 1; transform: scale(1.25); }
 
 .altrd-drop__card {
   display: block;
@@ -483,6 +507,36 @@
     if (!track) return;
     var prev = document.getElementById('AltrdDropPrev-{{ section.id }}');
     var next = document.getElementById('AltrdDropNext-{{ section.id }}');
+    var dotsWrap = document.getElementById('AltrdDropDots-{{ section.id }}');
+
+    var pages = 0;
+    function buildDots() {
+      if (!dotsWrap) return;
+      var p = Math.round(track.scrollWidth / track.clientWidth);
+      if (p < 1) p = 1;
+      if (p === pages) return;
+      pages = p;
+      dotsWrap.innerHTML = '';
+      if (pages <= 1) { dotsWrap.classList.remove('is-active'); return; }
+      dotsWrap.classList.add('is-active');
+      for (var i = 0; i < pages; i++) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'altrd-drop__dot' + (i === 0 ? ' altrd-drop__dot--active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.dataset.page = i;
+        dot.addEventListener('click', function (e) {
+          track.scrollTo({ left: parseInt(e.currentTarget.dataset.page, 10) * track.clientWidth, behavior: 'smooth' });
+        });
+        dotsWrap.appendChild(dot);
+      }
+    }
+    function syncDots() {
+      if (!dotsWrap || pages <= 1) return;
+      var active = Math.round(track.scrollLeft / track.clientWidth);
+      var all = dotsWrap.querySelectorAll('.altrd-drop__dot');
+      all.forEach(function (d, i) { d.classList.toggle('altrd-drop__dot--active', i === active); });
+    }
 
     function step() {
       var card = track.querySelector('.altrd-drop__card');
@@ -503,7 +557,7 @@
     track.addEventListener('scroll', function () {
       if (ticking) return;
       ticking = true;
-      requestAnimationFrame(function () { sync(); ticking = false; });
+      requestAnimationFrame(function () { sync(); syncDots(); ticking = false; });
     }, { passive: true });
 
     var down = false, startX = 0, startScroll = 0, moved = false, captured = false, pid = null;
@@ -533,8 +587,10 @@
     track.addEventListener('pointerleave', end);
     track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
 
-    window.addEventListener('resize', sync);
+    window.addEventListener('resize', function () { sync(); buildDots(); syncDots(); });
+    buildDots();
     sync();
+    syncDots();
   })();
 </script>
 
