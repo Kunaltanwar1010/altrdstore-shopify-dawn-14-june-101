@@ -48,8 +48,16 @@
         endif
         assign bl_treat  = block.settings.overlay_treatment
         assign bl_focal  = block.settings.focal_point
-        assign bl_url    = block.settings.link | default: bl_col.url | default: routes.collections_url
         assign bl_show_n = block.settings.show_product_count
+
+        # Link priority: explicit Button link → picked collection → generic collections page
+        if block.settings.link != blank
+          assign bl_url = block.settings.link
+        elsif bl_col != blank and bl_col.url != blank
+          assign bl_url = bl_col.url
+        else
+          assign bl_url = routes.collections_url
+        endif
       -%}
 
       <div
