@@ -47,7 +47,7 @@
           "type": "menu_column",
           "settings": {
             "heading": "Top Collections",
-            "menu": "main-menu"
+            "menu": "footer"
           }
         },
         "col2": {
