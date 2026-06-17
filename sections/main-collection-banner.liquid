@@ -1,49 +1,250 @@
-{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign mode = section.settings.background_mode | default: 'light'
+  if mode == 'dark'
+    assign cb_bg = '#0B0B0B'
+    assign cb_tx = '#FFFFFF'
+    assign cb_line = 'rgba(255,255,255,0.18)'
+    assign cb_muted = 'rgba(255,255,255,0.55)'
+    assign cb_chip_bg = 'rgba(255,255,255,0.06)'
+  else
+    assign cb_bg = '#FFFFFF'
+    assign cb_tx = '#0B0B0B'
+    assign cb_line = 'rgba(11,11,11,0.16)'
+    assign cb_muted = 'rgba(11,11,11,0.5)'
+    assign cb_chip_bg = 'rgba(11,11,11,0.04)'
+  endif
+
+  assign pills = section.blocks | where: 'type', 'pill'
+-%}
 
 {%- style -%}
-  @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
-    }
+  /* === ALTRD custom === */
+  #shopify-section-{{ section.id }} {
+    --cb-bg: {{ cb_bg }};
+    --cb-tx: {{ cb_tx }};
+    --cb-line: {{ cb_line }};
+    --cb-muted: {{ cb_muted }};
+    --cb-chip-bg: {{ cb_chip_bg }};
+  }
+  .altrd-cb {
+    background: var(--cb-bg);
+    color: var(--cb-tx);
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+  }
+  .altrd-cb__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .altrd-cb__title {
+    font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
+    line-height: 0.95;
+    text-transform: lowercase;
+    letter-spacing: 0.01em;
+    margin: 0;
+    color: var(--cb-tx);
+  }
+  .altrd-cb__count {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--cb-muted);
+    margin: 0.5rem 0 0;
+  }
+  .altrd-cb__desc {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--cb-muted);
+    max-width: 60ch;
+    margin: 0.75rem 0 0;
+  }
+
+  /* Sub-collection pills */
+  .altrd-cb__pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .altrd-cb__pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--cb-tx);
+    background: var(--cb-chip-bg);
+    border: 1px solid var(--cb-line);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .altrd-cb__pill:hover { background: var(--cb-tx); color: var(--cb-bg); }
+  .altrd-cb__pill--active { background: var(--cb-tx); color: var(--cb-bg); border-color: var(--cb-tx); }
+
+  /* Density toggles */
+  .altrd-cb__density {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .altrd-cb__density-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--cb-line);
+    color: var(--cb-tx);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .altrd-cb__density-btn svg { width: 1rem; height: 1rem; }
+  .altrd-cb__density-btn[aria-pressed="true"] { background: var(--cb-tx); color: var(--cb-bg); border-color: var(--cb-tx); }
+  .altrd-cb__density-btn:hover { border-color: var(--cb-tx); }
+  .altrd-cb__density--desktop { display: none; }
+  @media screen and (min-width: 990px) {
+    .altrd-cb__density--desktop { display: inline-flex; }
+    .altrd-cb__density--mobile { display: none; }
+  }
+
+  /* Density control of the native product grid (robust, class-name independent) */
+  @media screen and (min-width: 990px) {
+    #product-grid[data-altrd-cols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    #product-grid[data-altrd-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    #product-grid[data-altrd-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  }
+  @media screen and (max-width: 989px) {
+    #product-grid[data-altrd-mcols="1"] { grid-template-columns: minmax(0, 1fr) !important; }
+    #product-grid[data-altrd-mcols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .altrd-cb__pill, .altrd-cb__density-btn { transition: none; }
   }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    <div class="collection-hero__text-wrapper">
-      <h1 class="collection-hero__title">
-        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        {{- collection.title | escape -}}
-      </h1>
+<div class="altrd-cb">
+  <div class="page-width">
+    <div class="altrd-cb__head">
+      <div class="altrd-cb__head-left">
+        <h1 class="altrd-cb__title">
+          <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+          {{- collection.title | escape -}}
+        </h1>
+        {%- if section.settings.show_count -%}
+          <p class="altrd-cb__count">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</p>
+        {%- endif -%}
+        {%- if section.settings.show_collection_description and collection.description != blank -%}
+          <div class="altrd-cb__desc rte">{{ collection.description }}</div>
+        {%- endif -%}
+      </div>
 
-      {%- if section.settings.show_collection_description -%}
-        <div class="collection-hero__description rte">{{ collection.description }}</div>
+      {%- if section.settings.show_density_toggles -%}
+        <div class="altrd-cb__density-wrap">
+          <div class="altrd-cb__density altrd-cb__density--desktop" role="group" aria-label="Products per row">
+            <button type="button" class="altrd-cb__density-btn" data-altrd-density="2" aria-label="2 per row" aria-pressed="false">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
+            </button>
+            <button type="button" class="altrd-cb__density-btn" data-altrd-density="3" aria-label="3 per row" aria-pressed="false">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="4" height="16"/><rect x="6" y="0" width="4" height="16"/><rect x="12" y="0" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <div class="altrd-cb__density altrd-cb__density--mobile" role="group" aria-label="Products per row">
+            <button type="button" class="altrd-cb__density-btn" data-altrd-mdensity="1" aria-label="1 per row" aria-pressed="false">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="16" height="16"/></svg>
+            </button>
+            <button type="button" class="altrd-cb__density-btn" data-altrd-mdensity="2" aria-label="2 per row" aria-pressed="false">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
+            </button>
+          </div>
+        </div>
       {%- endif -%}
     </div>
 
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
-        <img
-          srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
-          src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
-          alt="{{ collection.image.alt | escape }}"
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
-        >
-      </div>
+    {%- if pills.size > 0 -%}
+      <nav class="altrd-cb__pills" aria-label="Sub-collections">
+        {%- for block in pills -%}
+          {%- liquid
+            assign pill_url = block.settings.link
+            if pill_url == blank and block.settings.collection != blank
+              assign pill_url = block.settings.collection.url
+            endif
+            assign pill_label = block.settings.label
+            if pill_label == blank and block.settings.collection != blank
+              assign pill_label = block.settings.collection.title
+            endif
+            assign is_active = false
+            if block.settings.collection != blank and block.settings.collection.id == collection.id
+              assign is_active = true
+            endif
+          -%}
+          {%- if pill_url != blank and pill_label != blank -%}
+            <a
+              href="{{ pill_url }}"
+              class="altrd-cb__pill{% if is_active %} altrd-cb__pill--active{% endif %}"
+              {% if is_active %}aria-current="page"{% endif %}
+              {{ block.shopify_attributes }}
+            >{{ pill_label | escape }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
     {%- endif -%}
   </div>
 </div>
+
+<script>
+  (function () {
+    var grid = document.getElementById('product-grid');
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    var DKEY = 'altrd-density-desktop';
+    var MKEY = 'altrd-density-mobile';
+    var defDesktop = '{{ section.settings.default_columns_desktop | default: 3 }}';
+    var defMobile = '{{ section.settings.default_columns_mobile | default: 2 }}';
+
+    function applyDesktop(v) {
+      if (grid) grid.setAttribute('data-altrd-cols', v);
+      section.querySelectorAll('[data-altrd-density]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-altrd-density') === v ? 'true' : 'false');
+      });
+    }
+    function applyMobile(v) {
+      if (grid) grid.setAttribute('data-altrd-mcols', v);
+      section.querySelectorAll('[data-altrd-mdensity]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-altrd-mdensity') === v ? 'true' : 'false');
+      });
+    }
+
+    var savedD = null, savedM = null;
+    try { savedD = localStorage.getItem(DKEY); savedM = localStorage.getItem(MKEY); } catch (e) {}
+    applyDesktop(savedD || defDesktop);
+    applyMobile(savedM || defMobile);
+
+    section.querySelectorAll('[data-altrd-density]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-altrd-density');
+        applyDesktop(v);
+        try { localStorage.setItem(DKEY, v); } catch (e) {}
+      });
+    });
+    section.querySelectorAll('[data-altrd-mdensity]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-altrd-mdensity');
+        applyMobile(v);
+        try { localStorage.setItem(MKEY, v); } catch (e) {}
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -51,26 +252,107 @@
   "class": "section",
   "settings": [
     {
-      "type": "paragraph",
-      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+      "type": "select",
+      "id": "background_mode",
+      "label": "Color mode",
+      "default": "light",
+      "info": "Strict black & white either way.",
+      "options": [
+        { "value": "light", "label": "Light (white bg / black text)" },
+        { "value": "dark", "label": "Dark (black bg / white text)" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show product count",
+      "default": true
     },
     {
       "type": "checkbox",
       "id": "show_collection_description",
-      "default": true,
-      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Grid density toggles"
     },
     {
       "type": "checkbox",
-      "id": "show_collection_image",
-      "default": false,
-      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+      "id": "show_density_toggles",
+      "label": "Show density toggles",
+      "default": true
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
+      "type": "select",
+      "id": "default_columns_desktop",
+      "label": "Default columns — desktop",
+      "default": "3",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "default_columns_mobile",
+      "label": "Default columns — mobile",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pill",
+      "name": "Sub-collection pill",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Defaults to the collection title."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link override",
+          "info": "Optional — overrides the collection link."
+        }
+      ]
     }
   ]
 }
