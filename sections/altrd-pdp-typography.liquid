@@ -1,65 +1,99 @@
+{%- liquid
+  assign s = section.settings
+-%}
 {%- style -%}
-/* === ALTRD PDP — Typography sizes === */
+/* === ALTRD PDP — Typography & Spacing controls === */
 
-product-info .product__text {
-  font-size: {{ section.settings.sz_vendor }}px !important;
-}
-
+/* Breadcrumbs */
 product-info .altrd-breadcrumbs {
-  font-size: {{ section.settings.sz_breadcrumb }}px !important;
+  font-size: {{ s.sz_breadcrumb }}px !important;
+  margin-bottom: {{ s.sp_breadcrumb }}px !important;
 }
 
+/* Vendor / drop label */
+product-info .product__text:not(.altrd-pdp-tagline) {
+  font-size: {{ s.sz_vendor }}px !important;
+}
+
+/* Title */
 product-info .product__title {
-  font-size: {{ section.settings.sz_title_desk }}px !important;
+  font-size: {{ s.sz_title_desk }}px !important;
+  margin-bottom: {{ s.sp_title }}px !important;
 }
 @media screen and (max-width: 749px) {
   product-info .product__title {
-    font-size: {{ section.settings.sz_title_mob }}px !important;
+    font-size: {{ s.sz_title_mob }}px !important;
   }
 }
 
-product-info .altrd-pdp-tagline {
-  font-size: {{ section.settings.sz_tagline }}px !important;
+/* Price */
+product-info .altrd-pdp-price {
+  margin-bottom: {{ s.sp_price }}px !important;
 }
-
-product-info .altrd-reviews-badge__stars {
-  font-size: {{ section.settings.sz_reviews | plus: 2 }}px !important;
-}
-product-info .altrd-reviews-badge__text {
-  font-size: {{ section.settings.sz_reviews }}px !important;
-}
-product-info .altrd-reviews-badge__link {
-  font-size: {{ section.settings.sz_reviews | minus: 2 }}px !important;
-}
-
 product-info .altrd-pdp-price__current {
-  font-size: {{ section.settings.sz_price }}px !important;
+  font-size: {{ s.sz_price }}px !important;
 }
 product-info .altrd-pdp-price__compare {
-  font-size: {{ section.settings.sz_price | times: 0.68 | round: 0 }}px !important;
+  font-size: {{ s.sz_price | times: 0.68 | round: 0 }}px !important;
+}
+product-info .altrd-pdp-price__save {
+  font-size: {{ s.sz_save }}px !important;
+}
+product-info .product__tax {
+  font-size: {{ s.sz_tax }}px !important;
 }
 
+/* Tagline */
+product-info .altrd-pdp-tagline {
+  font-size: {{ s.sz_tagline }}px !important;
+  margin-bottom: {{ s.sp_tagline }}px !important;
+}
+
+/* Reviews badge */
+product-info .altrd-reviews-badge {
+  margin-bottom: {{ s.sp_reviews }}px !important;
+}
+product-info .altrd-reviews-badge__stars {
+  font-size: {{ s.sz_reviews | plus: 2 }}px !important;
+}
+product-info .altrd-reviews-badge__text {
+  font-size: {{ s.sz_reviews }}px !important;
+}
+product-info .altrd-reviews-badge__link {
+  font-size: {{ s.sz_reviews | minus: 2 }}px !important;
+}
+
+/* Variant / size selector */
+product-info variant-selects .form__label,
+product-info .product-form__input > legend.form__label,
+product-info fieldset.product-form__input legend {
+  font-size: {{ s.sz_variant_label }}px !important;
+}
+product-info variant-selects,
+product-info .product-form__input--pill,
+product-info .product-form__input {
+  margin-bottom: {{ s.sp_variant }}px !important;
+}
+product-info .product-form__input label,
+product-info .product-form__input .product-form__label {
+  font-size: {{ s.sz_variant_value }}px !important;
+}
+
+/* Collapsible tabs */
 product-info .accordion__title.h4 {
-  font-size: {{ section.settings.sz_tab_heading }}px !important;
+  font-size: {{ s.sz_tab_heading }}px !important;
 }
-
 product-info .accordion__content {
-  font-size: {{ section.settings.sz_tab_content }}px !important;
+  font-size: {{ s.sz_tab_content }}px !important;
 }
 
+/* Trust strip */
 product-info .altrd-trust-strip__label {
-  font-size: {{ section.settings.sz_trust }}px !important;
+  font-size: {{ s.sz_trust }}px !important;
 }
 {%- endstyle -%}
 
-{%- if request.design_mode -%}
-  <div style="padding:1rem 1.5rem;background:#f9f9f9;border:1.5px dashed rgba(0,0,0,0.12);font-family:system-ui,sans-serif;">
-    <p style="margin:0 0 0.25rem;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;">ALTRD — PDP Typography</p>
-    <p style="margin:0;font-size:0.7rem;color:#aaa;">Font size controls for this product page. Nothing renders on the storefront.</p>
-  </div>
-{%- else -%}
-  <div hidden></div>
-{%- endif -%}
+<div hidden></div>
 
 {% schema %}
 {
@@ -74,8 +108,8 @@ product-info .altrd-trust-strip__label {
     {
       "type": "range",
       "id": "sz_title_desk",
-      "label": "Desktop",
-      "min": 28,
+      "label": "Size — desktop",
+      "min": 24,
       "max": 100,
       "step": 2,
       "unit": "px",
@@ -84,60 +118,60 @@ product-info .altrd-trust-strip__label {
     {
       "type": "range",
       "id": "sz_title_mob",
-      "label": "Mobile",
-      "min": 20,
+      "label": "Size — mobile",
+      "min": 18,
       "max": 72,
       "step": 2,
       "unit": "px",
       "default": 36
     },
     {
+      "type": "range",
+      "id": "sp_title",
+      "label": "Space below",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
       "type": "header",
-      "content": "Breadcrumbs & Vendor label"
+      "content": "Breadcrumbs"
     },
     {
       "type": "range",
       "id": "sz_breadcrumb",
-      "label": "Breadcrumbs",
+      "label": "Size",
       "min": 8,
-      "max": 18,
+      "max": 20,
       "step": 1,
       "unit": "px",
       "default": 13
     },
     {
       "type": "range",
-      "id": "sz_vendor",
-      "label": "Vendor / drop label",
-      "min": 8,
-      "max": 18,
-      "step": 1,
-      "unit": "px",
-      "default": 11
-    },
-    {
-      "type": "header",
-      "content": "Tagline & Reviews badge"
-    },
-    {
-      "type": "range",
-      "id": "sz_tagline",
-      "label": "Tagline",
-      "min": 12,
-      "max": 32,
-      "step": 1,
-      "unit": "px",
-      "default": 20
-    },
-    {
-      "type": "range",
-      "id": "sz_reviews",
-      "label": "Reviews badge",
-      "min": 10,
-      "max": 22,
+      "id": "sp_breadcrumb",
+      "label": "Space below",
+      "min": 0,
+      "max": 48,
       "step": 1,
       "unit": "px",
       "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Vendor / drop label"
+    },
+    {
+      "type": "range",
+      "id": "sz_vendor",
+      "label": "Size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 11
     },
     {
       "type": "header",
@@ -146,12 +180,124 @@ product-info .altrd-trust-strip__label {
     {
       "type": "range",
       "id": "sz_price",
-      "label": "Price",
+      "label": "Price size",
       "min": 14,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "sz_save",
+      "label": "Save badge size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "sz_tax",
+      "label": "Taxes-included text size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "sp_price",
+      "label": "Space below",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Tagline"
+    },
+    {
+      "type": "range",
+      "id": "sz_tagline",
+      "label": "Size",
+      "min": 12,
       "max": 36,
       "step": 1,
       "unit": "px",
-      "default": 22
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "sp_tagline",
+      "label": "Space below",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Reviews badge"
+    },
+    {
+      "type": "range",
+      "id": "sz_reviews",
+      "label": "Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "sp_reviews",
+      "label": "Space below",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Size / Variant selector"
+    },
+    {
+      "type": "range",
+      "id": "sz_variant_label",
+      "label": "Label size (e.g. SIZE)",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "sz_variant_value",
+      "label": "Option text size (S, M, L…)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "sp_variant",
+      "label": "Space below",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 14
     },
     {
       "type": "header",
@@ -160,9 +306,9 @@ product-info .altrd-trust-strip__label {
     {
       "type": "range",
       "id": "sz_tab_heading",
-      "label": "Tab heading",
+      "label": "Tab heading size",
       "min": 10,
-      "max": 20,
+      "max": 22,
       "step": 1,
       "unit": "px",
       "default": 13
@@ -170,9 +316,9 @@ product-info .altrd-trust-strip__label {
     {
       "type": "range",
       "id": "sz_tab_content",
-      "label": "Tab body text",
+      "label": "Tab body text size",
       "min": 12,
-      "max": 22,
+      "max": 24,
       "step": 1,
       "unit": "px",
       "default": 15
@@ -184,9 +330,9 @@ product-info .altrd-trust-strip__label {
     {
       "type": "range",
       "id": "sz_trust",
-      "label": "Trust strip text",
+      "label": "Text size",
       "min": 8,
-      "max": 18,
+      "max": 20,
       "step": 1,
       "unit": "px",
       "default": 11
