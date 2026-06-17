@@ -226,28 +226,62 @@
     outline: 2px solid var(--color-altrd-hivis, #E8FF52);
     outline-offset: 3px;
   }
-  .altrd-size-guide-modal .product-popup-modal__content-info {
-    padding: 2rem 2rem 3rem;
-  }
-  .altrd-size-guide-modal h2 {
+  /* --- Size chart: paged/tabbed modal --- */
+  .altrd-sg__body { padding: 2rem 2rem 2.5rem; }
+  @media screen and (max-width: 749px) { .altrd-sg__body { padding: 1.5rem 1.25rem 2rem; } }
+  .altrd-sg__heading {
     font-family: var(--font-altrd-display, 'Bebas Neue', Impact, sans-serif);
     font-size: 2.25rem;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.25rem;
     font-weight: 400;
+    text-transform: uppercase;
   }
-  .altrd-size-guide-modal table {
+  .altrd-sg__tabs {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(11, 11, 11, 0.12);
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .altrd-sg__tab {
+    font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(11, 11, 11, 0.45);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.5rem 0.25rem 0.75rem;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .altrd-sg__tab:hover { color: #0B0B0B; }
+  .altrd-sg__tab.is-active { color: #0B0B0B; border-bottom-color: #0B0B0B; }
+  .altrd-sg__panel { display: none; }
+  .altrd-sg__panel.is-active { display: block; }
+  .altrd-sg__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 0 1rem;
+  }
+  .altrd-sg__panel .rte { font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif); }
+  .altrd-sg__panel table {
     width: 100%;
     border-collapse: collapse;
     font-family: var(--font-altrd-body, 'Space Grotesk', system-ui, sans-serif);
   }
-  .altrd-size-guide-modal td,
-  .altrd-size-guide-modal th {
+  .altrd-sg__panel td,
+  .altrd-sg__panel th {
     padding: 0.625rem 0.875rem;
     border: 1px solid rgba(11, 11, 11, 0.1);
     font-size: 0.875rem;
     text-align: left;
   }
-  .altrd-size-guide-modal th {
+  .altrd-sg__panel th {
     background: #0B0B0B;
     color: #F4EFE6;
     font-size: 0.6875rem;
@@ -1284,7 +1318,22 @@
                 {%- endif -%}
 
               {%- when 'size_guide' -%}
-                {%- if block.settings.content != blank or block.settings.page.content != blank -%}
+                {%- liquid
+                  assign sg_t1 = false
+                  if block.settings.tab1_image != blank or block.settings.tab1_content != blank or block.settings.content != blank or block.settings.page.content != blank
+                    assign sg_t1 = true
+                  endif
+                  assign sg_t2 = false
+                  if block.settings.tab2_image != blank or block.settings.tab2_content != blank
+                    assign sg_t2 = true
+                  endif
+                  assign sg_t3 = false
+                  if block.settings.tab3_image != blank or block.settings.tab3_content != blank
+                    assign sg_t3 = true
+                  endif
+                  assign sg_label = block.settings.link_text | default: 'Size chart'
+                -%}
+                {%- if sg_t1 or sg_t2 or sg_t3 -%}
                   <modal-opener
                     class="altrd-pdp-size-guide quick-add-hidden"
                     data-modal="#SizeGuideModal-{{ block.id }}"
@@ -1300,7 +1349,7 @@
                         <path d="M1 8h14M8 1v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         <rect x="1" y="1" width="14" height="14" rx="1" stroke="currentColor" stroke-width="1.25"/>
                       </svg>
-                      {{- block.settings.link_text | default: 'Size guide' | escape -}}
+                      {{- sg_label | escape -}}
                     </button>
                   </modal-opener>
                   <modal-dialog
@@ -1309,9 +1358,9 @@
                   >
                     <div
                       role="dialog"
-                      aria-label="{{ block.settings.link_text | default: 'Size guide' | escape }}"
+                      aria-label="{{ sg_label | escape }}"
                       aria-modal="true"
-                      class="product-popup-modal__content"
+                      class="product-popup-modal__content altrd-sg"
                       tabindex="-1"
                     >
                       <button
@@ -1322,16 +1371,81 @@
                       >
                         {{- 'icon-close.svg' | inline_asset_content -}}
                       </button>
-                      <div class="product-popup-modal__content-info altrd-size-guide-modal__body">
-                        <h2>{{ block.settings.link_text | default: 'Size guide' | escape }}</h2>
-                        {%- if block.settings.content != blank -%}
-                          <div class="rte">{{ block.settings.content }}</div>
-                        {%- elsif block.settings.page.content != blank -%}
-                          <div class="rte">{{ block.settings.page.content }}</div>
-                        {%- endif -%}
+                      <div class="altrd-sg__body" id="SizeGuideBody-{{ block.id }}">
+                        <h2 class="altrd-sg__heading">{{ sg_label | escape }}</h2>
+
+                        <div class="altrd-sg__tabs" role="tablist">
+                          {%- assign sg_i = 0 -%}
+                          {%- if sg_t1 -%}
+                            <button type="button" class="altrd-sg__tab{% if sg_i == 0 %} is-active{% endif %}" data-sg-tab="{{ sg_i }}" role="tab">{{ block.settings.tab1_label | default: 'Size chart' | escape }}</button>
+                            {%- assign sg_i = sg_i | plus: 1 -%}
+                          {%- endif -%}
+                          {%- if sg_t2 -%}
+                            <button type="button" class="altrd-sg__tab{% if sg_i == 0 %} is-active{% endif %}" data-sg-tab="{{ sg_i }}" role="tab">{{ block.settings.tab2_label | default: 'How to measure' | escape }}</button>
+                            {%- assign sg_i = sg_i | plus: 1 -%}
+                          {%- endif -%}
+                          {%- if sg_t3 -%}
+                            <button type="button" class="altrd-sg__tab{% if sg_i == 0 %} is-active{% endif %}" data-sg-tab="{{ sg_i }}" role="tab">{{ block.settings.tab3_label | default: 'Fit & care' | escape }}</button>
+                          {%- endif -%}
+                        </div>
+
+                        <div class="altrd-sg__panels">
+                          {%- assign sg_i = 0 -%}
+                          {%- if sg_t1 -%}
+                            <div class="altrd-sg__panel{% if sg_i == 0 %} is-active{% endif %}" data-sg-panel="{{ sg_i }}">
+                              {%- if block.settings.tab1_image != blank -%}
+                                {{ block.settings.tab1_image | image_url: width: 1100 | image_tag: class: 'altrd-sg__img', loading: 'lazy', alt: block.settings.tab1_label | default: 'Size chart' | escape }}
+                              {%- endif -%}
+                              {%- if block.settings.tab1_content != blank -%}
+                                <div class="rte">{{ block.settings.tab1_content }}</div>
+                              {%- elsif block.settings.content != blank -%}
+                                <div class="rte">{{ block.settings.content }}</div>
+                              {%- elsif block.settings.page.content != blank -%}
+                                <div class="rte">{{ block.settings.page.content }}</div>
+                              {%- endif -%}
+                            </div>
+                            {%- assign sg_i = sg_i | plus: 1 -%}
+                          {%- endif -%}
+                          {%- if sg_t2 -%}
+                            <div class="altrd-sg__panel{% if sg_i == 0 %} is-active{% endif %}" data-sg-panel="{{ sg_i }}">
+                              {%- if block.settings.tab2_image != blank -%}
+                                {{ block.settings.tab2_image | image_url: width: 1100 | image_tag: class: 'altrd-sg__img', loading: 'lazy', alt: block.settings.tab2_label | default: 'How to measure' | escape }}
+                              {%- endif -%}
+                              {%- if block.settings.tab2_content != blank -%}
+                                <div class="rte">{{ block.settings.tab2_content }}</div>
+                              {%- endif -%}
+                            </div>
+                            {%- assign sg_i = sg_i | plus: 1 -%}
+                          {%- endif -%}
+                          {%- if sg_t3 -%}
+                            <div class="altrd-sg__panel{% if sg_i == 0 %} is-active{% endif %}" data-sg-panel="{{ sg_i }}">
+                              {%- if block.settings.tab3_image != blank -%}
+                                {{ block.settings.tab3_image | image_url: width: 1100 | image_tag: class: 'altrd-sg__img', loading: 'lazy', alt: block.settings.tab3_label | default: 'Fit & care' | escape }}
+                              {%- endif -%}
+                              {%- if block.settings.tab3_content != blank -%}
+                                <div class="rte">{{ block.settings.tab3_content }}</div>
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+                        </div>
                       </div>
                     </div>
                   </modal-dialog>
+                  <script>
+                    (function () {
+                      var body = document.getElementById('SizeGuideBody-{{ block.id }}');
+                      if (!body) return;
+                      var tabs = body.querySelectorAll('[data-sg-tab]');
+                      var panels = body.querySelectorAll('[data-sg-panel]');
+                      tabs.forEach(function (tab) {
+                        tab.addEventListener('click', function () {
+                          var i = tab.getAttribute('data-sg-tab');
+                          tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-sg-tab') === i); });
+                          panels.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-sg-panel') === i); });
+                        });
+                      });
+                    })();
+                  </script>
                 {%- endif -%}
               {%- when 'reviews_badge' -%}
                 {%- assign review_rating = block.settings.rating | default: 4.9 -%}
@@ -1528,7 +1642,6 @@
         assign s_btntxt     = section.settings.sticky_atc_btn_text     | default: '#0B0B0B'
         assign s_select_bg  = section.settings.sticky_atc_select_bg    | default: '#1C1C1C'
         assign s_select_txt = section.settings.sticky_atc_select_text  | default: '#F4EFE6'
-        assign s_select_enc = s_select_txt | remove: '#' | prepend: '%23'
         assign s_label      = section.settings.sticky_atc_btn_label
         if s_label == blank
           assign s_label = 'products.product.add_to_cart' | t
@@ -2485,26 +2598,90 @@
     },
     {
       "type": "size_guide",
-      "name": "Size guide",
+      "name": "Size chart",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "link_text",
-          "label": "Link label",
-          "default": "Size guide"
+          "label": "Trigger label",
+          "default": "Size chart"
+        },
+        {
+          "type": "header",
+          "content": "Tab 1 — Size chart"
+        },
+        {
+          "type": "text",
+          "id": "tab1_label",
+          "label": "Tab label",
+          "default": "Size chart"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab1_image",
+          "label": "Size chart image",
+          "info": "Upload a size chart image (recommended). Best for tables."
+        },
+        {
+          "type": "richtext",
+          "id": "tab1_content",
+          "label": "Or text content"
+        },
+        {
+          "type": "header",
+          "content": "Tab 2 — How to measure"
+        },
+        {
+          "type": "text",
+          "id": "tab2_label",
+          "label": "Tab label",
+          "default": "How to measure"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab2_image",
+          "label": "Measurement diagram image"
+        },
+        {
+          "type": "richtext",
+          "id": "tab2_content",
+          "label": "Text content"
+        },
+        {
+          "type": "header",
+          "content": "Tab 3 (optional)"
+        },
+        {
+          "type": "text",
+          "id": "tab3_label",
+          "label": "Tab label",
+          "default": "Fit & care"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab3_image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "tab3_content",
+          "label": "Text content"
+        },
+        {
+          "type": "header",
+          "content": "Legacy"
         },
         {
           "type": "richtext",
           "id": "content",
-          "label": "Size guide content",
-          "info": "Paste your size guide copy here (paragraphs, lists). For a full size table, link a Shopify page below instead."
+          "label": "Fallback content",
+          "info": "Used in Tab 1 if no Tab 1 image/content is set."
         },
         {
           "type": "page",
           "id": "page",
-          "label": "Or link to a page",
-          "info": "If both content and page are set, the inline content above takes priority."
+          "label": "Or link to a page"
         }
       ]
     },
