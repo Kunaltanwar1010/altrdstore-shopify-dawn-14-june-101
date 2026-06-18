@@ -11,6 +11,16 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "custom_liquid_3LFATN": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "Tax Id - UDYAM-MP-23-0219883\n\nTrade Name- The Altrd Store\n\nFlat No 107, Nidhi Appartment,\n53/1 Chhatribagh, Indore,\n&nbsp;452002, Madhya Pradesh",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "1781446507082ec830": {
       "type": "apps",
       "blocks": {
@@ -170,6 +180,7 @@
     }
   },
   "order": [
+    "custom_liquid_3LFATN",
     "1781446507082ec830",
     "footer",
     "newsletter"
