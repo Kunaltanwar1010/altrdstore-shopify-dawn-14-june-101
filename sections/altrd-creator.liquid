@@ -21,8 +21,15 @@
       {%- endif -%}
 
       {%- if section.settings.creator_handle != blank -%}
-        <p class="altrd-creator__handle-tag">{{ section.settings.creator_handle | escape }}</p>
-      {%- endif -%}
+  <a
+    href="https://www.instagram.com/cs.ujjawalpahwa"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="altrd-creator__handle-tag"
+  >
+    {{ section.settings.creator_handle | escape }}
+  </a>
+{%- endif -%}
     </div>
 
     <div class="altrd-creator__content">
@@ -39,13 +46,35 @@
       {%- endif -%}
 
       {%- if section.settings.creator_name != blank -%}
-        <div class="altrd-creator__byline">
-          <span class="altrd-creator__name">{{ section.settings.creator_name | escape }}</span>
-          {%- if section.settings.creator_title != blank -%}
-            <span class="altrd-creator__title">{{ section.settings.creator_title | escape }}</span>
-          {%- endif -%}
-        </div>
+<div class="altrd-creator__byline">
+  <a
+    href="https://www.instagram.com/cs.ujjawalpahwa"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="altrd-creator__profile-link"
+  >
+
+    <div class="altrd-creator__profile-text">
+      <span class="altrd-creator__name">
+        {{ section.settings.creator_name | escape }}
+      </span>
+
+      {%- if section.settings.creator_title != blank -%}
+        <span class="altrd-creator__title">
+          {{ section.settings.creator_title | escape }}
+        </span>
       {%- endif -%}
+    </div>
+
+    <div class="altrd-creator__instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 1.8h8.5a3.95 3.95 0 013.95 3.95v8.5a3.95 3.95 0 01-3.95 3.95h-8.5a3.95 3.95 0 01-3.95-3.95v-8.5A3.95 3.95 0 017.75 3.8zm9.2 1.35a.95.95 0 100 1.9.95.95 0 000-1.9zM12 6.6A5.4 5.4 0 106 12a5.4 5.4 0 006-5.4zm0 1.8A3.6 3.6 0 118.4 12 3.6 3.6 0 0112 8.4z"/>
+      </svg>
+    </div>
+
+  </a>
+</div>
+{%- endif -%}
 
       {%- if section.settings.cta_label != blank -%}
         <a
@@ -258,6 +287,77 @@
 
 .altrd-creator__cta:hover .altrd-creator__arrow {
   transform: translateX(4px);
+}
+
+/* ####################### */
+.altrd-creator__profile-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  gap:24px;
+  text-decoration:none;
+  color:inherit;
+  transition:all .3s ease;
+}
+
+.altrd-creator__profile-link:hover{
+  opacity:.85;
+}
+
+.altrd-creator__profile-text{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.altrd-creator__instagram{
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.altrd-creator__instagram svg{
+  width:64px;
+  height:64px;
+  transition:transform .3s ease;
+}
+
+.altrd-creator__profile-link:hover .altrd-creator__instagram svg{
+  transform:scale(1.12);
+}
+
+.altrd-creator__handle-tag{
+  text-decoration:none;
+  display:inline-block;
+  transition:opacity .3s ease;
+}
+
+.altrd-creator__handle-tag:hover{
+  opacity:.7;
+}
+
+.altrd-creator__name{
+  font-size:2rem;
+  font-weight:700;
+}
+
+.altrd-creator__title{
+  font-size:1rem;
+  opacity:.7;
+}
+
+@media screen and (max-width:749px){
+
+  .altrd-creator__instagram svg{
+    width:48px;
+    height:48px;
+  }
+
+  .altrd-creator__name{
+    font-size:1.5rem;
+  }
 }
 {% endstylesheet %}
 
